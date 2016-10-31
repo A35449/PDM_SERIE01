@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="867dad63c33388ff8c7644b236579355036d075f">
+        <dex dex="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_fc5b7775fdecee6b535ad1c40a7431c69667829b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\src\main\java\com\example\workstation\pdm_se01\library-1.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="15f8abc7f1414bbffca8d32b73097223d3a83847">
+        <dex dex="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\pre-dexed\debug\library-1.0.0_133ba138b5dc7cc324cf6705a2a145fd5c9e6e4b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_08256ae1d128478eb68cce775102322300dd399e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\pre-dexed\debug\com.android.support-support-media-compat-24.2.1_4593c0de78f538de29652792fc62af93c23b1168.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_d4ca20bdd9cb30baafdeacee34183db5f4778bf9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="1099d0c165670e413f0ebc1ad1fb894d64fd773d">
+        <dex dex="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\pre-dexed\debug\instant-run-bootstrap_5ad058b475a1066c99d389ce7f68f49d45545f4a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
+        <dex dex="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-24.2.1_e234d981f615b5ffc05e7072b539de3120af6f63.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-ui-24.2.1_b53ed81f7098a57e572cd34e5dcfddb4c4474225.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-utils-24.2.1_8df65596216c7dca0b14ef190586d28d4f2d7dfc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\workstation\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\24.2.1\support-annotations-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
+        <dex dex="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\pre-dexed\debug\support-annotations-24.2.1_df7e6803d416f916885adc8451c0d7af74df1fc8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\src\main\java\com\example\workstation\pdm_se01\lib\jackson-all-1.9.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b9c011c6e816af0eb462770d92a278b728071d31">
+        <dex dex="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\pre-dexed\debug\jackson-all-1.9.0_0c2fa983651fee895b46bac254e19d0fbc927f3a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_105187885e46665e71538027d3ae9a8058580cfa.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-24.2.1_5c6b272bbe3f15dedbcf45b32e1f775520006176.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-24.2.1_db86fb648cfa6ac34ddcdf6520b5f552f8108614.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\src\main\java\com\example\workstation\pdm_se01\commons-io-2.5.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b24f6678d458e65f08113a079e3724581eca1184">
+        <dex dex="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\pre-dexed\debug\commons-io-2.5_9ae5e97cbdd174857f1d2a33dc5614ab029720cc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\pre-dexed\debug\com.android.support-support-fragment-24.2.1_465b04f67edeb123cb81b91429b90b46f9559c42.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e20776bf169f997620dec334fcd71c5f5eeae271">
+        <dex dex="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\pre-dexed\debug\instant-run_6dad0b8fa769a63506f5ebc806b60536dac16cdf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-24.2.1_1285ce3c3c6e1c4692c8a8c18b32a810b3fb4240.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_d8a4d208692db116ee2974daec1a2dcfe951099a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="C:\Users\workstation\Desktop\ISEL\PDM\SE01\PDM_SE012\app\build\intermediates\pre-dexed\debug\com.android.support-support-compat-24.2.1_b3d06b765bc31e87fc932580b61448a63159fe95.jar" />
+    </item>
+
+</items>
