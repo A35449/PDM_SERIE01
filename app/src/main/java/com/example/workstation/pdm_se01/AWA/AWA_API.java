@@ -3,13 +3,12 @@ package com.example.workstation.pdm_se01.AWA;
 import android.os.AsyncTask;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import org.codehaus.jackson.*;
-import org.codehaus.jackson.map.DeserializationConfig;
+
 import org.codehaus.jackson.map.ObjectMapper;
 
 import com.example.workstation.pdm_se01.AsyncWrapper;
-import com.example.workstation.pdm_se01.DAL.Weather;
-import com.example.workstation.pdm_se01.DAL.Wrapper;
+import com.example.workstation.pdm_se01.DAL.Weather.Weather;
+import com.example.workstation.pdm_se01.DAL.Weather.Wrapper;
 import java.io.*;
 import android.widget.TextView;
 
@@ -69,7 +68,7 @@ public class AWA_API {
                     byte[] resp_bytes = response.getBytes();
                     ObjectMapper objectMapper = new ObjectMapper();
                     //objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-                     Wrapper wrap = objectMapper.readValue(resp_bytes, Wrapper.class);
+                    Wrapper wrap = objectMapper.readValue(resp_bytes, Wrapper.class);
 //                     JsonNode node_arr_wea = predata.get("weather");
 //                     JsonNode node_wea = node_arr_wea.get(0);
 //                     wea.main = node_wea.get("main").asText();

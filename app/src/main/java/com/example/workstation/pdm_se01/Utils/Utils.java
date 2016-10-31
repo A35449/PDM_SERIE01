@@ -3,7 +3,7 @@ package com.example.workstation.pdm_se01.Utils;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
-import com.example.workstation.pdm_se01.DAL.Bulk;
+import com.example.workstation.pdm_se01.DAL.Weather.Bulk;
 
 import org.apache.commons.io.IOUtils;
 import org.codehaus.jackson.JsonGenerationException;

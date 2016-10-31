@@ -1,4 +1,4 @@
-package com.example.workstation.pdm_se01.DAL;
+package com.example.workstation.pdm_se01.DAL.Weather;
 
 /**
  * Created by workstation on 25/10/2016.
@@ -7,6 +7,8 @@ package com.example.workstation.pdm_se01.DAL;
 public class Weather {
     private int id;
     private String main;
+    private String description;
+    private String icon;
 
     public String getIcon() {
         return icon;
@@ -40,6 +42,4 @@ public class Weather {
         this.id = id;
     }
 
-    private String description;
-    private String icon;
 }

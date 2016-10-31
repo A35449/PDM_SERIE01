@@ -1,4 +1,4 @@
-package com.example.workstation.pdm_se01.DAL;
+package com.example.workstation.pdm_se01.DAL.Weather;
 
 /**
  * Created by workstation on 27/10/2016.

@@ -1,4 +1,4 @@
-package com.example.workstation.pdm_se01.DAL;
+package com.example.workstation.pdm_se01.DAL.Weather;
 
 import java.util.List;
 

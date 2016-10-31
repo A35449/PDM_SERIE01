@@ -31,4 +31,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('src/main/java/com/example/workstation/pdm_se01/lib/jackson-all-1.9.0.jar')
     compile files('src/main/java/com/example/workstation/pdm_se01/commons-io-2.5.jar')
+    compile files('src/main/java/com/example/workstation/pdm_se01/library-1.0.0.jar')
 }
