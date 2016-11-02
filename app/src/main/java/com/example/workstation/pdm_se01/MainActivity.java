@@ -80,8 +80,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fillList(List<Forecast> list) {
-        ListView lv= (ListView)findViewById(R.id.day_forecast_list);
-        // fill in the grid_item layout
+        ListView lv = (ListView)findViewById(R.id.day_forecast_list);
         ArrayAdapter adapter = new ForecastAdapter(this, R.layout.forecast_item, list);
         lv.setAdapter(adapter);
     }

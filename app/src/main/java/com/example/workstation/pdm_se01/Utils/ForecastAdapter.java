@@ -2,6 +2,7 @@ package com.example.workstation.pdm_se01.Utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,12 @@ import android.widget.TextView;
 
 import com.example.workstation.pdm_se01.DAL.Forecast.Forecast;
 import com.example.workstation.pdm_se01.R;
+import com.example.workstation.pdm_se01.WeatherActivity;
 import com.squareup.picasso.Picasso;
 
+import org.codehaus.jackson.map.ObjectMapper;
+
+import java.io.IOException;
 import java.util.List;
 
 public class ForecastAdapter extends ArrayAdapter<Forecast> {
@@ -49,7 +54,7 @@ public class ForecastAdapter extends ArrayAdapter<Forecast> {
             holder = (ForecastHolder)convertView.getTag();
         }
 
-        Forecast forecast = data.get(position);
+        final Forecast forecast = data.get(position);
         holder.minTemperature.setText(Double.toString(forecast.getTemp().getMin()));
         holder.windSpeed.setText(Double.toString(forecast.getSpeed()));
         holder.day.setText(Integer.toString(position));
@@ -58,7 +63,21 @@ public class ForecastAdapter extends ArrayAdapter<Forecast> {
                 .load("http://openweathermap.org/img/w/"+forecast.getWeather().get(0).getIcon()+".png")
                 .into(holder.imageIcon);
 
-
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ObjectMapper mapper = new ObjectMapper();
+                Intent myIntent = new Intent(context, WeatherActivity.class);
+                String forecastJSON = null;
+                try {
+                    forecastJSON = mapper.writeValueAsString(forecast);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                myIntent.putExtra("forecastJSON",forecastJSON); //Optional parameters
+                context.startActivity(myIntent);
+            }
+        });
         return convertView;
     }
 
