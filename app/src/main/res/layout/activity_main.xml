@@ -30,4 +30,32 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="13dp"
         android:layout_marginStart="13dp" />
+
+    <AutoCompleteTextView
+        android:text="AutoCompleteTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:id="@+id/autoCompleteTextView2"
+        android:layout_below="@+id/autoCompleteTextView"
+        android:layout_alignLeft="@+id/autoCompleteTextView"
+        android:layout_alignStart="@+id/autoCompleteTextView" />
+
+    <AutoCompleteTextView
+        android:text="AutoCompleteTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/autoCompleteTextView"
+        android:layout_below="@+id/txtMain"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/autoCompleteTextView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp"
+        android:id="@+id/day_forecast_list" />
 </RelativeLayout>

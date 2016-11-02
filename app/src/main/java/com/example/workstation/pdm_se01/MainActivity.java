@@ -4,6 +4,9 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -15,12 +18,16 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.workstation.pdm_se01.AWA.API;
 import com.example.workstation.pdm_se01.AWA.AWA_API;
 import com.example.workstation.pdm_se01.AWA.SingletonRequest;
-import com.example.workstation.pdm_se01.DAL.Weather.Wrapper;
+import com.example.workstation.pdm_se01.DAL.Forecast.Forecast;
 import com.example.workstation.pdm_se01.Utils.Converter;
+import com.example.workstation.pdm_se01.Utils.ForecastAdapter;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     TextView txtMain;
@@ -42,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 com.example.workstation.pdm_se01.DAL.Forecast.Wrapper wrap;
                 try{
                     wrap = Converter.convertToForecast(response);
+                    fillList(wrap.getList());
                     txtMain.setText(wrap.getList().get(0).getWeather().get(0).getDescription());
                 }catch(IOException ex){
                     System.out.print(ex.getMessage());
@@ -69,5 +77,12 @@ public class MainActivity extends AppCompatActivity {
 //        AsyncWrapper wrp = new AsyncWrapper();
 //        wrp._target = (TextView) findViewById(R.id.txtMain);
 //        AWAInstance.getWeatherAtCity("Lisbon","pt",wrp);
+    }
+
+    private void fillList(List<Forecast> list) {
+        ListView lv= (ListView)findViewById(R.id.day_forecast_list);
+        // fill in the grid_item layout
+        ArrayAdapter adapter = new ForecastAdapter(this, R.layout.forecast_item, list);
+        lv.setAdapter(adapter);
     }
 }
