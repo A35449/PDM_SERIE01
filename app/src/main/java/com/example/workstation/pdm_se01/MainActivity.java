@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     NetworkImageView imgView;
     EditText editText;
     Button getWeather;
-    Button getForecast;
+
     Button help;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -96,8 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 String ps = String.format("\"name\":\"%s\",\"country\":\"%s\"",location[0],location[1]);
                 if(file_string.contains(ps)) {
-                    String City = location[0];
-                    String Country = location[1];
+
                     //
                 }else {
                     Toast.makeText(MainActivity.this,"Location Unavailable",Toast.LENGTH_SHORT).show();
@@ -105,33 +104,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        getForecast=(Button) findViewById(R.id.GetForecast);
 
-        getForecast.setOnClickListener( new View.OnClickListener() {
-
-            @Override
-            public void  onClick(View v){
-                Editable value =  editText.getText();
-                String [] location = value.toString().split(",");
-
-                String ps = String.format("\"name\":\"%s\",\"country\":\"%s\"",location[0],location[1]);
-                if(file_string.contains(ps)) {
-                    String City = location[0];
-                    String Country = location[1];
-                    //ze
-                }else {
-                    Toast.makeText(MainActivity.this,"Location Unavailable",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        help= (Button)findViewById(R.id.help);
-        help.setOnClickListener( new View.OnClickListener() {
-            @Override
-
-            public void  onClick(View v){
-
-            }
-        });
     }
 
     public void initializeInputData(){
