@@ -33,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
     TextView txtMain;
     AWA_API AWAInstance;
     NetworkImageView imgView;
+    EditText EditText;
+    Button getWeather;
+    Button getForecast;
+    Button help;
+    static String file_string;
     private static ImageLoader loader;
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -42,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         imgView = (NetworkImageView) findViewById(R.id.imgView);
         txtMain = (TextView) findViewById(R.id.txtMain);
         API api = new API(this.getApplicationContext());
-
+ 		initializeInputData();
         Response.Listener<String> repHandler = new Response.Listener<String>(){
             @Override
             public void onResponse(String response){
@@ -66,18 +71,91 @@ public class MainActivity extends AppCompatActivity {
         api.getForecast("HongKong",repHandler,errHandler);
 
 
-//        RequestQueue queue = SingletonRequest.getInstance(this.getApplicationContext()).initializeRequestQueue();
-//        loader = SingletonRequest.getInstance(this.getApplicationContext()).getImageLoader();
-//        String url = "http://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=3b23922cd82d67ca2db1f9d0e189dc9a";
-//        final String base_url = "http://api.openweathermap.org";
-//        StringRequest req =  new StringRequest(url,repHandler,errHandler);
-//        SingletonRequest.getInstance(this).addToRequestQueue(req);
-//        List<Bulk> list = Utils.mapBulk(getResources().openRawResource(R.raw.citylist));
-//        AWAInstance = new AWA_API();
-//        AsyncWrapper wrp = new AsyncWrapper();
-//        wrp._target = (TextView) findViewById(R.id.txtMain);
-//        AWAInstance.getWeatherAtCity("Lisbon","pt",wrp);
+  ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line);
+      EditText = (EditText) findViewById(R.id.LocationInput);
+    
+       getWeather=(Button) findViewById(R.id.GetWeather);
+
+       getWeather.setOnClickListener( new View.OnClickListener() {
+              @Override
+               public void  onClick(View v){
+
+                  Editable value =  EditText.getText();
+                  String [] location = value.toString().split(",");
+                    if (location.length<2){
+                        Toast.makeText(MainActivity.this,"Location Unavailable",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                  String ps = String.format("\"name\":\"%s\",\"country\":\"%s\"",location[0],location[1]);
+                    if(file_string.contains(ps)) {
+                        String City = location[0];
+                        String Country = location[1];
+                        //
+                    }else {
+                        Toast.makeText(MainActivity.this,"Location Unavailable",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+              }
+          });
+
+        getForecast=(Button) findViewById(R.id.GetForecast);
+
+        getForecast.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void  onClick(View v){
+                Editable value =  EditText.getText();
+                String [] location = value.toString().split(",");
+
+                String ps = String.format("\"name\":\"%s\",\"country\":\"%s\"",location[0],location[1]);
+                if(file_string.contains(ps)) {
+                    String City = location[0];
+                    String Country = location[1];
+                    //ze
+                }else {
+                    Toast.makeText(MainActivity.this,"Location Unavailable",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+        });
+        help= (Button)findViewById(R.id.help);
+        help.setOnClickListener( new View.OnClickListener() {
+            @Override
+        
+            public void  onClick(View v){
+
+            }
+        });
+
+
+
+
+
+
+
     }
+
+
+
+	public void initializeInputData(){
+            if(file_string== ""){
+            InputStream it=getResources().openRawResource(R.raw.citylist);
+
+
+            try {
+                String file_string = IOUtils.toString(it,"utf-8");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        return;
+
+    }
+
+
 
     private void fillList(List<Forecast> list) {
         ListView lv = (ListView)findViewById(R.id.day_forecast_list);
