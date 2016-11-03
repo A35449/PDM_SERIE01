@@ -23,28 +23,47 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         </android.support.design.widget.AppBarLayout>
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="189dp"
+            android:layout_height="143dp"
+            android:id="@+id/weatherImage"/>
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
             <TableRow>
-                <TextView android:text="chave" />
+                <TextView android:text="Min Temperature" />
                 <TextView
-                    android:text="valor"
+                    android:id="@+id/minTemperatureWeather"
                     android:gravity="right" />
             </TableRow>
             <TableRow>
-                <TextView android:text="chave" />
+                <TextView android:text="Max Temperature" />
                 <TextView
-                    android:text="valor"
+                    android:id="@+id/maxTemperatureWeather"
                     android:gravity="right" />
             </TableRow>
             <TableRow>
-            <TextView android:text="chave" />
+            <TextView android:text="Wind" />
             <TextView
-                android:text="valor"
+                android:id="@+id/windSpeedWeather"
                 android:gravity="right" />
         </TableRow>
+            <TableRow>
+                <TextView android:text="Pressure" />
+                <TextView
+                    android:id="@+id/pressure"
+                    android:gravity="right" />
+            </TableRow>
+            <TableRow>
+                <TextView android:text="Humidity" />
+                <TextView
+                    android:id="@+id/humidity"
+                    android:gravity="right" />
+            </TableRow>
         </TableLayout>
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
