@@ -38,9 +38,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     static String file_string;
-    private static ImageLoader loader;
     TextView txtMain;
-    AWA_API AWAInstance;
     NetworkImageView imgView;
     EditText editText;
     Button getWeather;
@@ -54,9 +52,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         imgView = (NetworkImageView) findViewById(R.id.imgView);
         txtMain = (TextView) findViewById(R.id.txtMain);
-        API api = new API(this.getApplicationContext());
+        final API api = new API(this.getApplicationContext());
         initializeInputData();
-        Response.Listener<String> repHandler = new Response.Listener<String>(){
+        final Response.Listener<String> repHandler = new Response.Listener<String>(){
             @Override
             public void onResponse(String response){
                 com.example.workstation.pdm_se01.DAL.Forecast.Wrapper wrap;
@@ -69,17 +67,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
-        Response.ErrorListener errHandler = new Response.ErrorListener(){
+        final Response.ErrorListener errHandler = new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error){
                 txtMain.setText(error.getMessage());
             }
         };
-//        api.getWeather("uk","London",repHandler,errHandler);
-        api.getForecast("HongKong",repHandler,errHandler);
 
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line);
         editText = (EditText) findViewById(R.id.LocationInput);
 
         getWeather=(Button) findViewById(R.id.GetWeather);
@@ -88,27 +82,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void  onClick(View v){
 
-                Editable value =  editText.getText();
-                String [] location = value.toString().split(",");
+                String [] location = editText.getText().toString().split(",");
                 if (location.length<2){
                     Toast.makeText(MainActivity.this,"Location Unavailable",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                String ps = String.format("\"name\":\"%s\",\"country\":\"%s\"",location[0],location[1]);
+                String ps = String.format("\"name\":\"%s\",\"country\":\"%s\"",location[0],location[1].toUpperCase());
                 if(file_string.contains(ps)) {
-
+                        api.getForecast(location[0],repHandler,errHandler);
                     //
                 }else {
                     Toast.makeText(MainActivity.this,"Location Unavailable",Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
-
     }
 
     public void initializeInputData(){
-        if(file_string== ""){
+        if(file_string==null){
             InputStream it=getResources().openRawResource(R.raw.citylist);
             try {
                 file_string = IOUtils.toString(it,"utf-8");
