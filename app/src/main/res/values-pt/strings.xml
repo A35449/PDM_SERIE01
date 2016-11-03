@@ -10,4 +10,9 @@
     <string name="pressure">Pressão</string>
     <string name="title_activity_weather"></string>
     <string name="wind">Vento</string>
+    <string name="AboutUsText">Nosso aplicativo consiste em fornecer uma maneira simples de visualizar o tempo de acordo com a especificação de localização do usuário usando a API de metereologia OpenWeather.\n
+O utilizador só precisa especificar o nome da cidade que pretende obter as suas informações meteorológicas eo acrônimo país correspondente (ex: "Lisboa, PT").\n
+Aplicação Android criada por José Soares, Tiago Oliveira e Tiago Cruz.\n
+Curso: PDM\n
+Professor: João Trindade</string>
 </resources>
