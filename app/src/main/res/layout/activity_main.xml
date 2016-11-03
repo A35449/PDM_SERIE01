@@ -11,47 +11,17 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.workstation.pdm_se01.MainActivity">
 
-    <TextView
+    <EditText
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:id="@+id/txtMain"
-        android:layout_alignParentTop="true"
+        android:id="@+id/LocationInput"
+        android:hint="@string/ex_london_gb"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="11dp" />
 
-    <com.android.volley.toolbox.NetworkImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_launcher"
-        android:layout_marginTop="26dp"
-        android:id="@+id/imgView"
-        android:layout_below="@+id/txtMain"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="13dp"
-        android:layout_marginStart="13dp" />
-
-
     <Button
-        android:text="about us"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/GetWeather"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="62dp"
-        android:id="@+id/help" />
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/help"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp"
-        android:id="@+id/day_forecast_list" />
-
-    <Button
-        android:text="Get Weather"
+        android:text="@string/get_weather"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="62dp"
@@ -59,14 +29,24 @@
         android:layout_below="@+id/LocationInput"
         android:layout_centerHorizontal="true" />
 
-    <EditText
-        android:text=""
+    <Button
+        android:text="@string/about_us"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/LocationInput"
-        android:hint="ex: London,uk"
-        android:layout_below="@+id/imgView"
+        android:layout_below="@+id/GetWeather"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="11dp" />
+        android:layout_marginTop="62dp"
+        android:id="@+id/aboutus" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/aboutus"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp"
+        android:id="@+id/day_forecast_list" />
+
+
 
 </RelativeLayout>

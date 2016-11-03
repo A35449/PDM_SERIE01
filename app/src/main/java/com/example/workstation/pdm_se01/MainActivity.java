@@ -1,5 +1,6 @@
 package com.example.workstation.pdm_se01;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +36,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import static android.R.attr.value;
 
 public class MainActivity extends AppCompatActivity {
     static String file_string;
@@ -94,6 +97,15 @@ public class MainActivity extends AppCompatActivity {
                 }else {
                     Toast.makeText(MainActivity.this,"Location Unavailable",Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        Button aboutUs = (Button) findViewById(R.id.aboutus);
+
+        aboutUs.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void  onClick(View v){
+                Intent myIntent = new Intent(MainActivity.this, AboutActivity.class);
+                MainActivity.this.startActivity(myIntent);
             }
         });
     }
