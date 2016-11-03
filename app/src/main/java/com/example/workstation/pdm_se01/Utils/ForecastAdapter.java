@@ -18,6 +18,7 @@ import com.squareup.picasso.Picasso;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -58,8 +59,14 @@ public class ForecastAdapter extends ArrayAdapter<Forecast> {
 
         final Forecast forecast = data.get(position);
         holder.minTemperature.setText(Double.toString(forecast.getTemp().getMin()));
+        holder.minTemperature.append(" ºC");
         holder.windSpeed.setText(Double.toString(forecast.getSpeed()));
-        holder.day.setText(Integer.toString(position));
+        holder.windSpeed.append("m/s");
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE,position);
+        Date date = calendar.getTime();
+        SimpleDateFormat sdf = (SimpleDateFormat) SimpleDateFormat.getDateInstance();
+        holder.day.setText(sdf.format(date));
         Picasso
                 .with(context)
                 .load("http://openweathermap.org/img/w/"+forecast.getWeather().get(0).getIcon()+".png")

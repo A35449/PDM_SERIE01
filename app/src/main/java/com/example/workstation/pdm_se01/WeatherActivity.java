@@ -57,8 +57,8 @@ public class WeatherActivity extends AppCompatActivity {
         minTemperature.setText(Double.toString(forecast.getTemp().getMin()));
         TextView maxTemperature = (TextView) findViewById(R.id.maxTemperatureWeather);
         maxTemperature.setText(Double.toString(forecast.getTemp().getMax()));
-        TextView windspeed = (TextView) findViewById(R.id.windSpeedWeather);
-        windspeed.setText(Double.toString(forecast.getSpeed()));
+        TextView wind_speed = (TextView) findViewById(R.id.windSpeedWeather);
+        wind_speed.setText(Double.toString(forecast.getSpeed()));
         TextView pressure = (TextView) findViewById(R.id.pressure);
         pressure.setText(Double.toString(forecast.getPressure()));
         TextView humidity = (TextView) findViewById(R.id.humidity);
