@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AMUAT</string>
+    <string name="about_us">Acerca de</string>
+    <string name="ex_london_gb">Lisboa,PT</string>
+    <string name="get_weather">Obter Tempo</string>
+    <string name="humidity">Humidade</string>
+    <string name="max_temperature">Temperatura Máxima</string>
+    <string name="min_temperature">Temperatura Mínima</string>
+    <string name="pressure">Pressão</string>
+    <string name="title_activity_weather"></string>
+    <string name="wind">Vento</string>
+</resources>

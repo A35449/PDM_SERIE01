@@ -35,34 +35,34 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center">
             <TableRow>
-                <TextView android:text="Min Temperature" />
+                <TextView android:text="@string/min_temperature" />
                 <TextView
                     android:id="@+id/minTemperatureWeather"
-                    android:gravity="right" />
+                    android:gravity="end" />
             </TableRow>
             <TableRow>
-                <TextView android:text="Max Temperature" />
+                <TextView android:text="@string/max_temperature" />
                 <TextView
                     android:id="@+id/maxTemperatureWeather"
-                    android:gravity="right" />
+                    android:gravity="end" />
             </TableRow>
             <TableRow>
-            <TextView android:text="Wind" />
+            <TextView android:text="@string/wind" />
             <TextView
                 android:id="@+id/windSpeedWeather"
-                android:gravity="right" />
+                android:gravity="end" />
         </TableRow>
             <TableRow>
-                <TextView android:text="Pressure" />
+                <TextView android:text="@string/pressure" />
                 <TextView
                     android:id="@+id/pressure"
-                    android:gravity="right" />
+                    android:gravity="end" />
             </TableRow>
             <TableRow>
-                <TextView android:text="Humidity" />
+                <TextView android:text="@string/humidity" />
                 <TextView
                     android:id="@+id/humidity"
-                    android:gravity="right" />
+                    android:gravity="end" />
             </TableRow>
         </TableLayout>
     </LinearLayout>

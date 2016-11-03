@@ -29,20 +29,14 @@ import com.example.workstation.pdm_se01.Utils.Converter;
 import com.example.workstation.pdm_se01.Utils.ForecastAdapter;
 
 import org.apache.commons.io.IOUtils;
-import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
-import static android.R.attr.value;
 
 public class MainActivity extends AppCompatActivity {
     static String file_string;
     TextView txtMain;
-    NetworkImageView imgView;
     EditText editText;
     Button getWeather;
 
@@ -53,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        imgView = (NetworkImageView) findViewById(R.id.imgView);
-        txtMain = (TextView) findViewById(R.id.txtMain);
         final API api = new API(this.getApplicationContext());
         initializeInputData();
         final Response.Listener<String> repHandler = new Response.Listener<String>(){
@@ -64,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 try{
                     wrap = Converter.convertToForecast(response);
                     fillList(wrap.getList());
-                    txtMain.setText(wrap.getList().get(0).getWeather().get(0).getDescription());
                 }catch(IOException ex){
                     System.out.print(ex.getMessage());
                 }
@@ -73,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         final Response.ErrorListener errHandler = new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error){
-                txtMain.setText(error.getMessage());
+                System.out.println(error.getMessage());
             }
         };
 
@@ -99,15 +90,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        Button aboutUs = (Button) findViewById(R.id.aboutus);
+  //      Button aboutUs = (Button) findViewById(R.id.aboutus);
 
-        aboutUs.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void  onClick(View v){
-                Intent myIntent = new Intent(MainActivity.this, AboutActivity.class);
-                MainActivity.this.startActivity(myIntent);
-            }
-        });
+//        aboutUs.setOnClickListener( new View.OnClickListener() {
+//            @Override
+//            public void  onClick(View v){
+//                Intent myIntent = new Intent(MainActivity.this, AboutActivity.class);
+//                MainActivity.this.startActivity(myIntent);
+//            }
+//        });
     }
 
     public void initializeInputData(){
