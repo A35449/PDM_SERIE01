@@ -18,6 +18,8 @@ import com.squareup.picasso.Picasso;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ForecastAdapter extends ArrayAdapter<Forecast> {
@@ -34,7 +36,7 @@ public class ForecastAdapter extends ArrayAdapter<Forecast> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ForecastHolder holder = null;
 
         if(convertView == null)
@@ -75,6 +77,10 @@ public class ForecastAdapter extends ArrayAdapter<Forecast> {
                     e.printStackTrace();
                 }
                 myIntent.putExtra("forecastJSON",forecastJSON); //Optional parameters
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.DATE,position);
+                Date date = calendar.getTime();
+                myIntent.putExtra("Date",date);
                 context.startActivity(myIntent);
             }
         });
