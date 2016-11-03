@@ -4,10 +4,15 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -22,9 +27,11 @@ import com.example.workstation.pdm_se01.DAL.Forecast.Forecast;
 import com.example.workstation.pdm_se01.Utils.Converter;
 import com.example.workstation.pdm_se01.Utils.ForecastAdapter;
 
+import org.apache.commons.io.IOUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     TextView txtMain;
     AWA_API AWAInstance;
     NetworkImageView imgView;
-    EditText EditText;
+    EditText editText;
     Button getWeather;
     Button getForecast;
     Button help;
@@ -72,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
 
   ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line);
-      EditText = (EditText) findViewById(R.id.LocationInput);
+      editText = (EditText) findViewById(R.id.LocationInput);
     
        getWeather=(Button) findViewById(R.id.GetWeather);
 
@@ -80,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
               @Override
                public void  onClick(View v){
 
-                  Editable value =  EditText.getText();
+                  Editable value =  editText.getText();
                   String [] location = value.toString().split(",");
                     if (location.length<2){
                         Toast.makeText(MainActivity.this,"Location Unavailable",Toast.LENGTH_SHORT).show();
@@ -104,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void  onClick(View v){
-                Editable value =  EditText.getText();
+                Editable value =  editText.getText();
                 String [] location = value.toString().split(",");
 
                 String ps = String.format("\"name\":\"%s\",\"country\":\"%s\"",location[0],location[1]);
