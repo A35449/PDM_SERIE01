@@ -10,17 +10,18 @@
     <TextView android:id="@+id/day"
         android:layout_height="fill_parent"
         android:layout_width="wrap_content"
-        android:width="300dp"
+        android:width="200dp"
+
         />
     <TextView android:id="@+id/minTemperature"
         android:layout_height="fill_parent"
         android:layout_width="wrap_content"
-        android:width="60dp"
+        android:width="100dp"
         />
 
     <TextView android:id="@+id/windSpeed"
         android:layout_height="fill_parent"
         android:layout_width="wrap_content"
-        android:width="60dp"
+        android:width="100dp"
         />
 </LinearLayout>
