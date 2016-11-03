@@ -10,4 +10,9 @@
     <string name="wind">Wind</string>
     <string name="pressure">Pressure</string>
     <string name="humidity">Humidity</string>
+    <string name="AboutUsText">Our application consists in providing a simple way to view weather according to user location specification using the open weather API.\n
+The user just needs to specify the name of the city he wants to get his weather information and the  corresponding country acronym (ex: "Lisbon, PT").\n
+Android application created by José Soares, Tiago Oliveira and Tiago Cruz.\n
+Course: PDM\n
+Teacher: João Trindade</string>
 </resources>
