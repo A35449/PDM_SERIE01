@@ -15,4 +15,5 @@ The user just needs to specify the name of the city he wants to get his weather 
 Android application created by José Soares, Tiago Oliveira and Tiago Cruz.\n
 Course: PDM\n
 Teacher: João Trindade</string>
+    <string name="title_activity_about">AboutActivity</string>
 </resources>
