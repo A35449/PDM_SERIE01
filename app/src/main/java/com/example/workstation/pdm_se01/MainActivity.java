@@ -7,28 +7,21 @@ import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
-import com.android.volley.toolbox.StringRequest;
 import com.example.workstation.pdm_se01.AWA.API;
-import com.example.workstation.pdm_se01.AWA.AWA_API;
-import com.example.workstation.pdm_se01.AWA.SingletonRequest;
 import com.example.workstation.pdm_se01.DAL.Forecast.Forecast;
 import com.example.workstation.pdm_se01.Utils.Converter;
 import com.example.workstation.pdm_se01.Utils.ForecastAdapter;
+import com.example.workstation.pdm_se01.Utils.Utils;
 
 import org.apache.commons.io.IOUtils;
 
@@ -53,6 +46,22 @@ public class MainActivity extends AppCompatActivity {
     private Bundle bundle;
     private SharedPreferences shared;
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public void onResume(){
+        super.onResume();
+        try{
+            if(!Utils.checkConnectivity(getApplicationContext())) throw new Exception();
+        }catch(Exception e){
+            launchConnectivityErrWindow();
+        }
+    }
+
+
+    private void launchConnectivityErrWindow(){
+        Intent intent = new Intent(this, ConnectivityActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

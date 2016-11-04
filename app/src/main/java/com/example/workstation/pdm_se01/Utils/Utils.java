@@ -1,5 +1,8 @@
 package com.example.workstation.pdm_se01.Utils;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
@@ -22,6 +25,13 @@ import java.util.Scanner;
  */
 
 public class Utils {
+
+    public static boolean checkConnectivity(final Context context) {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager)  context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static List<Bulk> mapBulk(InputStream stream){

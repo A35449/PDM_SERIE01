@@ -8,6 +8,8 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 
+import java.util.Locale;
+
 /**
  * Created by workstation on 31/10/2016.
  */
@@ -22,24 +24,33 @@ public class API {
 
     private final String BASE_URL_FORECAST = BASE_URL + "/data/2.5/forecast/daily";
 
+    private String lang;
+
     Context context;
     RequestQueue queue;
+    NetworkImageView imgView;
+    private static ImageLoader loader;
 
     public API(Context context) {
-       this.context = context;
+        this.context = context;
+        lang = Locale.getDefault().getLanguage();
         queue  = SingletonRequest.getInstance(context).initializeRequestQueue();
     }
 
-//    public void getWeather(String country, String city, Response.Listener<String> sucessHandler, Response.ErrorListener errHandler){
-//        String ps = String.format(BASE_URL_CITY + "?q=%s,%s&appid=%s",city,country,API_KEY);
-//        StringRequest req =  new StringRequest(ps,sucessHandler,errHandler);
-//        SingletonRequest.getInstance(context).addToRequestQueue(req);
-//    }
-
-    public void getForecast(String city,  Response.Listener<String> sucessHandler, Response.ErrorListener errHandler){
-        String ps = String.format(BASE_URL_FORECAST + "?q=%s&mode=json&units=metric&cnt=7&appid=%s",city,API_KEY);
+    public void getWeather(String country, String city, Response.Listener<String> sucessHandler, Response.ErrorListener errHandler){
+        String ps = String.format(BASE_URL_CITY + "?q=%s,%s&appid=%s&lang=%s",city,country,API_KEY,lang);
         StringRequest req =  new StringRequest(ps,sucessHandler,errHandler);
         SingletonRequest.getInstance(context).addToRequestQueue(req);
     }
 
+    public void getForecast(String city,  Response.Listener<String> sucessHandler, Response.ErrorListener errHandler){
+        String ps = String.format(BASE_URL_FORECAST + "?q=%s&mode=json&units=metric&cnt=7&appid=%s&lang=%s",city,API_KEY,lang);
+        StringRequest req =  new StringRequest(ps,sucessHandler,errHandler);
+        SingletonRequest.getInstance(context).addToRequestQueue(req);
+    }
+
+    public void getImage(String icon, NetworkImageView target){
+        String imgurl = BASE_URL + "/img/w/" + icon;
+        target.setImageUrl(imgurl,loader);
+    }
 }
