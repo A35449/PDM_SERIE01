@@ -1,4 +1,4 @@
-package com.example.workstation.pdm_se01
+package com.example.workstation.pdm_se01.activities
 
 import android.content.ContentResolver
 import android.content.ContentValues
@@ -19,14 +19,16 @@ import android.widget.Toast
 
 import com.android.volley.Response
 import com.android.volley.VolleyError
-import com.example.workstation.pdm_se01.AWA.API
-import com.example.workstation.pdm_se01.AWA.AWA
-import com.example.workstation.pdm_se01.DAL.Forecast.Forecast
+import com.example.workstation.pdm_se01.network.API
+//import com.example.workstation.pdm_se01.AWA.AWA
+import com.example.workstation.pdm_se01.model.Forecast.Forecast
+import com.example.workstation.pdm_se01.R
 import com.example.workstation.pdm_se01.provider.AWAContract
 import com.example.workstation.pdm_se01.provider.DbSchema
-import com.example.workstation.pdm_se01.Utils.Converter
-import com.example.workstation.pdm_se01.Utils.ForecastAdapter
-import com.example.workstation.pdm_se01.Utils.Utils
+import com.example.workstation.pdm_se01.utils.Converter
+import com.example.workstation.pdm_se01.utils.ForecastAdapter
+import com.example.workstation.pdm_se01.utils.Utils
+import com.example.workstation.pdm_se01.activities.AboutActivity
 
 import org.apache.commons.io.IOUtils
 
@@ -75,7 +77,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        /*
         val dc = AWA(this,contentResolver)
 
         dc.sendNotification("Awa","Tempo para hoje", "")
@@ -88,13 +90,13 @@ class MainActivity : AppCompatActivity() {
 //        cv.put(DbSchema.Weather.COL_COUNTRY,"UK")
 //        cv.put(DbSchema.Weather.COL_CITY,"London")
 //        cc.insert(uri,cv)
-
+        */
         val end = ""
         //bundle = savedInstanceState;
         shared =  getSharedPreferences("yawaPref", MODE_PRIVATE);
         lv = findViewById(R.id.day_forecast_list) as ListView;
         editText = findViewById(R.id.LocationInput) as EditText;
-        getWeather= findViewById(R.id.GetWeather) as Button ;
+        getWeather = findViewById(R.id.GetWeather) as Button;
         aboutUs = findViewById(R.id.aboutus) as Button;
 
         if(adapter != null){
@@ -105,7 +107,7 @@ class MainActivity : AppCompatActivity() {
                 try {
                     var wrap = Converter.convertToForecast(savedRequest);
                     fillList(wrap.getList());
-                } catch (e:IOException) {
+                } catch (e: IOException) {
                     e.printStackTrace();
                 }
             }
@@ -120,7 +122,7 @@ class MainActivity : AppCompatActivity() {
                 try{
                     var wrap = Converter.convertToForecast(response);
                     fillList(wrap.getList());
-                }catch(ex:IOException){
+                }catch(ex: IOException){
                     System.out.print(ex!!.message);
                 }
             }
@@ -134,10 +136,10 @@ class MainActivity : AppCompatActivity() {
 
         getWeather?.setOnClickListener( View.OnClickListener() {
 
-            fun onClick(v:View){
+            fun onClick(v: View){
                 var location = editText?.getText().toString().split(",");
                 if (location.size < 2){
-                    Toast.makeText(this,"Location Unavailable",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,"Location Unavailable", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 var ps = String.format("\"name\":\"%s\",\"country\":\"%s\"",location[0],location[1].toUpperCase());
@@ -146,7 +148,7 @@ class MainActivity : AppCompatActivity() {
                     api?.getForecast(location[0],repHandler,errHandler);
                     //
                 }else {
-                    Toast.makeText(this,"Location Unavailable",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,"Location Unavailable", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -164,7 +166,7 @@ class MainActivity : AppCompatActivity() {
 
 
       public fun initializeInputData(){
-        if(file_string==null){
+        if(file_string ==null){
             val it = getResources().openRawResource(R.raw.citylist);
             try {
                 file_string = IOUtils.toString(it,"utf-8");

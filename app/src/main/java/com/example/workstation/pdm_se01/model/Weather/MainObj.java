@@ -1,4 +1,4 @@
-package com.example.workstation.pdm_se01.DAL.Weather;
+package com.example.workstation.pdm_se01.model.Weather;
 
 public class MainObj {
     private double temp;

@@ -1,4 +1,4 @@
-package com.example.workstation.pdm_se01.Utils;
+package com.example.workstation.pdm_se01.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -6,7 +6,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
-import com.example.workstation.pdm_se01.DAL.Weather.Bulk;
+import com.example.workstation.pdm_se01.model.Weather.Bulk;
 
 import org.apache.commons.io.IOUtils;
 import org.codehaus.jackson.JsonGenerationException;

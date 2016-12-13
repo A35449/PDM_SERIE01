@@ -1,6 +1,6 @@
-package com.example.workstation.pdm_se01.DAL.Forecast;
+package com.example.workstation.pdm_se01.model.Forecast;
 
-import com.example.workstation.pdm_se01.DAL.Weather.Weather;
+import com.example.workstation.pdm_se01.model.Weather.Weather;
 
 import java.util.List;
 

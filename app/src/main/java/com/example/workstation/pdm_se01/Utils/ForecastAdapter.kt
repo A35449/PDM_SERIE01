@@ -1,4 +1,4 @@
-package com.example.workstation.pdm_se01.Utils
+package com.example.workstation.pdm_se01.utils
 
 import android.app.Activity
 import android.content.Context
@@ -10,9 +10,9 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 
-import com.example.workstation.pdm_se01.DAL.Forecast.Forecast
+import com.example.workstation.pdm_se01.model.Forecast.Forecast
 import com.example.workstation.pdm_se01.R
-import com.example.workstation.pdm_se01.WeatherActivity
+import com.example.workstation.pdm_se01.activities.WeatherActivity
 import com.squareup.picasso.Picasso
 
 import org.codehaus.jackson.map.ObjectMapper

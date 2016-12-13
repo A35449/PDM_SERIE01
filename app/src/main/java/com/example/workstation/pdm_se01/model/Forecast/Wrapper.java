@@ -1,4 +1,4 @@
-package com.example.workstation.pdm_se01.DAL.Forecast;
+package com.example.workstation.pdm_se01.model.Forecast;
 
 import java.util.List;
 

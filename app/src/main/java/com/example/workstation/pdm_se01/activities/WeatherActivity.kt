@@ -1,4 +1,4 @@
-package com.example.workstation.pdm_se01
+package com.example.workstation.pdm_se01.activities
 
 import kotlin.jvm.javaClass
 import android.os.Bundle
@@ -7,12 +7,14 @@ import android.support.v7.widget.Toolbar
 import android.widget.ImageView
 import android.widget.TextView
 
-import com.example.workstation.pdm_se01.DAL.Forecast.Forecast
+import com.example.workstation.pdm_se01.model.Forecast.Forecast
+import com.example.workstation.pdm_se01.R
 import com.squareup.picasso.Picasso
 
 import org.codehaus.jackson.map.ObjectMapper
 
 import java.io.IOException
+import java.lang.Double
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -31,7 +33,7 @@ class WeatherActivity : AppCompatActivity() {
         val mapper = ObjectMapper()
         var forecast = Forecast()
         try {
-            forecast = mapper.readValue(i.getStringExtra("forecastJSON"),Forecast::class.java )
+            forecast = mapper.readValue(i.getStringExtra("forecastJSON"), Forecast::class.java )
         } catch (e: IOException) {
             //e.printStackTrace()
         }

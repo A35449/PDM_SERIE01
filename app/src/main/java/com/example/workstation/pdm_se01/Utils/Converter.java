@@ -1,13 +1,11 @@
-package com.example.workstation.pdm_se01.Utils;
+package com.example.workstation.pdm_se01.utils;
 
-import com.example.workstation.pdm_se01.DAL.Weather.Wrapper;
+import com.example.workstation.pdm_se01.model.Weather.Wrapper;
 
 
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
-
-import static android.icu.lang.UCharacter.JoiningGroup.DAL;
 
 /**
  * Created by workstation on 31/10/2016.
@@ -22,10 +20,10 @@ public class Converter {
         return wrap;
     }
 
-    public static com.example.workstation.pdm_se01.DAL.Forecast.Wrapper convertToForecast(String json) throws IOException{
+    public static com.example.workstation.pdm_se01.model.Forecast.Wrapper convertToForecast(String json) throws IOException{
         byte[] resp_bytes = json.getBytes();
         ObjectMapper objectMapper = new ObjectMapper();
-        com.example.workstation.pdm_se01.DAL.Forecast.Wrapper wrap = objectMapper.readValue(resp_bytes, com.example.workstation.pdm_se01.DAL.Forecast.Wrapper.class);
+        com.example.workstation.pdm_se01.model.Forecast.Wrapper wrap = objectMapper.readValue(resp_bytes, com.example.workstation.pdm_se01.model.Forecast.Wrapper.class);
         return wrap;
     }
 }

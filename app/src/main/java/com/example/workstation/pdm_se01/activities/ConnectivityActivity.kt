@@ -1,10 +1,11 @@
-package com.example.workstation.pdm_se01
+package com.example.workstation.pdm_se01.activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
+import com.example.workstation.pdm_se01.R
 
 /**
  * Created by workstation on 03/11/2016.

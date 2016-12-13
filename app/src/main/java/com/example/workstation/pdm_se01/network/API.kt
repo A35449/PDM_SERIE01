@@ -1,4 +1,4 @@
-package com.example.workstation.pdm_se01.AWA
+package com.example.workstation.pdm_se01.network
 
 import android.content.Context
 
