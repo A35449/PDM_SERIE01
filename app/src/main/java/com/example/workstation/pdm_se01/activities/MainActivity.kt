@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity() {
             if(savedRequest != null){
                 try {
                     var wrap = Converter.convertToForecast(savedRequest)
-                    fillList(wrap.getList())
+                    fillList(wrap.list)
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -121,7 +121,7 @@ class MainActivity : AppCompatActivity() {
                 editor?.commit()
                 try{
                     var wrap = Converter.convertToForecast(response)
-                    fillList(wrap.getList())
+                    fillList(wrap.list)
                 }catch(ex: IOException){
                     System.out.print(ex!!.message)
                 }
@@ -162,9 +162,9 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-      public fun initializeInputData(){
+      fun initializeInputData(){
         if(file_string ==null){
-            val it = getResources().openRawResource(R.raw.citylist)
+            val it = resources.openRawResource(R.raw.citylist)
             try {
                 file_string = IOUtils.toString(it,"utf-8")
             } catch (e : IOException) {
@@ -176,6 +176,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun fillList(list: List<Forecast> ) {
         adapter = ForecastAdapter(this, R.layout.forecast_item, list)
-        lv!!.setAdapter(adapter)
+        lv!!.adapter = adapter
     }
 }
