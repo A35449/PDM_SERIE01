@@ -29,6 +29,8 @@
         </activity>
         <activity android:name=".ConnectivityActivity">
         </activity>
+        <activity android:name=".NotificationReceiver">
+        </activity>
         <activity
             android:name=".AboutActivity"
             android:label="@string/title_activity_about"
@@ -37,6 +39,10 @@
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value="com.example.workstation.pdm_se01.MainActivity" />
+        <provider
+            android:authorities="com.example.workstation.pdm_se01"
+            android:name=".provider.AWAProvider"
+            android:exported="false" />
     </application>
 
 </manifest>
