@@ -39,9 +39,9 @@ class API(internal var context: Context) {
         SingletonRequest.getInstance(context).addToRequestQueue(req)
     }
 
-    fun getForecast(city: String, sucessHandler: Response.Listener<String>, errHandler: Response.ErrorListener) {
+    fun getForecast(city: String, successHandler: Response.Listener<String>, errHandler: Response.ErrorListener) {
         val ps = String.format(BASE_URL_FORECAST + "?q=%s&mode=json&units=metric&cnt=7&appid=%s&lang=%s", city, API_KEY, lang)
-        val req = StringRequest(ps, sucessHandler, errHandler)
+        val req = StringRequest(ps, successHandler, errHandler)
         SingletonRequest.getInstance(context).addToRequestQueue(req)
     }
 

@@ -114,8 +114,7 @@ class MainActivity : AppCompatActivity() {
         }
         api = API(this.applicationContext)
 
-        var repHandler = Response.Listener<String>(){
-            fun onResponse(response : String){
+        var repHandler = Response.Listener<String>(){response ->
                 var editor = shared?.edit()
                 editor?.putString("req",response)
                 editor?.commit()
@@ -125,8 +124,7 @@ class MainActivity : AppCompatActivity() {
                 }catch(ex: IOException){
                     System.out.print(ex!!.message)
                 }
-            }
-        };
+        }
 
         val errHandler = Response.ErrorListener(){
             fun onErrorResponse(error : VolleyError){

@@ -12,12 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <receiver android:name=".components.broadcast.AWAReceiver">
-
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED">
+                <action android:name="android.intent.action.BATTERY_OKAY">
                 </action>
             </intent-filter>
-
         </receiver>
         <activity android:name=".activities.MainActivity">
             <intent-filter>
