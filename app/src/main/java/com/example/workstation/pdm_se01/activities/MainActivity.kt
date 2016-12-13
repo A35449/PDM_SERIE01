@@ -137,18 +137,18 @@ class MainActivity : AppCompatActivity() {
         getWeather?.setOnClickListener( View.OnClickListener() {
 
             fun onClick(v: View){
-                var location = editText?.getText().toString().split(",");
+                var location = editText?.getText().toString().split(",")
                 if (location.size < 2){
-                    Toast.makeText(this,"Location Unavailable", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,"Location Unavailable", Toast.LENGTH_SHORT).show()
                     return;
                 }
-                var ps = String.format("\"name\":\"%s\",\"country\":\"%s\"",location[0],location[1].toUpperCase());
+                var ps = String.format("\"name\":\"%s\",\"country\":\"%s\"",location[0],location[1].toUpperCase())
                 var contains = file_string?.contains(ps)
                 if(contains!!) {
-                    api?.getForecast(location[0],repHandler,errHandler);
+                    api?.getForecast(location[0],repHandler,errHandler)
                     //
                 }else {
-                    Toast.makeText(this,"Location Unavailable", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,"Location Unavailable", Toast.LENGTH_SHORT).show()
                 }
             }
         });
@@ -167,18 +167,18 @@ class MainActivity : AppCompatActivity() {
 
       public fun initializeInputData(){
         if(file_string ==null){
-            val it = getResources().openRawResource(R.raw.citylist);
+            val it = getResources().openRawResource(R.raw.citylist)
             try {
-                file_string = IOUtils.toString(it,"utf-8");
+                file_string = IOUtils.toString(it,"utf-8")
             } catch (e : IOException) {
-                e.printStackTrace();
+                e.printStackTrace()
             }
         }
         return;
     }
 
     private fun fillList(list: List<Forecast> ) {
-        adapter = ForecastAdapter(this, R.layout.forecast_item, list);
-        lv!!.setAdapter(adapter);
+        adapter = ForecastAdapter(this, R.layout.forecast_item, list)
+        lv!!.setAdapter(adapter)
     }
 }

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="1_library-1.0.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/src/main/java/com/example/workstation/pdm_se01/lib/library-1.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
