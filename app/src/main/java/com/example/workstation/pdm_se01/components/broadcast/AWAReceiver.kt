@@ -11,7 +11,11 @@ import android.widget.Toast
 
 class AWAReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        Toast.makeText(context, "Battery OKAY", Toast.LENGTH_LONG).show()
-    }
+        when (intent!!.action) {
+            Intent.ACTION_BATTERY_LOW -> Toast.makeText(context, "Battery LOW", Toast.LENGTH_LONG).show()
+            Intent.ACTION_BATTERY_OKAY -> Toast.makeText(context, "Battery OKAY", Toast.LENGTH_LONG).show()
+            Intent.ACTION_BOOT_COMPLETED -> Toast.makeText(context, "Boot Completed", Toast.LENGTH_LONG).show()
 
+        }
+    }
 }

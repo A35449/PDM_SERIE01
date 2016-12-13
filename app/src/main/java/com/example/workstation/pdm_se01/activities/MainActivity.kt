@@ -126,10 +126,8 @@ class MainActivity : AppCompatActivity() {
                 }
         }
 
-        val errHandler = Response.ErrorListener(){
-            fun onErrorResponse(error : VolleyError){
-                System.out.println(error.message)
-            }
+        val errHandler = Response.ErrorListener(){error->
+                Toast.makeText(this, error.message,Toast.LENGTH_LONG).show()
         }
 
         getWeather?.setOnClickListener({
