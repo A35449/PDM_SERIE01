@@ -32,16 +32,14 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile files('src/main/java/com/example/workstation/pdm_se01/lib/jackson-all-1.9.0.jar')
-    compile files('src/main/java/com/example/workstation/pdm_se01/commons-io-2.5.jar')
-    compile files('src/main/java/com/example/workstation/pdm_se01/library-1.0.0.jar')
+    compile files('src/main/java/com/example/workstation/pdm_se01/lib/commons-io-2.5.jar')
+    compile files('src/main/java/com/example/workstation/pdm_se01/lib/library-1.0.0.jar')
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.android.support:design:24.2.1'
     testCompile 'junit:junit:4.12'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile files('src/main/java/com/example/workstation/pdm_se01/lib/commons-io-2.5.jar')
-    compile files('src/main/java/com/example/workstation/pdm_se01/lib/library-1.0.0.jar')
 }
 repositories {
     mavenCentral()

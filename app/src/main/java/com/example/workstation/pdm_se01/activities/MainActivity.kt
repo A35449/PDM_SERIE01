@@ -26,7 +26,7 @@ import com.example.workstation.pdm_se01.R
 import com.example.workstation.pdm_se01.provider.AWAContract
 import com.example.workstation.pdm_se01.provider.DbSchema
 import com.example.workstation.pdm_se01.utils.Converter
-import com.example.workstation.pdm_se01.utils.ForecastAdapter
+import com.example.workstation.pdm_se01.adapter.ForecastAdapter
 import com.example.workstation.pdm_se01.utils.Utils
 import com.example.workstation.pdm_se01.activities.AboutActivity
 
@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        api = API(this.getApplicationContext())
+        api = API(this.applicationContext)
 
         var repHandler = Response.Listener<String>(){
             fun onResponse(response : String){
@@ -134,31 +134,28 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        getWeather?.setOnClickListener( View.OnClickListener() {
+        getWeather?.setOnClickListener({
 
-            fun onClick(v: View){
                 var location = editText?.getText().toString().split(",")
                 if (location.size < 2){
                     Toast.makeText(this,"Location Unavailable", Toast.LENGTH_SHORT).show()
-                    return
                 }
-                var ps = String.format("\"name\":\"%s\",\"country\":\"%s\"",location[0],location[1].toUpperCase())
-                var contains = file_string?.contains(ps)
-                if(contains!!) {
-                    api?.getForecast(location[0],repHandler,errHandler)
-                    //
-                }else {
-                    Toast.makeText(this,"Location Unavailable", Toast.LENGTH_SHORT).show()
+                else {
+                    var ps = String.format("\"name\":\"%s\",\"country\":\"%s\"", location[0], location[1].toUpperCase())
+                    var contains = file_string?.contains(ps)
+                    if (contains!!) {
+                        api?.getForecast(location[0], repHandler, errHandler)
+                        //
+                    } else {
+                        Toast.makeText(this, "Location Unavailable", Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
         });
 
 
-        aboutUs?.setOnClickListener( View.OnClickListener() {
-            fun onClick(v : View){
+        aboutUs?.setOnClickListener({
                 val myIntent = Intent(this, AboutActivity::class.java)
                 this.startActivity(myIntent)
-            }
         })
 
         initializeInputData()

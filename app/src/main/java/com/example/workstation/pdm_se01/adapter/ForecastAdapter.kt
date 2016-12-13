@@ -1,4 +1,4 @@
-package com.example.workstation.pdm_se01.utils
+package com.example.workstation.pdm_se01.adapter
 
 import android.app.Activity
 import android.content.Context
@@ -18,6 +18,7 @@ import com.squareup.picasso.Picasso
 import org.codehaus.jackson.map.ObjectMapper
 
 import java.io.IOException
+import java.lang.Double
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
