@@ -93,46 +93,46 @@ class MainActivity : AppCompatActivity() {
         */
         val end = ""
         //bundle = savedInstanceState;
-        shared =  getSharedPreferences("yawaPref", MODE_PRIVATE);
-        lv = findViewById(R.id.day_forecast_list) as ListView;
-        editText = findViewById(R.id.LocationInput) as EditText;
-        getWeather = findViewById(R.id.GetWeather) as Button;
-        aboutUs = findViewById(R.id.aboutus) as Button;
+        shared =  getSharedPreferences("yawaPref", MODE_PRIVATE)
+        lv = findViewById(R.id.day_forecast_list) as ListView
+        editText = findViewById(R.id.LocationInput) as EditText
+        getWeather = findViewById(R.id.GetWeather) as Button
+        aboutUs = findViewById(R.id.aboutus) as Button
 
         if(adapter != null){
-            lv?.setAdapter(adapter);
+            lv?.setAdapter(adapter)
         }else {
-            var savedRequest = getSharedPreferences("yawaPref", MODE_PRIVATE).getString("req", null);
+            var savedRequest = getSharedPreferences("yawaPref", MODE_PRIVATE).getString("req", null)
             if(savedRequest != null){
                 try {
-                    var wrap = Converter.convertToForecast(savedRequest);
-                    fillList(wrap.getList());
+                    var wrap = Converter.convertToForecast(savedRequest)
+                    fillList(wrap.getList())
                 } catch (e: IOException) {
-                    e.printStackTrace();
+                    e.printStackTrace()
                 }
             }
         }
-        api = API(this.getApplicationContext());
+        api = API(this.getApplicationContext())
 
         var repHandler = Response.Listener<String>(){
             fun onResponse(response : String){
-                var editor = shared?.edit();
-                editor?.putString("req",response);
-                editor?.commit();
+                var editor = shared?.edit()
+                editor?.putString("req",response)
+                editor?.commit()
                 try{
-                    var wrap = Converter.convertToForecast(response);
-                    fillList(wrap.getList());
+                    var wrap = Converter.convertToForecast(response)
+                    fillList(wrap.getList())
                 }catch(ex: IOException){
-                    System.out.print(ex!!.message);
+                    System.out.print(ex!!.message)
                 }
             }
         };
 
         val errHandler = Response.ErrorListener(){
             fun onErrorResponse(error : VolleyError){
-                System.out.println(error.message);
+                System.out.println(error.message)
             }
-        };
+        }
 
         getWeather?.setOnClickListener( View.OnClickListener() {
 
@@ -140,7 +140,7 @@ class MainActivity : AppCompatActivity() {
                 var location = editText?.getText().toString().split(",")
                 if (location.size < 2){
                     Toast.makeText(this,"Location Unavailable", Toast.LENGTH_SHORT).show()
-                    return;
+                    return
                 }
                 var ps = String.format("\"name\":\"%s\",\"country\":\"%s\"",location[0],location[1].toUpperCase())
                 var contains = file_string?.contains(ps)
@@ -159,9 +159,9 @@ class MainActivity : AppCompatActivity() {
                 val myIntent = Intent(this, AboutActivity::class.java)
                 this.startActivity(myIntent)
             }
-        });
+        })
 
-        initializeInputData();
+        initializeInputData()
     }
 
 
