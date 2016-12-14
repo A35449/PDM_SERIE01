@@ -50,7 +50,7 @@ class PreferencesActivity : AppCompatActivity() {
             fillList(favList)
 
 
-        addPref!!.setOnClickListener(View.OnClickListener {
+        addPref!!.setOnClickListener({
             val addAlert = AlertDialog.Builder(this@PreferencesActivity)
             addAlert.setTitle("Add Location")
             addAlert.setMessage("Enter Location")
@@ -64,13 +64,13 @@ class PreferencesActivity : AppCompatActivity() {
 
 
             addAlert.setPositiveButton("Add",
-                    DialogInterface.OnClickListener { dialog, x ->
+                    { dialog, x ->
                         val rawLocation = input.text.toString()
                         val location = rawLocation.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
 
                         if (location.size < 2) {
                             Toast.makeText(this@PreferencesActivity, "Location Unavailable", Toast.LENGTH_SHORT).show()
-                            return@OnClickListener
+                            return@setPositiveButton
                         }
                         val ps = String.format("\"name\":\"%s\",\"country\":\"%s\"", location[0], location[1].toUpperCase())
                         if (MainActivity.file_string!!.contains(ps)) {
@@ -158,7 +158,7 @@ class PreferencesActivity : AppCompatActivity() {
             val preferences = ArrayList<String>()
 
 
-            val editor = sharedPrefLocation!!.edit()
+
             val rawlocations = sharedPrefLocation!!.getString("locals", null) ?: return preferences
 
 

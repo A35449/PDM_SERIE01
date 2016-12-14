@@ -53,16 +53,20 @@
             android:authorities="com.example.workstation.pdm_se01"
             android:exported="false" />
 
-        <activity android:name=".activities.HomeActivty" />
-        <activity
-            android:name=".activities.PreferencesActivity"
-            android:label="@string/title_activity_preferences"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.HomeActivity" />
         <activity
-            android:name=".activities.Main2Activity"
-            android:label="@string/title_activity_main2"
+            android:name=".PreferencesActivity"
+            android:label="@string/title_activity_preferences"
+            android:parentActivityName=".activities.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.WeatherListActivity"
+            android:label="@string/title_activity_weather_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
