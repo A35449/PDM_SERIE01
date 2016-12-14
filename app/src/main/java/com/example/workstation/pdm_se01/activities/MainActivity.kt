@@ -1,14 +1,14 @@
 package com.example.workstation.pdm_se01.activities
 
-import android.content.ContentResolver
-import android.content.ContentValues
-import android.content.Intent
-import android.content.SharedPreferences
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.*
 import android.os.Build
 import android.os.Parcelable
 import android.support.annotation.RequiresApi
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -29,6 +29,7 @@ import com.example.workstation.pdm_se01.utils.Converter
 import com.example.workstation.pdm_se01.adapter.ForecastAdapter
 import com.example.workstation.pdm_se01.utils.Utils
 import com.example.workstation.pdm_se01.activities.AboutActivity
+import com.example.workstation.pdm_se01.components.broadcast.AWAReceiver
 
 import org.apache.commons.io.IOUtils
 
