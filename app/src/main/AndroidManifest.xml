@@ -62,10 +62,12 @@
         <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings"
+            android:parentActivityName=".activities.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.WeatherListActivity"
             android:label="@string/title_activity_weather_list"
+            android:parentActivityName=".activities.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
