@@ -29,12 +29,21 @@ public class FavLocationListAdapter extends ArrayAdapter<FavLocationModel> {
         this.modelItems = resource;
     }
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
         convertView = inflater.inflate(R.layout.location_list_row, parent, false);
         TextView name = (TextView) convertView.findViewById(R.id.textView1);
         CheckBox cb = (CheckBox) convertView.findViewById(R.id.checkBox1);
+        cb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                                  modelItems.get(position).setCheck(1^modelItems.get(position).getCheck());
+                                  }
+                              }
+
+
+        );
         name.setText(modelItems.get(position).getLocation());
         if(modelItems.get(position).getCheck() == 1)
             cb.setChecked(true);

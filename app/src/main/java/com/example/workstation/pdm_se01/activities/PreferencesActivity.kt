@@ -33,7 +33,7 @@ class PreferencesActivity : AppCompatActivity() {
     private var removePref: Button? = null
     private var lv: ListView? = null
     private var sharedPrefLocation: SharedPreferences? = null
-
+    private var adapter:FavLocationListAdapter?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_preferences)
@@ -77,14 +77,23 @@ class PreferencesActivity : AppCompatActivity() {
                         val ps = String.format("\"name\":\"%s\",\"country\":\"%s\"", location[0], location[1].toUpperCase())
                         if (MainActivity.file_string!!.contains(ps)) {
                             //validar localizaçao intruduzida
-                            var favLocationModel:FavLocationModel?=null
-                            favLocationModel?.location=rawLocation
-                            favLocationModel?.check=0
 
-                                favList.add(favLocationModel!!)
+                            favList
+                                    .filter { it.location.equals(rawLocation)}
+                                    .forEach {  Toast.makeText(this@PreferencesActivity, "Preference Already exists", Toast.LENGTH_SHORT).show()
+                                        return@setPositiveButton}
+
+
+
+
+                            var favLocationModel :FavLocationModel=FavLocationModel()
+                            favLocationModel.location=rawLocation
+                            favLocationModel.check=0
+
+                                favList.add(favLocationModel)
 
                             saveSharedpreferences(favList)
-                            fillList(favList)
+                           adapter?.notifyDataSetChanged()
 
                             Toast.makeText(this@PreferencesActivity, "Preference Saved", Toast.LENGTH_SHORT).show()
 
@@ -105,6 +114,14 @@ class PreferencesActivity : AppCompatActivity() {
 
 
         removePref!!.setOnClickListener(View.OnClickListener {
+
+            favList
+                    .filter { it.check==1 }
+                    .forEach { favList.remove(it) }
+            saveSharedpreferences(favList)
+            adapter?.notifyDataSetChanged()
+            Toast.makeText(this@PreferencesActivity, "Preference Saved", Toast.LENGTH_SHORT).show()
+
           /*  val removeAlert = AlertDialog.Builder(this@PreferencesActivity)
             removeAlert.setTitle("Remove Location")
             removeAlert.setMessage("Enter Location")
@@ -198,7 +215,7 @@ class PreferencesActivity : AppCompatActivity() {
 
 
     private fun fillList(list: List<FavLocationModel>) {
-        val adapter = FavLocationListAdapter(this,R.id.favList,
+         adapter = FavLocationListAdapter(this,R.id.favList,
                  list)
         lv!!.adapter = adapter
     }

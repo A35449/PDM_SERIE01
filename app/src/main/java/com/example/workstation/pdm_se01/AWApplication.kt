@@ -27,6 +27,6 @@ class AWApplication : Application() {
         alarmIntent = PendingIntent.getBroadcast(this, 0, intent,0)
         alarmMgr!!.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 SystemClock.elapsedRealtime(),
-                2500, alarmIntent)
+                60000, alarmIntent)
     }
 }
