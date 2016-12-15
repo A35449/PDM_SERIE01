@@ -65,7 +65,19 @@ class AWAProvider : ContentProvider() {
     }
 
     override fun update(uri: Uri?, values: ContentValues?, selection: String?, selectionArgs: Array<out String>?): Int {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val table: String
+        var count = 0
+        when (URI_MATCHER.match(uri)) {
+            WEA_LIST -> { table = DbSchema.Weather.TBL_NAME }
+            WEA_OBJ -> { table = DbSchema.Weather.TBL_NAME}
+            else -> throw badUri(uri!!)
+        }
+
+        val db = dbHelper!!.writableDatabase
+        count = db.update(table,values,selection, selectionArgs)
+
+        context.contentResolver.notifyChange(uri, null)
+        return count
     }
 
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int {

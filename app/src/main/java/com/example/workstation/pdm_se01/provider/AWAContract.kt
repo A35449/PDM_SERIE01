@@ -35,6 +35,7 @@ object AWAContract {
         val DATA = "data"
         val COUNTRY = "country"
         val CITY = "city"
+        val FAV = "fav"
 
         /* Projections */
         val SELECT_ALL = arrayOf(BaseColumns._ID, DATA)

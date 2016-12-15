@@ -4,9 +4,12 @@ import android.content.Context
 
 import com.android.volley.RequestQueue
 import com.android.volley.Response
+import com.android.volley.VolleyError
 import com.android.volley.toolbox.ImageLoader
 import com.android.volley.toolbox.NetworkImageView
 import com.android.volley.toolbox.StringRequest
+import com.example.workstation.pdm_se01.utils.QueryRegist
+import java.io.IOException
 
 import java.util.Locale
 
@@ -33,15 +36,15 @@ class API(internal var context: Context) {
         queue = SingletonRequest.getInstance(context).initializeRequestQueue()
     }
 
-    fun getWeather(country: String, city: String, sucessHandler: Response.Listener<String>, errHandler: Response.ErrorListener) {
-        val ps = String.format(BASE_URL_CITY + "?q=%s,%s&appid=%s&lang=%s", city, country, API_KEY, lang)
+    public fun getWeather(reg: QueryRegist, sucessHandler: Response.Listener<String>, errHandler: Response.ErrorListener) {
+        val ps = String.format(BASE_URL_CITY + "?q=%s,%s&appid=%s&lang=%s", reg.city, reg.country, API_KEY, lang)
         val req = StringRequest(ps, sucessHandler, errHandler)
         SingletonRequest.getInstance(context).addToRequestQueue(req)
     }
 
-    fun getForecast(city: String, successHandler: Response.Listener<String>, errHandler: Response.ErrorListener) {
+    fun getForecast(city: String, sucessHandler: Response.Listener<String>, errHandler: Response.ErrorListener) {
         val ps = String.format(BASE_URL_FORECAST + "?q=%s&mode=json&units=metric&cnt=7&appid=%s&lang=%s", city, API_KEY, lang)
-        val req = StringRequest(ps, successHandler, errHandler)
+        val req = StringRequest(ps, sucessHandler, errHandler)
         SingletonRequest.getInstance(context).addToRequestQueue(req)
     }
 

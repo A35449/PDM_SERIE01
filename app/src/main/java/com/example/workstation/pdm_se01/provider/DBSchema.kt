@@ -21,6 +21,8 @@ object DbSchema {
 
         val COL_CITY = "city"
 
+        val COL_FAV =  "fav"
+
         val COL_COUNTRY = "country"
 
         val DDL_CREATE_TABLE =
@@ -29,6 +31,7 @@ object DbSchema {
                 COL_DATA + " TEXT," +
                 COL_CITY + " TEXT," +
                 COL_COUNTRY + " TEXT" +
+                COL_FAV + " BIT DEFAULT 0" +
             ")"
 
         val DDL_DROP_TABLE = "DROP TABLE IF EXISTS " + TBL_NAME
