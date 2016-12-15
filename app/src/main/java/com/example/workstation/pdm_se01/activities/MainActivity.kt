@@ -73,8 +73,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        /*val myIntent = Intent(this, HomeActivity::class.java)
-                this.startActivity(myIntent)*/
+        val myIntent = Intent(this, HomeActivity::class.java)
+                this.startActivity(myIntent)
 
 
 
@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity() {
                     var wrap = Converter.convertToForecast(response)
                     fillList(wrap.list)
                 }catch(ex: IOException){
-                    System.out.print(ex!!.message)
+                    System.out.print(ex.message)
                 }
         }
 

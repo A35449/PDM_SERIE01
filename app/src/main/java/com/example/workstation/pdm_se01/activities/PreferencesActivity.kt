@@ -24,6 +24,8 @@ import java.util.HashSet
 
 import com.example.workstation.pdm_se01.activities.MainActivity.Companion
 import com.example.workstation.pdm_se01.activities.MainActivity.Companion.file_string
+import com.example.workstation.pdm_se01.adapter.FavLocationListAdapter
+import com.example.workstation.pdm_se01.model.LocationListModel.FavLocationModel
 
 class PreferencesActivity : AppCompatActivity() {
 
@@ -44,7 +46,7 @@ class PreferencesActivity : AppCompatActivity() {
         addPref = findViewById(R.id.addLocationButton) as Button
         removePref = findViewById(R.id.removeLocationButton) as Button
 
-        val favList = sharedPrefs
+        val favList = sharedPrefs()
 
         if (!favList.isEmpty())
             fillList(favList)
@@ -75,10 +77,14 @@ class PreferencesActivity : AppCompatActivity() {
                         val ps = String.format("\"name\":\"%s\",\"country\":\"%s\"", location[0], location[1].toUpperCase())
                         if (MainActivity.file_string!!.contains(ps)) {
                             //validar localizaçao intruduzida
+                            var favLocationModel:FavLocationModel?=null
+                            favLocationModel?.location=rawLocation
+                            favLocationModel?.check=0
 
-                            favList.add(rawLocation)
+                                favList.add(favLocationModel!!)
+
                             saveSharedpreferences(favList)
-                            fillList(sharedPrefs)
+                            fillList(favList)
 
                             Toast.makeText(this@PreferencesActivity, "Preference Saved", Toast.LENGTH_SHORT).show()
 
@@ -99,7 +105,7 @@ class PreferencesActivity : AppCompatActivity() {
 
 
         removePref!!.setOnClickListener(View.OnClickListener {
-            val removeAlert = AlertDialog.Builder(this@PreferencesActivity)
+          /*  val removeAlert = AlertDialog.Builder(this@PreferencesActivity)
             removeAlert.setTitle("Remove Location")
             removeAlert.setMessage("Enter Location")
 
@@ -148,40 +154,37 @@ class PreferencesActivity : AppCompatActivity() {
             removeAlert.setNegativeButton("Cancel") { dialog, id -> dialog.cancel() }
 
             val removeDialog = removeAlert.create()
-            removeDialog.show()
+            removeDialog.show()*/
+
+
+
+
+
         })
 
     }
 
-    private val sharedPrefs: MutableList<String>
-        get() {
-            val preferences = ArrayList<String>()
+    private fun sharedPrefs(): MutableList<FavLocationModel> {
 
+        val preferences = ArrayList<FavLocationModel>()
+        val rawlocations = sharedPrefLocation!!.getString("locals", null) ?: return preferences
+        val locations = rawlocations.split("/".toRegex()).dropLastWhile({ it.isEmpty() })//.toTypedArray()
 
-
-            val rawlocations = sharedPrefLocation!!.getString("locals", null) ?: return preferences
-
-
-            val locations = rawlocations.split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
-
-
-            for (i in locations.indices) {
-
-                preferences.add(locations[i])
-
-
-            }
-            if (preferences[0] == "")
-                preferences.removeAt(0)
-            return preferences
+        for (i in locations.indices) {
+            var favLocationModel=FavLocationModel()
+            favLocationModel.check=0;
+            favLocationModel.location=locations[i];
+            preferences.add(favLocationModel)
+        }
+        return preferences
         }
 
 
-    private fun saveSharedpreferences(prefsList: List<String>) {
+    private fun saveSharedpreferences(prefsList: List<FavLocationModel>) {
 
         var locations = ""
         for (i in prefsList.indices) {
-            locations += prefsList[i] + "/"
+            locations += prefsList.get(i).location + "/"
 
         }
 
@@ -194,9 +197,9 @@ class PreferencesActivity : AppCompatActivity() {
     }
 
 
-    private fun fillList(list: List<String>) {
-        val adapter = ArrayAdapter(this,
-                android.R.layout.simple_list_item_1, list)
+    private fun fillList(list: List<FavLocationModel>) {
+        val adapter = FavLocationListAdapter(this,R.id.favList,
+                 list)
         lv!!.adapter = adapter
     }
 
