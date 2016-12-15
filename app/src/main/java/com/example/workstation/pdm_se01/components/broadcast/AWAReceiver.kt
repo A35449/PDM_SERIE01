@@ -5,13 +5,15 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
-import android.content.Intent
 import android.widget.Toast
 import android.os.BatteryManager
 import android.os.SystemClock
 import com.example.workstation.pdm_se01.AWApplication
 import com.example.workstation.pdm_se01.alarmIntent
 import com.example.workstation.pdm_se01.alarmMgr
+import android.content.Intent
+
+
 
 /**
  * Created by Jos on 13/12/2016.
@@ -62,7 +64,7 @@ class AWAReceiver : BroadcastReceiver() {
                 Toast.makeText(context, "Boot Completed", Toast.LENGTH_SHORT).show()
             }
             else -> {
-                Toast.makeText(context, "Alarm!!!", Toast.LENGTH_SHORT).show()
+                context?.startService(Intent(context, UpdateService::class.java))
             }
         }
 
