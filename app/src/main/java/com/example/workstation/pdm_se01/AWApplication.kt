@@ -3,11 +3,12 @@ package com.example.workstation.pdm_se01
 import android.app.AlarmManager
 import android.app.Application
 import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
+import android.content.*
 import android.os.SystemClock
 import com.example.workstation.pdm_se01.activities.MainActivity
 import com.example.workstation.pdm_se01.components.broadcast.AWAReceiver
+import android.content.Intent.ACTION_BATTERY_CHANGED
+
 
 /**
  * Created by Jos on 14/12/2016.
@@ -28,5 +29,8 @@ class AWApplication : Application() {
         alarmMgr!!.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 SystemClock.elapsedRealtime(),
                 60000, alarmIntent)
+
+        val batteryLevelFilter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
+        registerReceiver(AWAReceiver(), batteryLevelFilter)
     }
 }
