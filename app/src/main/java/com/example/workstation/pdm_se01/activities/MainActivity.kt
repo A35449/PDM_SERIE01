@@ -55,20 +55,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public override fun onResume() {
-        super.onResume()
-        try {
-            if (!Utils.checkConnectivity(applicationContext)) throw Exception()
-        } catch (e: Exception) {
-            launchConnectivityErrWindow()
-        }
-    }
-
-
-    private fun launchConnectivityErrWindow() {
-        val intent = Intent(this, ConnectivityActivity::class.java)
-        startActivity(intent)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -14,23 +14,35 @@ import android.content.Intent.ACTION_BATTERY_CHANGED
  * Created by Jos on 14/12/2016.
  */
 
-private var alarmMgr: AlarmManager? = null
-private var alarmIntent: PendingIntent? = null
+
+var alarmMgr: AlarmManager? = null
+var alarmIntent: PendingIntent? = null
 
 class AWApplication : Application() {
     override fun onCreate(){
         super.onCreate()
-        initAlarm()
+        setAlarm()
+        setBatteryIntentFilter()
     }
-    fun initAlarm(){
+
+    fun setAlarm(){
         alarmMgr = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, AWAReceiver::class.java)
         alarmIntent = PendingIntent.getBroadcast(this, 0, intent,0)
         alarmMgr!!.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 SystemClock.elapsedRealtime(),
-                60000, alarmIntent)
+                6000, alarmIntent)
 
-        val batteryLevelFilter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
+        val shared=this.getSharedPreferences("alarmSet", Context.MODE_PRIVATE)
+        val editor=shared.edit()
+        editor.putBoolean("alarmSet",true)
+        editor?.commit()
+
+
+    }
+
+    private fun setBatteryIntentFilter() {
+        val batteryLevelFilter = IntentFilter(ACTION_BATTERY_CHANGED)
         registerReceiver(AWAReceiver(), batteryLevelFilter)
     }
 }

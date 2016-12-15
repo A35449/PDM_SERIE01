@@ -14,12 +14,13 @@
         android:theme="@style/AppTheme">
         <receiver android:name=".components.broadcast.AWAReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.BATTERY_LOW" />
-                <action android:name="android.intent.action.BATTERY_OKAY" />
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
+        <service
+            android:name=".components.broadcast.UpdateService"
+            android:label="My Service" >
+        </service>
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
