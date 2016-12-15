@@ -10,12 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ListView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 
 import com.android.volley.Response
 import com.android.volley.VolleyError
@@ -42,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private var adapter: ArrayAdapter<Forecast>? = null
         private val LIST_INSTANCE_STATE = "ListViewState"
-        private var file_string: String? = null
+        var file_string: String? = null
 
         private var lv: ListView? = null
 
@@ -78,6 +73,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        /*val myIntent = Intent(this, HomeActivity::class.java)
+                this.startActivity(myIntent)*/
+
+
+
+
+
+
         /*
         val dc = AWA(this,contentResolver)
 
