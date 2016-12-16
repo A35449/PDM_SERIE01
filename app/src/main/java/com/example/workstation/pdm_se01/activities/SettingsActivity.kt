@@ -116,7 +116,7 @@ class SettingsActivity : AppCompatActivity() {
         progressshow=sharedPrefLocation?.getInt("batteryLimit",20)
         tSwitch?.isChecked= wifisetting!!
         seekbar1?.progress = progressshow!!
-
+        seekBarValue?.text=progressshow.toString()
         return
     }
 
