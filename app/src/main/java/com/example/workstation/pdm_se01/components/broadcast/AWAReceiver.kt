@@ -32,11 +32,11 @@ class AWAReceiver : BroadcastReceiver() {
                 val alarmSet = shared?.getBoolean("alarmSet",true) as Boolean
                 val settingsPreferences=context?.getSharedPreferences("SettingsPrefs",MODE_PRIVATE)
 
-                val periodicityMin = settingsPreferences?.getInt("periodicity",120) as Long
-                val batteryPercentageSetting = settingsPreferences?.getInt("batteryLimit",20)?.div(100) as Float
+                val periodicityMin = settingsPreferences?.getLong("periodicity",120) as Long
+                val batteryPercentageSetting = settingsPreferences?.getInt("batteryLimit",20) as Int
                 Log.d("batPercentageSetting",batteryPercentageSetting.toString())
 
-                if(batteryPct<batteryPercentageSetting && alarmSet){
+                if(batteryPct<(batteryPercentageSetting/100) && alarmSet){
                     val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
                     val cancelPIntent : PendingIntent
                     val intentCancel = Intent(context, AWAReceiver::class.java)
@@ -50,7 +50,7 @@ class AWAReceiver : BroadcastReceiver() {
                     editor?.commit()
 
                 }
-                else if (batteryPct>=batteryPercentageSetting && !alarmSet){
+                else if (batteryPct>=(batteryPercentageSetting/100) && !alarmSet){
                     alarmMgr?.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                             SystemClock.elapsedRealtime(),
                             1000*60*periodicityMin, alarmIntent)

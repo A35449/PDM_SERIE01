@@ -33,7 +33,7 @@ class AWApplication : Application() {
 
         val settingsPreferences=this.getSharedPreferences("SettingsPrefs", Context.MODE_PRIVATE)
 
-        val periodicityMin = settingsPreferences?.getInt("periodicity",120) as Long
+        val periodicityMin = settingsPreferences?.getLong("periodicity",120) as Long
 
         alarmMgr!!.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 SystemClock.elapsedRealtime(),
