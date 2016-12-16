@@ -46,7 +46,7 @@ class HomeActivity : AppCompatActivity() {
                     Toast.makeText(this, "Location Unavailable", Toast.LENGTH_SHORT).show()
                 }
             }
-        });
+        })
         settingsButton?.setOnClickListener({
             val myIntent = Intent(this, SettingsActivity::class.java)
             this.startActivity(myIntent)
