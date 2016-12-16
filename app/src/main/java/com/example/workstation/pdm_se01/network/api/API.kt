@@ -4,13 +4,11 @@ import android.content.Context
 
 import com.android.volley.RequestQueue
 import com.android.volley.Response
-import com.android.volley.VolleyError
 import com.android.volley.toolbox.ImageLoader
 import com.android.volley.toolbox.NetworkImageView
-import com.android.volley.toolbox.StringRequest
 import com.example.workstation.pdm_se01.network.SingletonRequest
+import com.example.workstation.pdm_se01.provider.contract.AWAContract
 import com.example.workstation.pdm_se01.utils.QueryRegist
-import java.io.IOException
 
 import java.util.Locale
 
@@ -28,6 +26,8 @@ abstract class API(internal var context: Context) {
 
     internal var queue: RequestQueue
 
+    var contract : AWAContract ?= null
+
     companion object {
         private val loader: ImageLoader? = null
     }
@@ -37,7 +37,7 @@ abstract class API(internal var context: Context) {
         queue = SingletonRequest.getInstance(context).initializeRequestQueue()
     }
 
-    public abstract fun get(reg: QueryRegist, sucessHandler: Response.Listener<String>, errHandler: Response.ErrorListener)
+    abstract fun get(reg: QueryRegist, sucessHandler: Response.Listener<String>, errHandler: Response.ErrorListener)
 
     fun getImage(icon: String, target: NetworkImageView) {
         val imgurl = BASE_URL + "/img/w/" + icon

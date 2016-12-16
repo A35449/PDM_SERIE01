@@ -51,9 +51,5 @@ class HomeActivity : AppCompatActivity() {
             val myIntent = Intent(this, SettingsActivity::class.java)
             this.startActivity(myIntent)
         })
-
-
     }
-
-
 }

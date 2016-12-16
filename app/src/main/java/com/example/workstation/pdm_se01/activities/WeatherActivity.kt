@@ -14,7 +14,6 @@ import com.squareup.picasso.Picasso
 import org.codehaus.jackson.map.ObjectMapper
 
 import java.io.IOException
-import java.lang.Double
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -58,5 +57,4 @@ class WeatherActivity : AppCompatActivity() {
         val humidity = findViewById(R.id.humidity) as TextView
         humidity.text = java.lang.Double.toString(forecast.humidity.toDouble())
     }
-
 }
