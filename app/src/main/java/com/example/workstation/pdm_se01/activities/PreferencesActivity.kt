@@ -144,8 +144,9 @@ class PreferencesActivity : AppCompatActivity() {
             favLocationModel.location=locations[i];
             preferences.add(favLocationModel)
         }
+
         return preferences
-        }
+    }
 
 
     private fun saveSharedpreferences(prefsList: List<FavLocationModel>) {

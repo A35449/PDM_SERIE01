@@ -13,6 +13,7 @@ import com.android.volley.Response
 import com.android.volley.VolleyError
 import com.example.workstation.pdm_se01.activities.MainActivity
 import com.example.workstation.pdm_se01.activities.WeatherActivity
+import com.example.workstation.pdm_se01.activities.WeatherByLocation
 import com.example.workstation.pdm_se01.components.notification.NotificationReceiver
 import com.example.workstation.pdm_se01.model.Weather.Weather
 import com.example.workstation.pdm_se01.model.Weather.Wrapper
@@ -38,7 +39,6 @@ class Syncronizer(val context: Context, _api : API){
 
     internal class SyncHandler(ctx: Context,  _contract : AWAContract, _reg: QueryRegist , favorite: Boolean = false){
 
-        val hasRecord : Boolean
         val cr : ContentResolver
         val reg : QueryRegist
         val isFav : Boolean
@@ -47,7 +47,6 @@ class Syncronizer(val context: Context, _api : API){
         init {
             cr = ctx.contentResolver
             reg = _reg
-            hasRecord = hasRecord()
             isFav = favorite
             contract = _contract
         }
@@ -63,7 +62,7 @@ class Syncronizer(val context: Context, _api : API){
             if(hasRecord()) updateRecord(response)
             else insertNewRecord(response)
             //lança activity
-            val locationIntent = Intent(ctx,WeatherActivity::class.java)
+            val locationIntent = Intent(ctx,WeatherByLocation::class.java)
             ctx.startActivity(locationIntent)
         }
 
@@ -72,7 +71,8 @@ class Syncronizer(val context: Context, _api : API){
             if(hasRecord()) updateRecord(response)
             else insertNewRecord(response)
             //lança activity
-            val locationIntent = Intent(ctx,WeatherActivity::class.java)
+            val locationIntent = Intent(ctx,WeatherByLocation::class.java)
+            locationIntent.putExtra("location",reg.city+ "," + reg.country)
             locationIntent.addFlags(FLAG_ACTIVITY_NEW_TASK)
             ctx.startActivity(locationIntent)
         }
