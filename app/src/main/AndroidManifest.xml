@@ -57,7 +57,7 @@
 
         <activity android:name=".activities.HomeActivity" />
         <activity
-            android:name=".PreferencesActivity"
+            android:name=".activities.PreferencesActivity"
             android:label="@string/title_activity_preferences"
             android:parentActivityName=".activities.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -74,7 +74,8 @@
         <activity
             android:name=".activities.WeatherByLocation"
             android:label="@string/title_activity_weather_by_location"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:parentActivityName=".activities.PreferencesActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -1,29 +1,15 @@
-package com.example.workstation.pdm_se01
+package com.example.workstation.pdm_se01.activities
 
 import android.content.Context
-import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.text.Editable
 import android.view.View
 import android.widget.*
-import com.example.workstation.pdm_se01.activities.MainActivity
-
-import org.codehaus.jackson.map.ser.std.ObjectArraySerializer
-import org.codehaus.jackson.map.ser.std.StringSerializer
-
-import java.io.IOException
-import java.io.Serializable
+import com.example.workstation.pdm_se01.R
 import java.util.ArrayList
-import java.util.HashSet
-
-import com.example.workstation.pdm_se01.activities.MainActivity.Companion
-import com.example.workstation.pdm_se01.activities.MainActivity.Companion.file_string
 import com.example.workstation.pdm_se01.adapter.FavLocationListAdapter
 import com.example.workstation.pdm_se01.model.LocationListModel.FavLocationModel
 

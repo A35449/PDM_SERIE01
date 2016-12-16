@@ -4,7 +4,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
-import com.example.workstation.pdm_se01.PreferencesActivity
+import com.example.workstation.pdm_se01.activities.PreferencesActivity
 import com.example.workstation.pdm_se01.R
 import com.example.workstation.pdm_se01.activities.MainActivity.Companion.file_string
 
