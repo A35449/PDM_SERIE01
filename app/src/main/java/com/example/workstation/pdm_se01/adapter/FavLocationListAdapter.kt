@@ -37,6 +37,7 @@ class FavLocationListAdapter(internal var context: Context, resId: Int, resource
         name.text = modelItems!![position].location
         val myIntent = Intent(context, WeatherByLocation::class.java)
         convertView.setOnClickListener(View.OnClickListener {
+                myIntent.putExtra("location", modelItems!![position].location)
                 context.startActivity(myIntent)
         })
         if (modelItems!![position].check == 1)

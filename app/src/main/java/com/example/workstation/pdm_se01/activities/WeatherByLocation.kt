@@ -1,5 +1,6 @@
 package com.example.workstation.pdm_se01.activities
 
+import android.content.res.Configuration
 import android.support.design.widget.TabLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
@@ -20,6 +21,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 
 import com.example.workstation.pdm_se01.R
+import java.text.SimpleDateFormat
+import java.util.*
 
 class WeatherByLocation : AppCompatActivity() {
 
@@ -46,6 +49,9 @@ class WeatherByLocation : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
+        val i = intent
+        val location = i.getSerializableExtra("location") as String
+        supportActionBar!!.title=location
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
@@ -130,12 +136,13 @@ class WeatherByLocation : AppCompatActivity() {
         }
 
         override fun getPageTitle(position: Int): CharSequence? {
-            when (position) {
-                0 -> return getString(R.string.Today)
-                1 -> return getString(R.string.Tomorrow)
-                else -> return "+"+position
-            }
-            return null
+            val calendar = Calendar.getInstance()
+            calendar.add(Calendar.DATE, position)
+            val date = calendar.time
+            val sdf : SimpleDateFormat
+            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) sdf = SimpleDateFormat("EEEE")
+            else sdf = SimpleDateFormat("EEE")
+            return sdf.format(date)
         }
     }
 }
