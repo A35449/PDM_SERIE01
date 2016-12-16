@@ -17,6 +17,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener
 
 import com.example.workstation.pdm_se01.R
 
+
 class SettingsActivity : AppCompatActivity() {
     private var sharedPrefLocation: SharedPreferences? = null
     private var applyButton: Button? = null
@@ -49,6 +50,7 @@ class SettingsActivity : AppCompatActivity() {
         loadSharedpreferences()
 
         tSwitch!!.setOnCheckedChangeListener { compoundButton, isChecked ->
+
             if (isChecked) {
                 wifisetting = true
             } else
@@ -63,11 +65,12 @@ class SettingsActivity : AppCompatActivity() {
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
+
                 seekBarValue?.text = progressshow.toString() + "%"
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-
+                seekBarValue?.text = progressshow.toString() + "%"
             }
         })
 
@@ -115,8 +118,11 @@ class SettingsActivity : AppCompatActivity() {
     }
     fun loadSharedpreferences(){
        wifisetting=sharedPrefLocation?.getBoolean("wifiDef",false)
-        periocity=sharedPrefLocation?.getLong("periodicity",100)
-        progressshow=sharedPrefLocation?.getInt("batteryLimit",0)
+        periocity=sharedPrefLocation?.getLong("periodicity",120)
+        progressshow=sharedPrefLocation?.getInt("batteryLimit",20)
+        tSwitch?.isChecked= wifisetting!!
+        seekbar1?.progress = progressshow!!
+
         return
     }
 
