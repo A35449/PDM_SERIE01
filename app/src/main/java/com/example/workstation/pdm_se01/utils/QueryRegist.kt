@@ -4,13 +4,14 @@ package com.example.workstation.pdm_se01.utils
  * Created by workstation on 15/12/2016.
  */
 
-class QueryRegist(_city : String, _country : String) {
+class QueryRegist(_city : String, _country : String, _fav : Boolean = false) {
 
-    public var city : String
-    public var country : String
-
+    var city : String
+    var country : String
+    var fav: Boolean
     init{
         city = _city
         country = _country
+        fav = _fav
     }
 }

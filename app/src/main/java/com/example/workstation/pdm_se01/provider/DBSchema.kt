@@ -36,4 +36,27 @@ object DbSchema {
 
         val DDL_DROP_TABLE = "DROP TABLE IF EXISTS " + TBL_NAME
     }
+
+    object Forecast {
+        val TBL_NAME = "forecast"
+
+        val COL_DATA = "data"
+
+        val COL_CITY = "city"
+
+        val COL_FAV =  "fav"
+
+        val COL_COUNTRY = "country"
+
+        val DDL_CREATE_TABLE =
+                "CREATE TABLE " + TBL_NAME + "(" +
+                        COL_ID + " INTEGER PRIMARY KEY, " +
+                        COL_DATA + " TEXT," +
+                        COL_CITY + " TEXT," +
+                        COL_COUNTRY + " TEXT" +
+                        COL_FAV + " BIT DEFAULT 0" +
+                        ")"
+
+        val DDL_DROP_TABLE = "DROP TABLE IF EXISTS " + TBL_NAME
+    }
 }
