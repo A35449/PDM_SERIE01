@@ -33,12 +33,12 @@ class WeatherActivity : AppCompatActivity() {
         val mapper = ObjectMapper()
         var forecast = Forecast()
         try {
-            forecast = mapper.readValue(i.getStringExtra("forecastJSON"), Forecast::class.java )
+            //forecast = mapper.readValue(i.getStringExtra("forecastJSON"), Forecast::class.java )
         } catch (e: IOException) {
             //e.printStackTrace()
         }
 
-        fillActivity(forecast, date)
+        //fillActivity(forecast, date)
     }
 
     private fun fillActivity(forecast: Forecast, date: Date) {

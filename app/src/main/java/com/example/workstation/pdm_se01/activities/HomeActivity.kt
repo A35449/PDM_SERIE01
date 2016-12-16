@@ -38,8 +38,8 @@ class HomeActivity : AppCompatActivity() {
                 var ps = String.format("\"name\":\"%s\",\"country\":\"%s\"", location[0], location[1].toUpperCase())
                 var contains = file_string?.contains(ps)
                 if (contains!!) {
-                    val myIntent = Intent(this, WeatherListActivity::class.java)
-                    myIntent.putExtra("locationString",extrainfo)
+                    val myIntent = Intent(this, WeatherByLocation::class.java)
+                    myIntent.putExtra("location",extrainfo)
                     this.startActivity(myIntent)
                     //
                 } else {
