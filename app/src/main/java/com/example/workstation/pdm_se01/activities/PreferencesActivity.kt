@@ -3,6 +3,7 @@ package com.example.workstation.pdm_se01.activities
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
@@ -13,6 +14,10 @@ import java.util.ArrayList
 import com.example.workstation.pdm_se01.adapter.FavLocationListAdapter
 import com.example.workstation.pdm_se01.model.LocationListModel.FavLocationModel
 
+import android.support.v4.app.FragmentActivity
+import android.util.Log
+
+
 class PreferencesActivity : AppCompatActivity() {
 
     private var addPref: Button? = null
@@ -20,6 +25,10 @@ class PreferencesActivity : AppCompatActivity() {
     private var lv: ListView? = null
     private var sharedPrefLocation: SharedPreferences? = null
     private var adapter:FavLocationListAdapter?=null
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_preferences)
@@ -48,6 +57,7 @@ class PreferencesActivity : AppCompatActivity() {
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT)
             input.layoutParams = lp
+            input.hint = "ex:London,GB"
             addAlert.setView(input)
 
 
@@ -79,7 +89,11 @@ class PreferencesActivity : AppCompatActivity() {
                                 favList.add(favLocationModel)
 
                             saveSharedpreferences(favList)
-                           adapter?.notifyDataSetChanged()
+                            if (adapter==null) {
+                                fillList(favList)
+                            }else
+                            adapter?.notifyDataSetChanged()
+
 
                             Toast.makeText(this@PreferencesActivity, "Preference Saved", Toast.LENGTH_SHORT).show()
 
@@ -108,64 +122,15 @@ class PreferencesActivity : AppCompatActivity() {
             adapter?.notifyDataSetChanged()
             Toast.makeText(this@PreferencesActivity, "Preference Saved", Toast.LENGTH_SHORT).show()
 
-          /*  val removeAlert = AlertDialog.Builder(this@PreferencesActivity)
-            removeAlert.setTitle("Remove Location")
-            removeAlert.setMessage("Enter Location")
-
-
-            val input = EditText(this@PreferencesActivity)
-            val lp = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.MATCH_PARENT)
-            input.layoutParams = lp
-            removeAlert.setView(input)
-
-
-
-            removeAlert.setPositiveButton("Remove",
-                    DialogInterface.OnClickListener { dialog, x ->
-                        val rawLocation = input.text.toString()
-                        val location = rawLocation.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
-
-                        if (location.size < 2) {
-                            Toast.makeText(this@PreferencesActivity, "Preference doesn't exist", Toast.LENGTH_SHORT).show()
-                            return@OnClickListener
-                        }
-                        val ps = java.lang.String.format("\"name\":\"%s\",\"country\":\"%s\"", location[0], location[1].toUpperCase())
-                        if (file_string!!.contains(ps)) {
-                            //validar localizaçao intruduzida
-
-                            for (i in favList.indices) {
-
-                                if (rawLocation == favList[i]) {
-                                    favList.removeAt(i)
-                                }
-
-                            }
-                            saveSharedpreferences(favList)
-                            fillList(sharedPrefs)
-
-                            Toast.makeText(this@PreferencesActivity, "Preference Saved", Toast.LENGTH_SHORT).show()
-
-
-                        } else {
-                            Toast.makeText(this@PreferencesActivity, "Preference doesn't exist", Toast.LENGTH_SHORT).show()
-                        }
-                    })
-
-
-            removeAlert.setNegativeButton("Cancel") { dialog, id -> dialog.cancel() }
-
-            val removeDialog = removeAlert.create()
-            removeDialog.show()*/
-
-
-
 
 
         })
 
     }
+
+
+
+
 
     private fun sharedPrefs(): MutableList<FavLocationModel> {
 

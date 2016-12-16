@@ -35,7 +35,7 @@ class SettingsActivity : AppCompatActivity() {
 
         sharedPrefLocation = getSharedPreferences("SettingsPrefs", Context.MODE_PRIVATE)
         applyButton = findViewById(R.id.applychanges) as Button
-        aboutUsButton=findViewById(R.id.aboutus)as Button
+        aboutUsButton=findViewById(R.id.aboutusbutton)as Button
         seekbar1 = findViewById(R.id.seekBar) as SeekBar
         tSwitch = findViewById(R.id.switch1) as Switch
         periocityButton = findViewById(R.id.periocity) as Button
