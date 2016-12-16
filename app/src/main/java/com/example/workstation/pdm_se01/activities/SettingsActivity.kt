@@ -1,6 +1,7 @@
 package com.example.workstation.pdm_se01.activities
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -34,7 +35,7 @@ class SettingsActivity : AppCompatActivity() {
 
         sharedPrefLocation = getSharedPreferences("SettingsPrefs", Context.MODE_PRIVATE)
         applyButton = findViewById(R.id.applychanges) as Button
-        //  aboutUsButton=findViewById(R.id.aboutus)as Button
+        aboutUsButton=findViewById(R.id.aboutus)as Button
         seekbar1 = findViewById(R.id.seekBar) as SeekBar
         tSwitch = findViewById(R.id.switch1) as Switch
         periocityButton = findViewById(R.id.periocity) as Button
@@ -104,6 +105,11 @@ class SettingsActivity : AppCompatActivity() {
             saveSharedpreferences()
             Toast.makeText(this@SettingsActivity, "Settings Saved", Toast.LENGTH_SHORT).show()
 
+        })
+
+        aboutUsButton?.setOnClickListener({
+            val myIntent = Intent(this, AboutActivity::class.java)
+            this.startActivity(myIntent)
         })
 
 
