@@ -9,8 +9,8 @@ import android.database.sqlite.SQLiteQueryBuilder
 import android.net.Uri
 import android.text.TextUtils
 import com.example.workstation.pdm_se01.provider.contract.AWAContract
-import com.example.workstation.pdm_se01.provider.contract.Forecast
-import com.example.workstation.pdm_se01.provider.contract.Weather
+import com.example.workstation.pdm_se01.provider.contract.ForecastContract
+import com.example.workstation.pdm_se01.provider.contract.WeatherContract
 
 /**
  * Created by workstation on 01/12/2016.
@@ -31,19 +31,19 @@ class AWAProvider : ContentProvider() {
 
         URI_MATCHER.addURI(
                 AWAContract.AUTHORITY,
-                Weather.RESOURCE,
+                WeatherContract.RESOURCE,
                 WEA_LIST)
         URI_MATCHER.addURI(
                 AWAContract.AUTHORITY,
-                Weather.RESOURCE + "/#",
+                WeatherContract.RESOURCE + "/#",
                 WEA_OBJ)
         URI_MATCHER.addURI(
                 AWAContract.AUTHORITY,
-                Forecast.RESOURCE,
+                ForecastContract.RESOURCE,
                 FORE_LIST)
         URI_MATCHER.addURI(
                 AWAContract.AUTHORITY,
-                Forecast.RESOURCE + "/#",
+                ForecastContract.RESOURCE + "/#",
                 FORE_OBJ)
     }
 
@@ -118,7 +118,7 @@ class AWAProvider : ContentProvider() {
             WEA_LIST -> {
             qbuilder.tables = DbSchema.Weather.TBL_NAME
             if (TextUtils.isEmpty(sortOrder)) {
-                sortOrder = Weather.DEFAULT_SORT_ORDER
+                sortOrder = WeatherContract.DEFAULT_SORT_ORDER
             }
         }
             WEA_OBJ -> {
@@ -128,7 +128,7 @@ class AWAProvider : ContentProvider() {
             FORE_LIST -> {
                 qbuilder.tables = DbSchema.Weather.TBL_NAME
                 if (TextUtils.isEmpty(sortOrder)) {
-                    sortOrder = Forecast.DEFAULT_SORT_ORDER
+                    sortOrder = ForecastContract.DEFAULT_SORT_ORDER
                 }
             }
             FORE_OBJ -> {
