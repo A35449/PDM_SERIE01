@@ -93,10 +93,8 @@ class SettingsActivity : AppCompatActivity() {
 
             addAlert.setPositiveButton("Add",
                     { dialog, x ->
-
-                        periocity = Integer.parseInt(input.text.toString())as Long
-
-
+                        periocity = input.text.toString().toLong()
+                        
                     })
 
             addAlert.setNegativeButton("Cancel") { dialog, id -> dialog.cancel() }
