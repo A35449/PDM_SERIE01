@@ -12,7 +12,7 @@ import com.example.workstation.pdm_se01.AWApplication
 import com.example.workstation.pdm_se01.alarmIntent
 import com.example.workstation.pdm_se01.alarmMgr
 import android.content.Intent
-
+import android.util.Log
 
 
 /**
@@ -30,8 +30,13 @@ class AWAReceiver : BroadcastReceiver() {
                 Toast.makeText(context, "Battery :  " +batteryPct, Toast.LENGTH_SHORT).show()
                 val shared=context?.getSharedPreferences("alarmSet",MODE_PRIVATE)
                 val alarmSet = shared?.getBoolean("alarmSet",true) as Boolean
+                val settingsPreferences=context?.getSharedPreferences("SettingsPrefs",MODE_PRIVATE)
 
-                if(batteryPct<0.5 && alarmSet){
+                val periodicityMin = settingsPreferences?.getInt("periodicity",120) as Long
+                val batteryPercentageSetting = settingsPreferences?.getInt("batteryLimit",20)?.div(100) as Float
+                Log.d("batPercentageSetting",batteryPercentageSetting.toString())
+
+                if(batteryPct<batteryPercentageSetting && alarmSet){
                     val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
                     val cancelPIntent : PendingIntent
                     val intentCancel = Intent(context, AWAReceiver::class.java)
@@ -45,10 +50,10 @@ class AWAReceiver : BroadcastReceiver() {
                     editor?.commit()
 
                 }
-                else if (batteryPct>=0.5 && !alarmSet){
+                else if (batteryPct>=batteryPercentageSetting && !alarmSet){
                     alarmMgr?.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                             SystemClock.elapsedRealtime(),
-                            6000, alarmIntent)
+                            1000*60*periodicityMin, alarmIntent)
 
                     val shared= context?.getSharedPreferences("alarmSet", Context.MODE_PRIVATE)
                     val editor= shared?.edit()

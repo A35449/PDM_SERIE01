@@ -29,9 +29,15 @@ class AWApplication : Application() {
         alarmMgr = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, AWAReceiver::class.java)
         alarmIntent = PendingIntent.getBroadcast(this, 0, intent,0)
+
+
+        val settingsPreferences=this.getSharedPreferences("SettingsPrefs", Context.MODE_PRIVATE)
+
+        val periodicityMin = settingsPreferences?.getInt("periodicity",120) as Long
+
         alarmMgr!!.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 SystemClock.elapsedRealtime(),
-                6000, alarmIntent)
+                1000*60*periodicityMin, alarmIntent)
 
         val shared=this.getSharedPreferences("alarmSet", Context.MODE_PRIVATE)
         val editor=shared.edit()
