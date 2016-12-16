@@ -23,5 +23,10 @@ Teacher: João Trindade</string>
     <string name="local_service_started">Service Started</string>
     <string name="local_service_stopped">Service Stopped</string>
     <string name="local_service_label">Syncing Service</string>
+    <string name="title_activity_weather_by_location">WeatherByLocation</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="Today">Today</string>
+    <string name="Tomorrow">Tomorrow</string>
 
 </resources>

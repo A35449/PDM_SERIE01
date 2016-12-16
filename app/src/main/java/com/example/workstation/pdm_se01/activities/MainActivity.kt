@@ -13,23 +13,15 @@ import android.view.View
 import android.widget.*
 
 import com.android.volley.Response
-import com.android.volley.VolleyError
 import com.example.workstation.pdm_se01.network.API
-//import com.example.workstation.pdm_se01.AWA.AWA
 import com.example.workstation.pdm_se01.model.Forecast.Forecast
 import com.example.workstation.pdm_se01.R
-import com.example.workstation.pdm_se01.provider.AWAContract
-import com.example.workstation.pdm_se01.provider.DbSchema
 import com.example.workstation.pdm_se01.utils.Converter
 import com.example.workstation.pdm_se01.adapter.ForecastAdapter
-import com.example.workstation.pdm_se01.utils.Utils
-import com.example.workstation.pdm_se01.activities.AboutActivity
-import com.example.workstation.pdm_se01.components.broadcast.AWAReceiver
 
 import org.apache.commons.io.IOUtils
 
 import java.io.IOException
-import java.io.InputStream
 
 class MainActivity : AppCompatActivity() {
 

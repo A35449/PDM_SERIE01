@@ -1,0 +1,52 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.workstation.pdm_se01.activities.WeatherByLocation$PlaceholderFragment">
+
+    <ImageView
+        android:layout_gravity="center"
+        android:layout_width="189dp"
+        android:layout_height="143dp"
+        android:id="@+id/weatherImage"/>
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+        <TableRow>
+            <TextView android:text="@string/min_temperature" />
+            <TextView
+                android:id="@+id/minTemperatureWeather"
+                android:gravity="end" />
+        </TableRow>
+        <TableRow>
+            <TextView android:text="@string/max_temperature" />
+            <TextView
+                android:id="@+id/maxTemperatureWeather"
+                android:gravity="end" />
+        </TableRow>
+        <TableRow>
+            <TextView android:text="@string/wind" />
+            <TextView
+                android:id="@+id/windSpeedWeather"
+                android:gravity="end" />
+        </TableRow>
+        <TableRow>
+            <TextView android:text="@string/pressure" />
+            <TextView
+                android:id="@+id/pressure"
+                android:gravity="end" />
+        </TableRow>
+        <TableRow>
+            <TextView android:text="@string/humidity" />
+            <TextView
+                android:id="@+id/humidity"
+                android:gravity="end" />
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>

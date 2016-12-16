@@ -24,7 +24,6 @@ import java.util.Calendar
 import java.util.Date
 
 class ForecastAdapter(internal var context:
-
                       Context, internal var layoutResId: Int, data: List<Forecast>) : ArrayAdapter<Forecast>(context, layoutResId, data) {
     internal var data: List<Forecast>? = null
 

@@ -17,10 +17,11 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
         <service
             android:name=".components.broadcast.UpdateService"
-            android:label="My Service" >
-        </service>
+            android:label="My Service"></service>
+
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -69,6 +70,10 @@
             android:name=".activities.WeatherListActivity"
             android:label="@string/title_activity_weather_list"
             android:parentActivityName=".activities.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.WeatherByLocation"
+            android:label="@string/title_activity_weather_by_location"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
