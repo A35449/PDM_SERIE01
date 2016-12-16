@@ -1,6 +1,10 @@
 package com.example.workstation.pdm_se01.activities
 
+import android.app.LoaderManager
+import android.content.CursorLoader
+import android.content.Loader
 import android.content.res.Configuration
+import android.database.Cursor
 import android.support.design.widget.TabLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
@@ -21,10 +25,33 @@ import android.view.ViewGroup
 import android.widget.TextView
 
 import com.example.workstation.pdm_se01.R
+import com.example.workstation.pdm_se01.model.Forecast.Forecast
+import com.example.workstation.pdm_se01.model.Forecast.Wrapper
+import com.example.workstation.pdm_se01.provider.contract.ForecastContract
+import com.example.workstation.pdm_se01.utils.Converter
 import java.text.SimpleDateFormat
 import java.util.*
 
-class WeatherByLocation : AppCompatActivity() {
+class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor> {
+
+    override fun onLoadFinished(loader: Loader<Cursor>?, data: Cursor?) {
+        if(data != null){
+            data.moveToNext()
+            val wrapper_forecast = Converter.convertToForecast(data.getString(data.getColumnIndex(ForecastContract.DATA)))
+
+        }
+    }
+
+    override fun onLoaderReset(loader: Loader<Cursor>?) {
+        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
+        val uri = ForecastContract.CONTENT_URI
+        val parsed = intent.getStringExtra("location").split(",")
+        val cursor = CursorLoader(this,uri,null,"city = ? AND country = ?",parsed.toTypedArray(),ForecastContract.DEFAULT_SORT_ORDER)
+        return cursor
+    }
 
     /**
      * The [android.support.v4.view.PagerAdapter] that will provide

@@ -18,6 +18,10 @@ import com.example.workstation.pdm_se01.model.Forecast.Forecast
 import com.example.workstation.pdm_se01.R
 import com.example.workstation.pdm_se01.utils.Converter
 import com.example.workstation.pdm_se01.adapter.ForecastAdapter
+import com.example.workstation.pdm_se01.network.Syncronizer
+import com.example.workstation.pdm_se01.network.api.API_Weather
+import com.example.workstation.pdm_se01.provider.contract.WeatherContract
+import com.example.workstation.pdm_se01.utils.QueryRegist
 
 import org.apache.commons.io.IOUtils
 
@@ -34,6 +38,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+/*        val sync = Syncronizer(this,API_Weather(this))
+        val reg = QueryRegist("London","GB")
+        var selection = "country = ? AND city = ?"
+        val selectionArgs = arrayOf(reg.country, reg.city)
+        val cursor = contentResolver.query(WeatherContract.getAll(), null, selection, selectionArgs, null)
+        val ret = cursor.moveToFirst();*/
+
         initializeInputData()
         val myIntent = Intent(this, HomeActivity::class.java)
                 this.startActivity(myIntent)

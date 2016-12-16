@@ -39,7 +39,6 @@ class Syncronizer(val context: Context, _api : API){
 
     internal class SyncHandler(ctx: Context,  _contract : AWAContract, _reg: QueryRegist , favorite: Boolean = false){
 
-        val hasRecord : Boolean
         val cr : ContentResolver
         val reg : QueryRegist
         val isFav : Boolean
@@ -48,7 +47,6 @@ class Syncronizer(val context: Context, _api : API){
         init {
             cr = ctx.contentResolver
             reg = _reg
-            hasRecord = hasRecord()
             isFav = favorite
             contract = _contract
         }
@@ -74,6 +72,7 @@ class Syncronizer(val context: Context, _api : API){
             else insertNewRecord(response)
             //lança activity
             val locationIntent = Intent(ctx,WeatherByLocation::class.java)
+            locationIntent.putExtra("location",reg.city+ "," + reg.country)
             locationIntent.addFlags(FLAG_ACTIVITY_NEW_TASK)
             ctx.startActivity(locationIntent)
         }
