@@ -7,7 +7,7 @@ import android.provider.BaseColumns
 /**
  * Created by workstation on 08/12/2016.
  */
-abstract class AWAContract {
+abstract class AWAContract : BaseColumns {
 
     companion object{
         val AUTHORITY = "com.example.workstation.pdm_se01"

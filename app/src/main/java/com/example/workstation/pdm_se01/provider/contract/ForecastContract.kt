@@ -7,7 +7,7 @@ import android.provider.BaseColumns
  * Created by workstation on 16/12/2016.
  */
 
-object Forecast : AWAContract(){
+object ForecastContract : AWAContract(){
     val RESOURCE = "forecast"
 
     init{

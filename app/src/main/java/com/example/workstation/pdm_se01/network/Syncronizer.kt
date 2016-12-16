@@ -25,7 +25,7 @@ import com.example.workstation.pdm_se01.provider.contract.AWAContract
 import com.example.workstation.pdm_se01.provider.DbSchema
 import java.util.*
 
-class Syncronizer(val context: Context, val contentProvider: ContentResolver, _contract:AWAContract, _api : API){
+class Syncronizer(val context: Context, _api : API){
 
     val api : API
     val ctx : Context
@@ -33,10 +33,10 @@ class Syncronizer(val context: Context, val contentProvider: ContentResolver, _c
     init{
         api = _api
         ctx = context
-        contract = _contract
+        contract = _api.contract!!
     }
 
-    class SyncHandler(content: ContentResolver, ctx: Context,  _reg: QueryRegist, _contract : AWAContract, favorite: Boolean = false){
+    internal class SyncHandler(ctx: Context,  _contract : AWAContract, _reg: QueryRegist , favorite: Boolean = false){
 
         val hasRecord : Boolean
         val cr : ContentResolver
@@ -45,35 +45,29 @@ class Syncronizer(val context: Context, val contentProvider: ContentResolver, _c
         val contract : AWAContract
 
         init {
-            cr = content
+            cr = ctx.contentResolver
             reg = _reg
             hasRecord = hasRecord()
             isFav = favorite
             contract = _contract
         }
 
-        fun hasRecord() : Boolean {
-            var selection = "country = ? AND city = ?"
-            val selectionArgs = arrayOf(reg.country, reg.city)
-            val cursor = cr.query(contract.getAll(), null, selection, selectionArgs, null)
-            return cursor.moveToFirst();
-        }
-
-        public val errHandler = Response.ErrorListener(){
+        /*Handlers*/
+        val errHandler = Response.ErrorListener(){
             error ->
             Toast.makeText(ctx,"Network request failed to complete.", Toast.LENGTH_SHORT).show()
         }
 
-        public var syncHandler = Response.Listener<String>(){
+        val syncHandler = Response.Listener<String>(){
             response ->
-                if(hasRecord()) updateRecord(response)
-                else insertNewRecord(response)
+            if(hasRecord()) updateRecord(response)
+            else insertNewRecord(response)
             //lança activity
             val locationIntent = Intent(ctx,WeatherActivity::class.java)
             ctx.startActivity(locationIntent)
         }
 
-        public var syncToActivityHandler = Response.Listener<String>(){
+        val syncToActivityHandler = Response.Listener<String>(){
             response ->
             if(hasRecord()) updateRecord(response)
             else insertNewRecord(response)
@@ -81,6 +75,14 @@ class Syncronizer(val context: Context, val contentProvider: ContentResolver, _c
             val locationIntent = Intent(ctx,WeatherActivity::class.java)
             locationIntent.addFlags(FLAG_ACTIVITY_NEW_TASK)
             ctx.startActivity(locationIntent)
+        }
+
+        /*Functions*/
+        fun hasRecord() : Boolean {
+            var selection = "country = ? AND city = ?"
+            val selectionArgs = arrayOf(reg.country, reg.city)
+            val cursor = cr.query(contract.getAll(), null, selection, selectionArgs, null)
+            return cursor.moveToFirst();
         }
 
         fun insertNewRecord(record:String){
@@ -111,12 +113,12 @@ class Syncronizer(val context: Context, val contentProvider: ContentResolver, _c
     }
 
     public fun syncronizeSingle(reg : QueryRegist){
-        val sync = SyncHandler(contentProvider,context,reg,contract)
+        val sync = SyncHandler(context,contract,reg)
         api!!.get(reg,sync.syncHandler,sync.errHandler)
     }
 
     public fun syncronizeSearch(reg:QueryRegist){
-        val sync = SyncHandler(contentProvider,context,reg,contract)
+        val sync = SyncHandler(context,contract,reg)
         api!!.get(reg,sync.syncToActivityHandler,sync.errHandler)
     }
 

@@ -8,6 +8,7 @@ import com.android.volley.toolbox.NetworkImageView
 import com.android.volley.toolbox.StringRequest
 import com.example.workstation.pdm_se01.network.SingletonRequest
 import com.example.workstation.pdm_se01.network.api.API
+import com.example.workstation.pdm_se01.provider.contract.ForecastContract
 import com.example.workstation.pdm_se01.utils.QueryRegist
 import java.util.*
 
@@ -18,6 +19,10 @@ import java.util.*
 class API_Forecast(context: Context) : API(context) {
 
     private val FORE_URL = "/data/2.5/forecast/daily"
+
+    init{
+        contract = ForecastContract
+    }
 
     companion object {
         private val loader: ImageLoader? = null

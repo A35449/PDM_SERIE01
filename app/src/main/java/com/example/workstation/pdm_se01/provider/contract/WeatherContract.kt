@@ -6,7 +6,7 @@ import android.provider.BaseColumns
 /**
  * Created by workstation on 16/12/2016.
  */
-object Weather : BaseColumns, AWAContract() {
+object WeatherContract : AWAContract() {
 
     val RESOURCE = "weather"
 
