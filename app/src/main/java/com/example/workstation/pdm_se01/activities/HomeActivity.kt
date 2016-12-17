@@ -60,14 +60,14 @@ class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor>{
 
 
     override fun onLoaderReset(loader: Loader<Cursor>?) {
-        //throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val d = 1//throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
         val uri = ForecastContract.CONTENT_URI
 
 
-        val cursor = CursorLoader(this, uri, null, ForecastContract.FAV + " = ?",arrayOf("1"), ForecastContract.DEFAULT_SORT_ORDER)
+        val cursor = CursorLoader(this, uri, null, "fav=?",arrayOf("1"), ForecastContract.DEFAULT_SORT_ORDER)
         return cursor
     }
     override fun onLoadFinished(loader: Loader<Cursor>?, data: Cursor?) {

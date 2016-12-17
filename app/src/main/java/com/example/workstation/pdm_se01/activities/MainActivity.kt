@@ -20,6 +20,7 @@ import com.example.workstation.pdm_se01.utils.Converter
 import com.example.workstation.pdm_se01.adapter.ForecastAdapter
 import com.example.workstation.pdm_se01.network.Syncronizer
 import com.example.workstation.pdm_se01.network.api.API_Weather
+import com.example.workstation.pdm_se01.provider.contract.ForecastContract
 import com.example.workstation.pdm_se01.provider.contract.WeatherContract
 import com.example.workstation.pdm_se01.utils.QueryRegist
 
@@ -39,15 +40,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-/*        val reg = QueryRegist("London","GB")
+       val reg = QueryRegist("Madrid","ES")
         var selection = "country = ? AND city = ?"
 
-        val sync = Syncronizer(this,API_Weather(this))
-        sync.syncronizeSingle(reg)
+        //val sync = Syncronizer(this,API_Weather(this))
+        //sync.syncronizeSingle(reg)
 
         val selectionArgs = arrayOf(reg.country, reg.city)
-        val cursor = contentResolver.query(WeatherContract.getAll(), null, selection, selectionArgs, null)
-        val ret = cursor.moveToFirst();*/
+        val cursor = contentResolver.query(ForecastContract.getAll(), null, selection, selectionArgs, null)
+        var fav = "na"
+        if(cursor.moveToFirst()){
+            val idx = cursor.getColumnIndex(ForecastContract.FAV)
+            fav = cursor.getString(idx)
+            val d = 1
+        }
+
 
         initializeInputData()
         val myIntent = Intent(this, HomeActivity::class.java)
