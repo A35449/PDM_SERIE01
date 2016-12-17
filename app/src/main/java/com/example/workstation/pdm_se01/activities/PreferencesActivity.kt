@@ -1,6 +1,7 @@
 package com.example.workstation.pdm_se01.activities
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -16,6 +17,8 @@ import com.example.workstation.pdm_se01.model.LocationListModel.FavLocationModel
 
 import android.support.v4.app.FragmentActivity
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import com.example.workstation.pdm_se01.network.Syncronizer
 import com.example.workstation.pdm_se01.network.api.API_Forecast
 import com.example.workstation.pdm_se01.utils.QueryRegist
@@ -30,7 +33,26 @@ class PreferencesActivity : AppCompatActivity() {
     private var adapter:FavLocationListAdapter?=null
 
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu_weather_by_location, menu)
+        return true
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        val id = item.itemId
+
+        if (id == R.id.action_settings) {
+            val myIntent = Intent(this, SettingsActivity::class.java)
+            this.startActivity(myIntent)
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

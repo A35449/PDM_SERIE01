@@ -15,6 +15,7 @@
         android:id="@+id/weatherImage"/>
 
     <TableLayout
+        android:layout_below="@id/weatherImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
@@ -22,7 +23,8 @@
             <TextView android:text="@string/min_temperature" />
             <TextView
                 android:id="@+id/minTemperatureWeather"
-                android:gravity="end" />
+                android:gravity="end"
+                />
         </TableRow>
         <TableRow>
             <TextView android:text="@string/max_temperature" />
