@@ -16,6 +16,10 @@ object WeatherContract : AWAContract() {
                 RESOURCE)
     }
     /* Columns */
+    val DATA = "data"
+    val COUNTRY = "country"
+    val CITY = "city"
+    val FAV = "fav"
 
     /* Projections */
     val SELECT_ALL = arrayOf(BaseColumns._ID, DATA)
@@ -30,4 +34,21 @@ object WeatherContract : AWAContract() {
     override fun getById(country: String, city: String): Uri {
         return Uri.withAppendedPath(CONTENT_URI,country + "_" + city)
     }
+
+    override fun getData(): String {
+        return DATA
+    }
+
+    override fun getFav(): String {
+        return FAV
+    }
+
+    override fun getCountry(): String {
+        return COUNTRY
+    }
+
+    override fun getCity(): String {
+        return CITY
+    }
+
 }

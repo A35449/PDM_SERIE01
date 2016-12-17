@@ -30,8 +30,8 @@ object DbSchema {
                 COL_ID + " INTEGER PRIMARY KEY, " +
                 COL_DATA + " TEXT," +
                 COL_CITY + " TEXT," +
-                COL_COUNTRY + " TEXT" +
-                COL_FAV + " BIT DEFAULT 0" +
+                COL_COUNTRY + " TEXT," +
+                COL_FAV + " INTEGER" +
             ")"
 
         val DDL_DROP_TABLE = "DROP TABLE IF EXISTS " + TBL_NAME
@@ -53,8 +53,8 @@ object DbSchema {
                         COL_ID + " INTEGER PRIMARY KEY, " +
                         COL_DATA + " TEXT," +
                         COL_CITY + " TEXT," +
-                        COL_COUNTRY + " TEXT" +
-                        COL_FAV + " BIT DEFAULT 0" +
+                        COL_COUNTRY + " TEXT," +
+                        COL_FAV + " INTEGER" +
                         ")"
 
         val DDL_DROP_TABLE = "DROP TABLE IF EXISTS " + TBL_NAME

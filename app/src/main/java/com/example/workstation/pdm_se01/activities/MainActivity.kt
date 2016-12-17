@@ -38,9 +38,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-/*        val sync = Syncronizer(this,API_Weather(this))
-        val reg = QueryRegist("London","GB")
+
+/*        val reg = QueryRegist("London","GB")
         var selection = "country = ? AND city = ?"
+
+        val sync = Syncronizer(this,API_Weather(this))
+        sync.syncronizeSingle(reg)
+
         val selectionArgs = arrayOf(reg.country, reg.city)
         val cursor = contentResolver.query(WeatherContract.getAll(), null, selection, selectionArgs, null)
         val ret = cursor.moveToFirst();*/

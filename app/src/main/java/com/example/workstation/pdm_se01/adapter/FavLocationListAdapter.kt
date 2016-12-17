@@ -16,6 +16,7 @@ import com.example.workstation.pdm_se01.R
 import com.example.workstation.pdm_se01.activities.WeatherByLocation
 import com.example.workstation.pdm_se01.network.Syncronizer
 import com.example.workstation.pdm_se01.network.api.API_Forecast
+import com.example.workstation.pdm_se01.network.api.API_Weather
 import com.example.workstation.pdm_se01.utils.QueryRegist
 
 /**
@@ -41,16 +42,12 @@ class FavLocationListAdapter(context: Context, resId: Int, resource: List<FavLoc
         val myIntent = Intent(context, WeatherByLocation::class.java)
 
         convertView.setOnClickListener(View.OnClickListener {
-
             val sync = Syncronizer(context.applicationContext,API_Forecast(context.applicationContext))
             val parsedlocation = modelItems!![position].location.split(",")
             val query = QueryRegist(parsedlocation[0],parsedlocation[1])
             sync.syncronizeSearch(query)
-
-            /*
-                myIntent.putExtra("location", modelItems!![position].location)
-                context.startActivity(myIntent)*/
         })
+
         if (modelItems!![position].check == 1)
             cb.isChecked = true
         else

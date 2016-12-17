@@ -116,23 +116,23 @@ class AWAProvider : ContentProvider() {
 
         when (URI_MATCHER.match(uri)) {
             WEA_LIST -> {
-            qbuilder.tables = DbSchema.Weather.TBL_NAME
-            if (TextUtils.isEmpty(sortOrder)) {
-                sortOrder = WeatherContract.DEFAULT_SORT_ORDER
+                qbuilder.tables = DbSchema.Weather.TBL_NAME
+                if (TextUtils.isEmpty(sortOrder)) {
+                    sortOrder = WeatherContract.DEFAULT_SORT_ORDER
+                }
             }
-        }
             WEA_OBJ -> {
                 qbuilder.tables = DbSchema.Weather.TBL_NAME
                 qbuilder.appendWhere(DbSchema.COL_ID + "=" + uri.lastPathSegment)
             }
             FORE_LIST -> {
-                qbuilder.tables = DbSchema.Weather.TBL_NAME
+                qbuilder.tables = DbSchema.Forecast.TBL_NAME
                 if (TextUtils.isEmpty(sortOrder)) {
                     sortOrder = ForecastContract.DEFAULT_SORT_ORDER
                 }
             }
             FORE_OBJ -> {
-                qbuilder.tables = DbSchema.Weather.TBL_NAME
+                qbuilder.tables = DbSchema.Forecast.TBL_NAME
                 qbuilder.appendWhere(DbSchema.COL_ID + "=" + uri.lastPathSegment)
             }
             else -> badUri(uri)

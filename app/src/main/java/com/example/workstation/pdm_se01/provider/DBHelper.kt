@@ -22,7 +22,8 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DbSchema.DB_NAME, 
     private fun createDb(db: SQLiteDatabase?) {
 
         db!!.execSQL(DbSchema.Weather.DDL_CREATE_TABLE)
-/*        val cmd = "INSERT INTO " + DbSchema.Weather.TBL_NAME + " VALUES (" +
+        db!!.execSQL(DbSchema.Forecast.DDL_CREATE_TABLE)
+/*      val cmd = "INSERT INTO " + DbSchema.Weather.TBL_NAME + " VALUES (" +
                 1 + "," + "'Data_query1'" +
                 ");"
         db.execSQL(cmd)*/
@@ -30,5 +31,6 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DbSchema.DB_NAME, 
 
     private fun deleteDb(db: SQLiteDatabase?) {
         db!!.execSQL(DbSchema.Weather.DDL_DROP_TABLE)
+        db!!.execSQL(DbSchema.Forecast.DDL_DROP_TABLE)
     }
 }

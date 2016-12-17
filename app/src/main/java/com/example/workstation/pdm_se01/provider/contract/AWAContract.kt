@@ -14,11 +14,10 @@ abstract class AWAContract : BaseColumns {
     }
     var CONTENT_URI = Uri.parse("content://" + AUTHORITY)
 
-    val DATA = "data"
-    val COUNTRY = "country"
-    val CITY = "city"
-    val FAV = "fav"
-
     abstract fun getAll(): Uri
     abstract fun getById(country: String, city: String): Uri
+    abstract fun getData() : String
+    abstract fun getFav() : String
+    abstract fun getCountry() : String
+    abstract fun getCity() : String
 }

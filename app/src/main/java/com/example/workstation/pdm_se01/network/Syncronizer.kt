@@ -37,11 +37,11 @@ class Syncronizer(val context: Context, _api : API){
         contract = _api.contract!!
     }
 
-    internal class SyncHandler(ctx: Context,  _contract : AWAContract, _reg: QueryRegist , favorite: Boolean = false){
+    internal class SyncHandler(ctx: Context,  _contract : AWAContract, _reg: QueryRegist , favorite: Int = 0){
 
         val cr : ContentResolver
         val reg : QueryRegist
-        val isFav : Boolean
+        val isFav : Int
         val contract : AWAContract
 
         init {
@@ -59,17 +59,18 @@ class Syncronizer(val context: Context, _api : API){
 
         val syncHandler = Response.Listener<String>(){
             response ->
-            if(hasRecord()) updateRecord(response)
-            else insertNewRecord(response)
-            //lança activity
-            val locationIntent = Intent(ctx,WeatherByLocation::class.java)
-            ctx.startActivity(locationIntent)
+            if(hasRecord())
+                updateRecord(response)
+            else
+                insertNewRecord(response)
         }
 
         val syncToActivityHandler = Response.Listener<String>(){
             response ->
-            if(hasRecord()) updateRecord(response)
-            else insertNewRecord(response)
+            if(hasRecord())
+                updateRecord(response)
+            else
+                insertNewRecord(response)
             //lança activity
             val locationIntent = Intent(ctx,WeatherByLocation::class.java)
             locationIntent.putExtra("location",reg.city+ "," + reg.country)
@@ -87,17 +88,17 @@ class Syncronizer(val context: Context, _api : API){
 
         fun insertNewRecord(record:String){
             val cv = ContentValues()
-            cv.put(contract.DATA,record)
-            cv.put(contract.COUNTRY,reg.country)
-            cv.put(contract.CITY,reg.city)
-            cv.put(contract.FAV,isFav)
+            cv.put(contract.getData(),record)
+            cv.put(contract.getFav(),isFav)
+            cv.put(contract.getCity(),reg.city)
+            cv.put(contract.getCountry(),reg.country)
             cr.insert(contract.CONTENT_URI,cv)
         }
 
         fun updateRecord(record:String){
             val cv = ContentValues()
-            cv.put(contract.DATA,record)
-            cv.put(contract.FAV,isFav)
+            cv.put(contract.getData(),record)
+            cv.put(contract.getFav(),isFav)
             cr.update(contract.CONTENT_URI,cv,"country=? AND city=?" , arrayOf(reg.country,reg.city))
         }
     }

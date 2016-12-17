@@ -8,6 +8,7 @@ import android.provider.BaseColumns
  */
 
 object ForecastContract : AWAContract(){
+
     val RESOURCE = "forecast"
 
     init{
@@ -15,6 +16,11 @@ object ForecastContract : AWAContract(){
                 super.CONTENT_URI,
                 RESOURCE)
     }
+    /*Colums */
+    val DATA = "data"
+    val COUNTRY = "country"
+    val CITY = "city"
+    val FAV = "fav"
 
     /* Projections */
     val SELECT_ALL = arrayOf(BaseColumns._ID, DATA)
@@ -29,4 +35,21 @@ object ForecastContract : AWAContract(){
     override fun getById(country: String, city: String): Uri {
         return Uri.withAppendedPath(CONTENT_URI,country + "_" + city)
     }
+
+    override fun getData(): String {
+        return DATA
+    }
+
+    override fun getFav(): String {
+        return FAV
+    }
+
+    override fun getCountry(): String {
+        return COUNTRY
+    }
+
+    override fun getCity(): String {
+        return CITY
+    }
+
 }

@@ -6,7 +6,8 @@ import android.content.Loader
 import android.content.res.Configuration
 import android.database.Cursor
 import android.support.design.widget.TabLayout
-
+import android.support.design.widget.FloatingActionButton
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 
@@ -20,35 +21,44 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+
 import android.widget.TextView
 
-
 import com.example.workstation.pdm_se01.R
+import com.example.workstation.pdm_se01.model.Forecast.Forecast
 import com.example.workstation.pdm_se01.model.Forecast.Wrapper
 import com.example.workstation.pdm_se01.provider.contract.ForecastContract
 import com.example.workstation.pdm_se01.utils.Converter
-
-
 import java.text.SimpleDateFormat
 import java.util.*
 
-
-
 class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor> {
-    companion object {
 
-        var LOADER_ID=1
-
+    companion object{
+        val LOADER_ID = 1
     }
+
+    fun initFragment(data : Wrapper?){
+        // Create the adapter that will return a fragment for each of the three
+        // primary sections of the activity.
+        mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager,data)
+
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = findViewById(R.id.container) as ViewPager
+        mViewPager!!.adapter = mSectionsPagerAdapter
+
+        val tabLayout = findViewById(R.id.tabs) as TabLayout
+        tabLayout.setupWithViewPager(mViewPager)
+    }
+
     override fun onLoadFinished(loader: Loader<Cursor>?, data: Cursor?) {
-                mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
+        var wrapper_forecast : Wrapper ?= null
+        if(data != null){
+            if(data.moveToNext())
+                wrapper_forecast = Converter.convertToForecast(data.getString(data.getColumnIndex(ForecastContract.DATA)))
+        }
 
-                // Set up the ViewPager with the sections adapter.
-                mViewPager = findViewById(R.id.container) as ViewPager
-                mViewPager!!.adapter = mSectionsPagerAdapter
-
-                val tabLayout = findViewById(R.id.tabs) as TabLayout
-                tabLayout.setupWithViewPager(mViewPager)
+        initFragment(wrapper_forecast)
     }
 
     override fun onLoaderReset(loader: Loader<Cursor>?) {
@@ -78,11 +88,10 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
     private var mViewPager: ViewPager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_weather_by_location)
-
-        loaderManager.initLoader(LOADER_ID,savedInstanceState,this)
-
+        loaderManager.initLoader(LOADER_ID,null,this)
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -90,17 +99,6 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
         val i = intent
         val location = i.getSerializableExtra("location") as String
         supportActionBar!!.title=location
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        /*mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = findViewById(R.id.container) as ViewPager
-        mViewPager!!.adapter = mSectionsPagerAdapter
-
-        val tabLayout = findViewById(R.id.tabs) as TabLayout
-        tabLayout.setupWithViewPager(mViewPager)*/
-
     }
 
 
@@ -115,7 +113,6 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         val id = item.itemId
-
 
         if (id == R.id.action_settings) {
             return true
@@ -132,9 +129,11 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
         override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? {
             val rootView = inflater!!.inflate(R.layout.fragment_weather_by_location, container, false)
-            val minTemperatureView = rootView.findViewById(R.id.minTemperatureWeather) as TextView
-            minTemperatureView.text = arguments["minTemperature"].toString()
-
+            val arg = arguments
+            if(arguments != null && rootView != null){
+                val minTemp = rootView.findViewById(R.id.minTemperatureWeather) as TextView
+                minTemp.text = arg.getDouble("minTemp").toString()
+            }
             return rootView
         }
 
@@ -149,17 +148,18 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
              * Returns a new instance of this fragment for the given section
              * number.
              */
-            fun newInstance(sectionNumber: Int): PlaceholderFragment {
+            fun newInstance(sectionNumber: Int, forecast : Forecast?): PlaceholderFragment {
                 val fragment = PlaceholderFragment()
                 val args = Bundle()
-                //val wrapper =  WeatherByLocation.getForecastWrapper()
-                val mintemperature = 1//wrapper?.list?.get(sectionNumber)?.temp.toString()
-
-                //wrapper?.list?.get(sectionNumber)?.temp
                 args.putInt(ARG_SECTION_NUMBER, sectionNumber)
-                args.putInt("minTemperature", sectionNumber)
+                if(forecast!= null)
+                    loadArguments(args,forecast)
                 fragment.arguments = args
                 return fragment
+            }
+
+            private fun loadArguments(args : Bundle, data:Forecast){
+                args.putDouble("minTemp",data.temp.min)
             }
         }
     }
@@ -168,16 +168,25 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
      * A [FragmentPagerAdapter] that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    inner class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+    inner class SectionsPagerAdapter(fm: FragmentManager, _data : Wrapper?) : FragmentPagerAdapter(fm) {
+        val data : Wrapper?
+        init {
+            data = _data
+        }
 
         override fun getItem(position: Int): Fragment {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position)
+            val forecast : Forecast?
+            if(data!= null){
+                forecast = data.list[position]
+            }
+            else throw Exception()
+
+            return PlaceholderFragment.newInstance(position + 1,forecast)
         }
 
         override fun getCount(): Int {
-            // Show 3 total pages.
             return 7
         }
 
