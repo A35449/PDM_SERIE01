@@ -16,6 +16,9 @@ import com.example.workstation.pdm_se01.model.LocationListModel.FavLocationModel
 
 import android.support.v4.app.FragmentActivity
 import android.util.Log
+import com.example.workstation.pdm_se01.network.Syncronizer
+import com.example.workstation.pdm_se01.network.api.API_Forecast
+import com.example.workstation.pdm_se01.utils.QueryRegist
 
 
 class PreferencesActivity : AppCompatActivity() {
@@ -114,10 +117,19 @@ class PreferencesActivity : AppCompatActivity() {
 
 
         removePref!!.setOnClickListener(View.OnClickListener {
-
+            val synchronizer =Syncronizer(applicationContext,API_Forecast(applicationContext) )
             favList
                     .filter { it.check==1 }
-                    .forEach { favList.remove(it) }
+                    .forEach {
+
+                        var parsed= it.location.split(",")
+                        synchronizer.syncronizeSingle(QueryRegist(parsed[0],parsed[1],0))
+                        favList.remove(it)
+
+
+
+
+                    }
             saveSharedpreferences(favList)
             adapter?.notifyDataSetChanged()
             Toast.makeText(this@PreferencesActivity, "Preference Saved", Toast.LENGTH_SHORT).show()
@@ -150,11 +162,15 @@ class PreferencesActivity : AppCompatActivity() {
 
 
     private fun saveSharedpreferences(prefsList: List<FavLocationModel>) {
+        val synchronizer =Syncronizer(applicationContext,API_Forecast(applicationContext) )
+
 
         var locations = ""
         for (i in prefsList.indices) {
-            locations += prefsList.get(i).location + "/"
-
+            var location = prefsList.get(i).location
+            locations += location + "/"
+            var parsed =location.split(",")
+            synchronizer.syncronizeSingle(QueryRegist(parsed[0],parsed[1],1)) //marked favorite
         }
 
 

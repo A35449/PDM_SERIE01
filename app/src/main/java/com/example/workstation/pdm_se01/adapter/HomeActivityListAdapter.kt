@@ -11,7 +11,8 @@ import android.widget.TextView
 import com.example.workstation.pdm_se01.R
 import com.example.workstation.pdm_se01.activities.WeatherByLocation
 import com.example.workstation.pdm_se01.model.Forecast.Forecast
-import com.example.workstation.pdm_se01.model.HomeActivityWeather.HomeActivityWeatherModel
+import com.example.workstation.pdm_se01.model.Forecast.Wrapper
+
 import com.example.workstation.pdm_se01.network.Syncronizer
 import com.example.workstation.pdm_se01.network.api.API_Forecast
 import com.example.workstation.pdm_se01.utils.QueryRegist
@@ -21,8 +22,8 @@ import com.squareup.picasso.Picasso
  * Created by Tiago on 16/12/2016.
  */
 class HomeActivityListAdapter(internal var context:
-        Context, internal var layoutResId: Int, data: List<HomeActivityWeatherModel>) : ArrayAdapter<HomeActivityWeatherModel>(context, layoutResId, data) {
-    internal var data: List<HomeActivityWeatherModel>? = null
+        Context, internal var layoutResId: Int, data: List<Wrapper>) : ArrayAdapter<Wrapper>(context, layoutResId, data) {
+    internal var data: List<Wrapper>? = null
 
     init {
         this.data = data
@@ -33,42 +34,32 @@ class HomeActivityListAdapter(internal var context:
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var convertView = convertView
         var holder: WeatherHolder? = null
+        val inflater = (context as Activity).layoutInflater
+        convertView= inflater.inflate(R.layout.home_activity_weather_row,parent,false )
+
 
         holder = WeatherHolder()
 
         holder.imageIcon = convertView!!.findViewById(R.id.weatherImage) as ImageView
         holder.information= convertView!!.findViewById(R.id.informationText) as TextView
 
-        // TODO Auto-generated method stub
-        val inflater = (context as Activity).layoutInflater
-        convertView= inflater.inflate(R.layout.home_activity_weather_row,parent,true )
 
 
-        val  forecast=data!![position].weatherToday
+        val  weather=data!![position].list[0].weather[0]
 
-        val  allInfo="Local :"+  data!![position].location+" \n"+
-                "Min: " + data!![position].weatherToday.temp.min+"ºC\n"+
-                "Max: "+ data!![position].weatherToday.temp.max+"ºC\n"
+        val  allInfo="Local :"+  data!![position].city.name+","+data!![position].city.country +" \n"+
+                "Min: " + data!![position].list[0].temp.min+"ºC\n"+
+                "Max: "+ data!![position].list[0].temp.max+"ºC\n"
 
-
+       holder.information?.text=allInfo;
 
 
 
-        holder.information?.text=allInfo;
-     //   val iconWeather=convertView!!.findViewById(R.id.weatherImage)as ImageView
+        val myPicasso = Picasso.with(context)
+        myPicasso.setIndicatorsEnabled(true)
+        myPicasso.load("http://openweathermap.org/img/w/" + weather.icon + ".png").into(holder.imageIcon)
 
 
-
-
-
-
-
-
-
-
-
-
-       Picasso.with(context).load("http://openweathermap.org/img/w/" + forecast.weather[0].icon + ".png").into(holder.imageIcon)
 
 
 
@@ -77,23 +68,18 @@ class HomeActivityListAdapter(internal var context:
         convertView.setOnClickListener{(View.OnClickListener {
 
             val sync = Syncronizer(context.applicationContext, API_Forecast(context.applicationContext))
-            val parsedlocation = data!![position].location.split(",")
-            val query = QueryRegist(parsedlocation[0], parsedlocation[1])
+
+            val query = QueryRegist( data!![position].city.name,data!![position].city.country)
             sync.syncronizeSearch(query)
 
             val myIntent = Intent(context, WeatherByLocation::class.java)
-            myIntent.putExtra("location", data!![position].location)
+            myIntent.putExtra("location", data!![position].city.name + ","+ data!![position].city.country)
             context.startActivity(myIntent)
 
 
         })}
 
         return convertView
-
-
-
-
-
 
 
     }
