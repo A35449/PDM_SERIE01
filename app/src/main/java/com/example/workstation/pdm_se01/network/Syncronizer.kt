@@ -37,17 +37,15 @@ class Syncronizer(val context: Context, _api : API){
         contract = _api.contract!!
     }
 
-    internal class SyncHandler(ctx: Context,  _contract : AWAContract, _reg: QueryRegist , favorite: Int = 0){
+    internal class SyncHandler(ctx: Context,  _contract : AWAContract, _reg: QueryRegist){
 
         val cr : ContentResolver
         val reg : QueryRegist
-        val isFav : Int
         val contract : AWAContract
 
         init {
             cr = ctx.contentResolver
             reg = _reg
-            isFav = favorite
             contract = _contract
         }
 
@@ -89,7 +87,7 @@ class Syncronizer(val context: Context, _api : API){
         fun insertNewRecord(record:String){
             val cv = ContentValues()
             cv.put(contract.getData(),record)
-            cv.put(contract.getFav(),isFav)
+            cv.put(contract.getFav(),reg.fav)
             cv.put(contract.getCity(),reg.city)
             cv.put(contract.getCountry(),reg.country)
             cr.insert(contract.CONTENT_URI,cv)
@@ -98,7 +96,7 @@ class Syncronizer(val context: Context, _api : API){
         fun updateRecord(record:String){
             val cv = ContentValues()
             cv.put(contract.getData(),record)
-            cv.put(contract.getFav(),isFav)
+            cv.put(contract.getFav(),reg.fav)
             cr.update(contract.CONTENT_URI,cv,"country=? AND city=?" , arrayOf(reg.country,reg.city))
         }
     }
