@@ -21,6 +21,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 
 import android.widget.TextView
 
@@ -29,6 +30,7 @@ import com.example.workstation.pdm_se01.model.Forecast.Forecast
 import com.example.workstation.pdm_se01.model.Forecast.Wrapper
 import com.example.workstation.pdm_se01.provider.contract.ForecastContract
 import com.example.workstation.pdm_se01.utils.Converter
+import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -131,12 +133,27 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
             val rootView = inflater!!.inflate(R.layout.fragment_weather_by_location, container, false)
             val arg = arguments
             if(arguments != null && rootView != null){
+                val myIcon = rootView.findViewById(R.id.weatherImage) as ImageView
+                val myPicasso = Picasso.with(context)
+                myPicasso.setIndicatorsEnabled(true)
+                myPicasso.load("http://openweathermap.org/img/w/" + arg.getString("icon")+ ".png").into(myIcon)
+
+                val maxTemperature = rootView.findViewById(R.id.maxTemperatureWeather) as TextView
+                maxTemperature.text = arg.getDouble("maxTemp").toString()
                 val minTemp = rootView.findViewById(R.id.minTemperatureWeather) as TextView
                 minTemp.text = arg.getDouble("minTemp").toString()
+
+                val wind_speed = rootView.findViewById(R.id.windSpeedWeather) as TextView
+                wind_speed.text = arg.getDouble("windSpeed").toString()
+
+                val pressure = rootView.findViewById(R.id.pressure) as TextView
+                pressure.text = arg.getDouble("pressure").toString()
+
+                val humidity = rootView.findViewById(R.id.humidity) as TextView
+                humidity.text = arg.getDouble("humidity").toString()
             }
             return rootView
         }
-
         companion object {
             /**
              * The fragment argument representing the section number for this
@@ -160,6 +177,14 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
 
             private fun loadArguments(args : Bundle, data:Forecast){
                 args.putDouble("minTemp",data.temp.min)
+                args.putDouble("maxTemp",data.temp.max)
+                args.putString("icon",data.weather[0].icon)
+                args.putString("description",data.weather[0].description)
+                args.putDouble("windSpeed",data.speed)
+                args.putInt("humidity",data.humidity)
+                args.putDouble("pressure",data.pressure)
+
+
             }
         }
     }

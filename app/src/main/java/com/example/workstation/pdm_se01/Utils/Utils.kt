@@ -8,6 +8,7 @@ import android.support.v4.app.TaskStackBuilder
 import android.support.v7.app.NotificationCompat
 import android.util.Log
 import com.example.workstation.pdm_se01.R
+import com.example.workstation.pdm_se01.activities.HomeActivity
 import com.example.workstation.pdm_se01.activities.MainActivity
 import com.example.workstation.pdm_se01.components.notification.NotificationReceiver
 
@@ -25,7 +26,7 @@ class Utils {
             val resultIntent = Intent(context, NotificationReceiver::class.java)
             val stackBuilder = TaskStackBuilder.create(context)
             // Adds the back stack for the Intent (but not the Intent itself)
-            stackBuilder.addParentStack(MainActivity::class.java)
+            stackBuilder.addParentStack(HomeActivity::class.java)
 
             // Adds the Intent that starts the Activity to the top of the stack
             stackBuilder.addNextIntent(resultIntent)
