@@ -2,6 +2,7 @@ package com.example.workstation.pdm_se01.activities
 
 import android.app.LoaderManager
 import android.content.CursorLoader
+import android.content.Intent
 import android.content.Loader
 import android.content.res.Configuration
 import android.database.Cursor
@@ -117,6 +118,8 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
         val id = item.itemId
 
         if (id == R.id.action_settings) {
+            val myIntent = Intent(this, SettingsActivity::class.java)
+            this.startActivity(myIntent)
             return true
         }
 
@@ -140,17 +143,23 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
 
                 val maxTemperature = rootView.findViewById(R.id.maxTemperatureWeather) as TextView
                 maxTemperature.text = arg.getDouble("maxTemp").toString()
+                maxTemperature.append(" ºC")
+
                 val minTemp = rootView.findViewById(R.id.minTemperatureWeather) as TextView
                 minTemp.text = arg.getDouble("minTemp").toString()
+                minTemp.append(" ºC")
 
                 val wind_speed = rootView.findViewById(R.id.windSpeedWeather) as TextView
                 wind_speed.text = arg.getDouble("windSpeed").toString()
+                wind_speed.append(" mps")
 
                 val pressure = rootView.findViewById(R.id.pressure) as TextView
                 pressure.text = arg.getDouble("pressure").toString()
+                pressure.append(" hpa")
 
                 val humidity = rootView.findViewById(R.id.humidity) as TextView
-                humidity.text = arg.getDouble("humidity").toString()
+                humidity.text = arg.getInt("humidity").toString()
+                humidity.append(" %")
             }
             return rootView
         }
