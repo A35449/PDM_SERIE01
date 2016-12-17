@@ -27,7 +27,7 @@ class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor>{
 
 
     override fun onLoaderReset(loader: Loader<Cursor>?) {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+        //throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
@@ -67,6 +67,7 @@ class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor>{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+            loaderManager.initLoader(LOADER_ID,null,this)
 
         favButton=findViewById(R.id.favButton) as ImageButton
         editText = findViewById(R.id.LocationInput) as EditText
