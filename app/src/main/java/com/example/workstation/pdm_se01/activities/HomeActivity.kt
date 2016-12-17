@@ -5,6 +5,10 @@ import android.content.*
 import android.database.Cursor
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.widget.*
 import com.example.workstation.pdm_se01.activities.PreferencesActivity
 import com.example.workstation.pdm_se01.R
@@ -14,14 +18,43 @@ import com.example.workstation.pdm_se01.model.Forecast.Wrapper
 
 import com.example.workstation.pdm_se01.provider.contract.ForecastContract
 import com.example.workstation.pdm_se01.utils.Converter
+import com.toptoche.searchablespinnerlibrary.SearchableSpinner
 import java.util.*
+import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.AdapterView
+
+
 
 class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor>{
 
    companion object{
        val LOADER_ID =2
    }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu_weather_by_location, menu)
+        return true
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        val id = item.itemId
+
+        if (id == R.id.action_settings) {
+            val myIntent = Intent(this, SettingsActivity::class.java)
+            this.startActivity(myIntent)
+            return true
+        }
+        if(id==R.id.favorites){
+            val myIntent = Intent(this, PreferencesActivity::class.java)
+            this.startActivity(myIntent)
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
 
 
 
@@ -62,6 +95,7 @@ class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor>{
     private var settingsButton:ImageButton?=null
     private var adapter:HomeActivityListAdapter?=null
     private var lv:ListView?=null
+    private var country_code:String?=null
     //private var sharedPrefLocation: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,6 +109,18 @@ class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor>{
         settingsButton=findViewById(R.id.settingsButton)as ImageButton
         lv=findViewById(R.id.favoriteListView)as ListView
 
+        var searchableSpinner = findViewById(R.id.countrySpinner) as SearchableSpinner
+        searchableSpinner.setTitle(getString(R.string.selectCountry))
+        searchableSpinner.setPositiveButton(getString(R.string.positiveButton))
+        searchableSpinner.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long) {
+                country_code = resources.getStringArray(R.array.countries_code)[position]
+            }
+            override fun onNothingSelected(parentView: AdapterView<*>) {
+                // your code here
+            }
+
+        }
 
         favButton?.setOnClickListener({
             val myIntent = Intent(this, PreferencesActivity::class.java)

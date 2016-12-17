@@ -11,6 +11,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.workstation.pdm_se01.activities.HomeActivity">
 
+
+    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+        android:id="@+id/countrySpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/countries"/>
+
     <EditText
         android:text=""
         android:layout_width="wrap_content"

@@ -4,7 +4,7 @@
     <string name="title_activity_weather">WeatherActivity</string>
     <string name="about_us">About Us</string>
     <string name="get_weather">Get Weather</string>
-    <string name="ex_london_gb">ex: London,GB</string>
+    <string name="ex_london_gb">ex: London</string>
     <string name="min_temperature">Min Temperature</string>
     <string name="max_temperature">Max Temperature</string>
     <string name="wind">Wind</string>
@@ -15,10 +15,10 @@ The user just needs to specify the name of the city he wants to get his weather 
 Android application created by José Soares, Tiago Oliveira and Tiago Cruz.\n
 Course: PDM\n
 Teacher: João Trindade</string>
-    <string name="title_activity_about">AboutActivity</string>
-    <string name="title_activity_main2">PreferencesActivity</string>
-    <string name="title_activity_preferences">PreferencesActivity</string>
-    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_about">About us</string>
+    <string name="title_activity_main2">Favorites</string>
+    <string name="title_activity_preferences">Favorites</string>
+    <string name="title_activity_settings">Settings</string>
     <string name="title_activity_weather_list">WeatherListActivity</string>
     <string name="local_service_started">Service Started</string>
     <string name="local_service_stopped">Service Stopped</string>
@@ -28,5 +28,8 @@ Teacher: João Trindade</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="Today">Today</string>
     <string name="Tomorrow">Tomorrow</string>
+    <string name="action_favorite">Favorites</string>
+    <string name="selectCountry">Select Country</string>
+    <string name="positiveButton">OK</string>
 
 </resources>
