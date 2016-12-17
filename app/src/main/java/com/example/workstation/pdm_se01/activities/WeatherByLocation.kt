@@ -136,7 +136,6 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
             }
             return rootView
         }
-
         companion object {
             /**
              * The fragment argument representing the section number for this
