@@ -37,6 +37,7 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
 
     companion object{
         val LOADER_ID = 1
+        var dataFragment : Wrapper? = null
     }
 
     fun initFragment(data : Wrapper?){
@@ -169,15 +170,15 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
     }
 
     inner class SectionsPagerAdapter(fm: FragmentManager, _data : Wrapper?) : FragmentPagerAdapter(fm) {
-        val data : Wrapper?
+
         init {
-            data = _data
+            dataFragment = _data
         }
 
         override fun getItem(position: Int): Fragment {
             val forecast : Forecast?
-            if(data!= null){
-                forecast = data.list[position]
+            if(dataFragment!= null){
+                forecast = dataFragment!!.list[position]
             }
             else throw Exception()
 

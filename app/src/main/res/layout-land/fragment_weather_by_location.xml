@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.workstation.pdm_se01.activities.WeatherByLocation$PlaceholderFragment">
+
+    <ImageView
+        android:layout_gravity="center"
+        android:layout_width="189dp"
+        android:layout_height="143dp"
+        android:id="@+id/weatherImage"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="36dp" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_alignTop="@+id/weatherImage"
+        android:layout_centerHorizontal="true">
+        <TableRow>
+            <TextView android:text="@string/min_temperature" />
+            <TextView
+                android:id="@+id/minTemperatureWeather"
+                android:gravity="end"
+                />
+        </TableRow>
+        <TableRow>
+
+            <TextView android:text="@string/max_temperature" />
+
+            <TextView
+                android:id="@+id/maxTemperatureWeather"
+                android:gravity="end" />
+        </TableRow>
+        <TableRow>
+            <TextView android:text="@string/wind" />
+            <TextView
+                android:id="@+id/windSpeedWeather"
+                android:gravity="end" />
+        </TableRow>
+        <TableRow>
+            <TextView android:text="@string/pressure" />
+            <TextView
+                android:id="@+id/pressure"
+                android:gravity="end" />
+        </TableRow>
+        <TableRow>
+            <TextView android:text="@string/humidity" />
+            <TextView
+                android:id="@+id/humidity"
+                android:gravity="end" />
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>
