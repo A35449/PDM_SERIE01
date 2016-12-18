@@ -82,8 +82,8 @@ class PreferencesActivity : AppCompatActivity() {
 
         val favList = sharedPrefs()
 
-        if (!favList.isEmpty())
-            fillList(favList)
+        //if (!favList.isEmpty())
+        fillList(favList)
 
         addPref!!.setOnClickListener({
             val addAlert = AlertDialog.Builder(this@PreferencesActivity)
@@ -119,14 +119,16 @@ class PreferencesActivity : AppCompatActivity() {
                             var favLocationModel :FavLocationModel=FavLocationModel()
                             favLocationModel.location=rawLocation
                             favLocationModel.check=0
-
                             favList.add(favLocationModel)
+
+                            val synchronizer =Syncronizer(applicationContext,API_Forecast(applicationContext) )
+                            synchronizer.syncronizeSingle(QueryRegist(location[0],location[1],1)) //marked favorite
 
                             saveSharedpreferences(favList)
 
                             adapter?.setContent(favList)
-                            adapter?.notifyDataSetChanged()
-                            //fillList(favList)
+                            //adapter?.notifyDataSetChanged()
+                            fillList(favList)
 
                             Toast.makeText(this@PreferencesActivity, "Preference Saved", Toast.LENGTH_SHORT).show()
                         } else {
@@ -142,18 +144,28 @@ class PreferencesActivity : AppCompatActivity() {
 
         removePref!!.setOnClickListener(View.OnClickListener {
             val synchronizer =Syncronizer(applicationContext,API_Forecast(applicationContext) )
-            favList
+
+            val checkedList = adapter!!.getCheckedItems()
+            for(i: Int in checkedList){
+                val location = favList[i].location
+                var parsed= location.split(",")
+                synchronizer.syncronizeSingle(QueryRegist(parsed[0],parsed[1],0))
+                favList.removeAt(i)
+            }
+/*            favList
                     .filter { it.check==1 }
                     .forEach {
-
                         var parsed= it.location.split(",")
                         synchronizer.syncronizeSingle(QueryRegist(parsed[0],parsed[1],0))
                         favList.remove(it)
-                    }
+                    }*/
 
             saveSharedpreferences(favList)
-            adapter?.setContent(favList)
-            adapter?.notifyDataSetChanged()
+
+            adapter = FavLocationListAdapter(this,R.id.favList,
+                    favList)
+            lv!!.adapter = adapter
+
             Toast.makeText(this@PreferencesActivity, "Preference Saved", Toast.LENGTH_SHORT).show()
         })
     }
@@ -176,14 +188,11 @@ class PreferencesActivity : AppCompatActivity() {
 
     private fun saveSharedpreferences(prefsList: List<FavLocationModel>) {
 
-        val synchronizer =Syncronizer(applicationContext,API_Forecast(applicationContext) )
-
         var locations = ""
         for (i in prefsList.indices) {
             var location = prefsList.get(i).location
             locations += location + "/"
             var parsed =location.split(",")
-            synchronizer.syncronizeSingle(QueryRegist(parsed[0],parsed[1],1)) //marked favorite
         }
 
         val editor = sharedPrefLocation!!.edit()

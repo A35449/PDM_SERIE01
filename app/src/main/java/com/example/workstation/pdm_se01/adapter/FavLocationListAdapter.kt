@@ -19,15 +19,18 @@ import com.example.workstation.pdm_se01.network.Syncronizer
 import com.example.workstation.pdm_se01.network.api.API_Forecast
 import com.example.workstation.pdm_se01.network.api.API_Weather
 import com.example.workstation.pdm_se01.utils.QueryRegist
+import java.util.*
 
 /**
  * Created by Tiago on 15/12/2016.
  */
 
 class FavLocationListAdapter(context: Context, resId: Int, resource: List<FavLocationModel>) : ArrayAdapter<FavLocationModel>(context, resId, resource) {
+     var modelItems: List<FavLocationModel>
 
-    internal var modelItems: List<FavLocationModel>
-    internal var checkBoxState : BooleanArray
+    companion object{
+        internal var checkBoxState : BooleanArray ?= null
+    }
 
     init {
         this.modelItems = resource
@@ -35,61 +38,52 @@ class FavLocationListAdapter(context: Context, resId: Int, resource: List<FavLoc
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+
         var rowView = convertView
-        var viewHolder:viewHolderItem
         // TODO Auto-generated method stub
-        if (rowView==null)
-        {
-            val inflater = (context as Activity).layoutInflater
-            rowView = inflater.inflate(R.layout.location_list_row, parent, false)
-            viewHolder= viewHolderItem()
 
-            val name = rowView.findViewById(R.id.textView1) as TextView
-            val cb = rowView.findViewById(R.id.checkBox1) as CheckBox
-            cb.setOnClickListener { v ->
+        val inflater = (context as Activity).layoutInflater
+        rowView = inflater.inflate(R.layout.location_list_row, parent, false)
 
-               val chk = v as CheckBox
-               checkBoxState[position] = chk.isChecked
+        val textentry = modelItems!![position].location
+        val txtBox = rowView?.findViewById(R.id.textView1) as TextView
+        txtBox.text = textentry
 
-                modelItems!![position].check = 1 xor modelItems!![position].check
+        val cb = rowView?.findViewById(R.id.checkBox1) as CheckBox
+        val stateChk = checkBoxState!![position]
+        cb.setChecked(stateChk)
+        cb.isChecked = stateChk
+        cb.setOnClickListener { v ->
 
-                if (modelItems!![position].check == 1){
-                    cb.isChecked = true
-                }
-                else{
-                    cb.isChecked = false
-                }
-
-            }
-            name.text = modelItems!![position].location
-            val myIntent = Intent(context, WeatherByLocation::class.java)
-
-            rowView.setOnClickListener(View.OnClickListener {
-                val sync = Syncronizer(context.applicationContext,API_Forecast(context.applicationContext))
-                val parsedlocation = modelItems!![position].location.split(",")
-                val query = QueryRegist(parsedlocation[0],parsedlocation[1])
-                sync.syncronizeSearch(query)
-            })
-
-            viewHolder.textbox = name
-            viewHolder.checkbox =cb
-
-            rowView.setTag(viewHolder)
-        }else{
-            viewHolder = rowView.getTag() as viewHolderItem
+            val chk = v as CheckBox
+            val isChecked = chk.isChecked
+            checkBoxState!![position] = isChecked
+            if(isChecked)
+                modelItems!![position].check = 1
+            else
+                modelItems!![position].check = 0
         }
-        viewHolder.checkbox?.setChecked(checkBoxState[position])
+/*
+        rowView.setOnClickListener(View.OnClickListener {
+        })*/
 
         return rowView!!
     }
 
     internal class viewHolderItem{
-        var textbox:TextView?=null
-        var checkbox:CheckBox ?=null
+        var name : ArrayList<String> = ArrayList()
     }
 
     fun setContent(list : List<FavLocationModel>){
         modelItems = list
         checkBoxState = BooleanArray(list.size)
+    }
+
+    fun getCheckedItems():ArrayList<Int>{
+        var ret  = ArrayList<Int>()
+        for(i in checkBoxState!!.indices){
+            if(checkBoxState!![i]) ret.add(i)
+        }
+        return ret
     }
 }

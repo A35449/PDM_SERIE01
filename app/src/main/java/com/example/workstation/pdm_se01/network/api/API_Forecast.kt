@@ -29,7 +29,7 @@ class API_Forecast(context: Context) : API(context) {
     }
 
     override public fun get(reg: QueryRegist, sucessHandler: Response.Listener<String>, errHandler: Response.ErrorListener) {
-        val ps = String.format(super.BASE_URL + FORE_URL + "?q=%s,%s&appid=%s&lang=%s&units=metric", reg.city, reg.country, API_KEY, lang)
+        val ps = String.format(super.BASE_URL + FORE_URL + "?q=%s,%s&appid=%s&lang=%s&units=metric&cnt=7", reg.city, reg.country, API_KEY, lang)
         val req = StringRequest(ps, sucessHandler, errHandler)
         SingletonRequest.getInstance(context).addToRequestQueue(req)
     }
