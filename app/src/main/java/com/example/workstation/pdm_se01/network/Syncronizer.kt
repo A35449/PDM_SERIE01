@@ -24,6 +24,7 @@ import com.example.workstation.pdm_se01.utils.QueryRegist
 import com.example.workstation.pdm_se01.utils.Utils
 import com.example.workstation.pdm_se01.provider.contract.AWAContract
 import com.example.workstation.pdm_se01.provider.DbSchema
+import com.example.workstation.pdm_se01.provider.contract.ForecastContract
 import java.util.*
 
 class Syncronizer(val context: Context, _api : API){
@@ -126,15 +127,23 @@ class Syncronizer(val context: Context, _api : API){
         cv.put(contract.getFav(),reg.fav)
         context.contentResolver.update(contract.CONTENT_URI,cv,"country=? AND city=?" , arrayOf(reg.country,reg.city))
     }
-
+    fun getFav(reg:QueryRegist) : Int{
+        var selection = "country = ? AND city = ? "
+        val selectionArgs = arrayOf(reg.country, reg.city)
+        val cursor = context.contentResolver.query(contract.getAll(), null, selection, selectionArgs, null)
+        if(cursor.moveToFirst()){
+            return cursor.getInt(cursor.getColumnIndex(ForecastContract.FAV))
+        }
+        return 0
+    }
     fun toggleFav(reg: QueryRegist) {
         var selection = "country = ? AND city = ? and fav=1"
         val selectionArgs = arrayOf(reg.country, reg.city)
         val cursor = context.contentResolver.query(contract.getAll(), null, selection, selectionArgs, null)
         if(!cursor.moveToFirst()){
-            reg.fav=0
+            reg.fav=1
         }
-        else reg.fav=1
+        else reg.fav=0
         updateRecord(reg)
     }
 }
