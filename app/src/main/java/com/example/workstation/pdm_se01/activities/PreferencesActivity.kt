@@ -25,12 +25,14 @@ import com.example.workstation.pdm_se01.utils.QueryRegist
 
 
 class PreferencesActivity : AppCompatActivity() {
-
+companion object {
     private var addPref: Button? = null
     private var removePref: Button? = null
     private var lv: ListView? = null
     private var sharedPrefLocation: SharedPreferences? = null
-    private var adapter:FavLocationListAdapter?=null
+    private var adapter: FavLocationListAdapter? = null
+}
+
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -52,6 +54,14 @@ class PreferencesActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
+        super.onSaveInstanceState(outState, outPersistentState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -134,10 +144,6 @@ class PreferencesActivity : AppCompatActivity() {
             addDialog.show()
         })
 
-
-
-
-
         removePref!!.setOnClickListener(View.OnClickListener {
             val synchronizer =Syncronizer(applicationContext,API_Forecast(applicationContext) )
             favList
@@ -147,17 +153,10 @@ class PreferencesActivity : AppCompatActivity() {
                         var parsed= it.location.split(",")
                         synchronizer.syncronizeSingle(QueryRegist(parsed[0],parsed[1],0))
                         favList.remove(it)
-
-
-
-
                     }
             saveSharedpreferences(favList)
             adapter?.notifyDataSetChanged()
             Toast.makeText(this@PreferencesActivity, "Preference Saved", Toast.LENGTH_SHORT).show()
-
-
-
         })
 
     }
@@ -205,8 +204,10 @@ class PreferencesActivity : AppCompatActivity() {
 
 
     private fun fillList(list: List<FavLocationModel>) {
-         adapter = FavLocationListAdapter(this,R.id.favList,
-                 list)
+        if(adapter == null){
+            adapter = FavLocationListAdapter(this,R.id.favList,
+                    list)
+        }
         lv!!.adapter = adapter
     }
 

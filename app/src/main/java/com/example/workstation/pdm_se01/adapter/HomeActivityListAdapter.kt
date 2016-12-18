@@ -65,19 +65,15 @@ class HomeActivityListAdapter(internal var context:
 
 
 
-        convertView.setOnClickListener{(View.OnClickListener {
+        convertView.setOnClickListener(View.OnClickListener {
 
-            val sync = Syncronizer(context.applicationContext, API_Forecast(context.applicationContext))
-
-            val query = QueryRegist( data!![position].city.name,data!![position].city.country)
-            sync.syncronizeSearch(query)
 
             val myIntent = Intent(context, WeatherByLocation::class.java)
             myIntent.putExtra("location", data!![position].city.name + ","+ data!![position].city.country)
             context.startActivity(myIntent)
 
 
-        })}
+        })
 
         return convertView
 
