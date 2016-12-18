@@ -129,6 +129,7 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
             )) {
                 item.setIcon(android.R.drawable.star_big_on)
             }else item.setIcon(android.R.drawable.star_big_off)
+            return true
         }
         return super.onOptionsItemSelected(item)
     }
@@ -162,6 +163,9 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
                 val myPicasso = Picasso.with(context)
                 myPicasso.setIndicatorsEnabled(true)
                 myPicasso.load("http://openweathermap.org/img/w/" + arg.getString("icon")+ ".png").into(myIcon)
+
+                val description = rootView.findViewById(R.id.description) as TextView
+                description.text = arg.getString("description").toString()
 
                 val maxTemperature = rootView.findViewById(R.id.maxTemperatureWeather) as TextView
                 maxTemperature.text = arg.getDouble("maxTemp").toString()
@@ -222,7 +226,7 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
             if(dataFragment!= null){
                 forecast = dataFragment!!.list[position]
             }
-            else throw Exception()
+            else return PlaceholderFragment()
 
             return PlaceholderFragment.newInstance(position + 1,forecast)
         }

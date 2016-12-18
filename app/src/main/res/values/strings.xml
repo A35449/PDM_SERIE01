@@ -42,5 +42,6 @@ Teacher: João Trindade</string>
     <string name="Apply_button">Apply</string>
     <string name="settings">Settings</string>
     <string name="action_toggleFavorite">Add/Remove Favorite</string>
+    <string name="description">Description</string>
 
 </resources>
