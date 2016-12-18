@@ -34,9 +34,10 @@ class PreferencesActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<C
     override fun onLoadFinished(loader: Loader<Cursor>?, data: Cursor?) {
         val updatedModel = ArrayList<FavLocationModel>()
         val counter = 0
-        var elem = FavLocationModel()
+        var elem : FavLocationModel
         if (data != null) {
             while (data.moveToNext()) {
+                elem = FavLocationModel()
                 elem.location = data.getString(data.getColumnIndex(ForecastContract.CITY)) + "," + data.getString(data.getColumnIndex(ForecastContract.COUNTRY))
                 updatedModel?.add(elem)
             }
