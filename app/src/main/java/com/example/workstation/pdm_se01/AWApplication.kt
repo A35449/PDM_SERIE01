@@ -24,7 +24,6 @@ class AWApplication : Application() {
         setAlarm()
         setBatteryIntentFilter()
     }
-
     fun setAlarm(){
         alarmMgr = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, AWAReceiver::class.java)

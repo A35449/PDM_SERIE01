@@ -109,6 +109,7 @@ class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor> 
             var ps = String.format("\"name\":\"%s\",\"country\":\"%s\"", location, country_code)
             var contains = file_string?.contains(ps)
             if (contains!!) {
+                intent.putExtra("location",location+","+ country_code)
                 synchronizer.syncronizeSearch(QueryRegist(location, country_code!!)) //marked favorite
             } else {
                 Toast.makeText(this, "Location Unavailable/Incorrect", Toast.LENGTH_SHORT).show()

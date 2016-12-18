@@ -104,7 +104,7 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
     private fun  markFavoriteIcon(location: String?, menu: Menu) {
         val shared= getSharedPreferences("Location", MODE_PRIVATE)
         val favs =shared!!.getString("locals", null)
-        if(favs.contains(location as CharSequence,true)){
+        if(favs != null && favs.contains(location as CharSequence,true)){
             menu.findItem(R.id.toggleFavorite).setIcon(android.R.drawable.star_big_on)
         }
     }
@@ -137,7 +137,7 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
         val synchronizer = Syncronizer(applicationContext, API_Forecast(applicationContext) )
         var parse = location.split(",")
         var sharedPrefLocation = getSharedPreferences("Location", MODE_PRIVATE)
-        var rawlocations = sharedPrefLocation!!.getString("locals", null)
+        var rawlocations = sharedPrefLocation!!.getString("locals", "")
 
         if (rawlocations.contains(location as CharSequence,true)) {
             synchronizer.updateRecord(QueryRegist(parse[0], parse[1], 0))
