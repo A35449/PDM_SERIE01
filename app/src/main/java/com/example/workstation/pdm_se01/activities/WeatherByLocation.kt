@@ -101,7 +101,7 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
         val shared= getSharedPreferences("Location", MODE_PRIVATE)
         val favs =shared!!.getString("locals", null)
         if(favs.contains(location as CharSequence,true)){
-            menu.getItem(R.id.toggleFavorite).setIcon(android.R.drawable.star_big_on)
+            menu.findItem(R.id.toggleFavorite).setIcon(android.R.drawable.star_big_on)
         }
     }
 
