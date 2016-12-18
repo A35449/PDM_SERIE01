@@ -27,8 +27,11 @@ import android.widget.TextView
 import com.example.workstation.pdm_se01.R
 import com.example.workstation.pdm_se01.model.Forecast.Forecast
 import com.example.workstation.pdm_se01.model.Forecast.Wrapper
+import com.example.workstation.pdm_se01.network.Syncronizer
+import com.example.workstation.pdm_se01.network.api.API_Forecast
 import com.example.workstation.pdm_se01.provider.contract.ForecastContract
 import com.example.workstation.pdm_se01.utils.Converter
+import com.example.workstation.pdm_se01.utils.QueryRegist
 import com.example.workstation.pdm_se01.utils.Utils
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
@@ -120,7 +123,7 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
             return true
         }
         if(id==R.id.toggleFavorite){
-            Utils.toggleFavorite(intent.getStringExtra("location"))
+            toggleFavorite(intent.getStringExtra("location"))
             if (item.icon.constantState.equals(
                     resources.getDrawable(android.R.drawable.star_big_off).constantState
             )) {
@@ -129,7 +132,25 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
         }
         return super.onOptionsItemSelected(item)
     }
+    private fun  toggleFavorite(location: String) {
+        val synchronizer = Syncronizer(applicationContext, API_Forecast(applicationContext) )
+        var parse = location.split("/".toRegex()).dropLastWhile({ it.isEmpty()})
+        var sharedPrefLocation = getSharedPreferences("Location", MODE_PRIVATE)
+        var rawlocations = sharedPrefLocation!!.getString("locals", null)
 
+        if (rawlocations.contains(location as CharSequence,true)) {
+            synchronizer.syncronizeSingle(QueryRegist(parse[0], parse[1], 0))
+            var splitedString=rawlocations.split(location+"/")
+            rawlocations=splitedString[0]+splitedString[1]
+        }else {
+            synchronizer.syncronizeSingle(QueryRegist(parse[0], parse[1], 1))
+            rawlocations+=location+"/"
+        }
+        val editor = sharedPrefLocation!!.edit()
+        editor.clear()
+        editor.putString("locals", rawlocations)
+        editor.commit()
+    }
     class PlaceholderFragment : Fragment() {
 
         override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
