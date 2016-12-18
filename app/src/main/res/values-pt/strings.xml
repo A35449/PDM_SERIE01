@@ -15,4 +15,13 @@ O utilizador só precisa especificar o nome da cidade que pretende obter as suas
 Aplicação Android criada por José Soares, Tiago Oliveira e Tiago Cruz.\n
 Curso: PDM\n
 Professor: João Trindade</string>
+    <string name="Today">Hoje</string>
+    <string name="Tomorrow">Amanhã</string>
+    <string name="Addpref">Adicionar Localização</string>
+    <string name="removePref">Remover Localização</string>
+    <string name="search">Procurar</string>
+    <string name="Update_wifi_only">Actualizar apenas com Wi-Fi</string>
+    <string name="Periodicity">Periodicidade (minutos)</string>
+    <string name="min_battery">Bateria Minima</string>
+    <string name="Apply_button">Apply</string>
 </resources>
