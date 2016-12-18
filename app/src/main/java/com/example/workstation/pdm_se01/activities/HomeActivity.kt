@@ -103,59 +103,36 @@ class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor>{
         setContentView(R.layout.activity_home)
             loaderManager.initLoader(LOADER_ID,null,this)
 
-        favButton=findViewById(R.id.favButton) as ImageButton
         editText = findViewById(R.id.LocationInput) as EditText
         searchButton=findViewById(R.id.search_button)as Button
-        settingsButton=findViewById(R.id.settingsButton)as ImageButton
         lv=findViewById(R.id.favoriteListView)as ListView
 
         var searchableSpinner = findViewById(R.id.countrySpinner) as SearchableSpinner
         searchableSpinner.setTitle(getString(R.string.selectCountry))
         searchableSpinner.setPositiveButton(getString(R.string.positiveButton))
         searchableSpinner.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long) {
-                country_code = resources.getStringArray(R.array.countries_code)[position]
+            override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View?, position: Int, id: Long) {
+                country_code = resources.getStringArray(R.array.countries_code)[position].toUpperCase()
             }
             override fun onNothingSelected(parentView: AdapterView<*>) {
                 // your code here
             }
-
         }
 
-        favButton?.setOnClickListener({
-            val myIntent = Intent(this, PreferencesActivity::class.java)
-            this.startActivity(myIntent)
-        })
         searchButton?.setOnClickListener({
-          var extrainfo =editText?.getText().toString()
-            var location = editText?.getText().toString().split(",")
-            if (location.size < 2){
-                Toast.makeText(this,"Location Unavailable", Toast.LENGTH_SHORT).show()
-            }
-            else {
-                var ps = String.format("\"name\":\"%s\",\"country\":\"%s\"", location[0], location[1].toUpperCase())
-                var contains = file_string?.contains(ps)
-                if (contains!!) {
-                    val myIntent = Intent(this, WeatherByLocation::class.java)
-                    myIntent.putExtra("location",extrainfo)
-                    this.startActivity(myIntent)
-                    //
-                } else {
-                    Toast.makeText(this, "Location Unavailable", Toast.LENGTH_SHORT).show()
-                }
+            var location = editText?.text.toString()
+            var ps = String.format("\"name\":\"%s\",\"country\":\"%s\"", location, country_code)
+            var contains = file_string?.contains(ps)
+            if (contains!!) {
+                val myIntent = Intent(this, WeatherByLocation::class.java)
+                myIntent.putExtra("location",location+","+country_code)
+                this.startActivity(myIntent)
+            } else {
+                Toast.makeText(this, "Location Unavailable/Incorrect", Toast.LENGTH_SHORT).show()
             }
         })
-        settingsButton?.setOnClickListener({
-            val myIntent = Intent(this, SettingsActivity::class.java)
-            this.startActivity(myIntent)
-        })
-
-
 
     }
-
-
-
 
 
     private fun fillList(list: List<Wrapper>) {
