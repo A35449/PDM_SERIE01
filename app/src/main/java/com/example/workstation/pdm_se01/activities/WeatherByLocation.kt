@@ -29,6 +29,7 @@ import com.example.workstation.pdm_se01.model.Forecast.Forecast
 import com.example.workstation.pdm_se01.model.Forecast.Wrapper
 import com.example.workstation.pdm_se01.provider.contract.ForecastContract
 import com.example.workstation.pdm_se01.utils.Converter
+import com.example.workstation.pdm_se01.utils.Utils
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
@@ -119,7 +120,7 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
             return true
         }
         if(id==R.id.toggleFavorite){
-            //PreferencesActivity.toggleFavorite(intent.getStringExtra("location"))
+            Utils.toggleFavorite(intent.getStringExtra("location"))
             if (item.icon.constantState.equals(
                     resources.getDrawable(android.R.drawable.star_big_off).constantState
             )) {
