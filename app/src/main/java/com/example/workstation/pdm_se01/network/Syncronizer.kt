@@ -126,5 +126,16 @@ class Syncronizer(val context: Context, _api : API){
         cv.put(contract.getFav(),reg.fav)
         context.contentResolver.update(contract.CONTENT_URI,cv,"country=? AND city=?" , arrayOf(reg.country,reg.city))
     }
+
+    fun toggleFav(reg: QueryRegist) {
+        var selection = "country = ? AND city = ? and fav=1"
+        val selectionArgs = arrayOf(reg.country, reg.city)
+        val cursor = context.contentResolver.query(contract.getAll(), null, selection, selectionArgs, null)
+        if(!cursor.moveToFirst()){
+            reg.fav=0
+        }
+        else reg.fav=1
+        updateRecord(reg)
+    }
 }
 
