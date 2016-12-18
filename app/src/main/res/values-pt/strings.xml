@@ -24,4 +24,7 @@ Professor: João Trindade</string>
     <string name="Periodicity">Periodicidade (minutos)</string>
     <string name="min_battery">Bateria Minima</string>
     <string name="Apply_button">Apply</string>
+    <string name="action_settings">Definições</string>
+    <string name="action_favorite">Favoritos</string>
+    <string name="add_location">Adicionar Localização</string>
 </resources>

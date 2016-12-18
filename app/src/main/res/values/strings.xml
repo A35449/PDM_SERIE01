@@ -40,5 +40,6 @@ Teacher: João Trindade</string>
     <string name="Periodicity">Periodicity (minutes)</string>
     <string name="min_battery">Minimum Battery</string>
     <string name="Apply_button">Apply</string>
+    <string name="settings">Settings</string>
 
 </resources>
