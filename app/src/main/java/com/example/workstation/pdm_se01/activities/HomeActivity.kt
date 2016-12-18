@@ -2,6 +2,7 @@ package com.example.workstation.pdm_se01.activities
 
 import android.app.LoaderManager
 import android.content.*
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.database.Cursor
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
