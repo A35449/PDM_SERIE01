@@ -134,7 +134,7 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
     }
     private fun  toggleFavorite(location: String) {
         val synchronizer = Syncronizer(applicationContext, API_Forecast(applicationContext) )
-        var parse = location.split("/".toRegex()).dropLastWhile({ it.isEmpty()})
+        var parse = location.split(",")
         var sharedPrefLocation = getSharedPreferences("Location", MODE_PRIVATE)
         var rawlocations = sharedPrefLocation!!.getString("locals", null)
 
