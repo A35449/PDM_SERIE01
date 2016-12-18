@@ -29,37 +29,35 @@ import com.example.workstation.pdm_se01.utils.QueryRegist
 
 class PreferencesActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor> {
     override fun onLoaderReset(loader: Loader<Cursor>?) {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onLoadFinished(loader: Loader<Cursor>?, data: Cursor?) {
-        listModel = ArrayList<FavLocationModel>()
+        val updatedModel = ArrayList<FavLocationModel>()
         val counter = 0
         var elem = FavLocationModel()
         if (data != null) {
             while (data.moveToNext()) {
                 elem.location = data.getString(data.getColumnIndex(ForecastContract.CITY)) + "," + data.getString(data.getColumnIndex(ForecastContract.COUNTRY))
-
-
+                updatedModel?.add(elem)
             }
-            fillList(listModel as ArrayList<FavLocationModel>)
+            if(updatedModel.size != 0 || listModel == null){
+                listModel = updatedModel
+            }
         }
+        fillList(listModel as ArrayList<FavLocationModel>)
     }
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
         val uri = ForecastContract.CONTENT_URI
-
         val cursor = CursorLoader(this, uri, null, "fav=?", arrayOf("1"), ForecastContract.DEFAULT_SORT_ORDER)
         return cursor
     }
 
     companion object {
         private var listModel: ArrayList<FavLocationModel>? = null
-
         private var addPref: Button? = null
         private var removePref: Button? = null
         private var lv: ListView? = null
-        private var sharedPrefLocation: SharedPreferences? = null
         private var adapter: FavLocationListAdapter? = null
     }
 
@@ -110,9 +108,7 @@ class PreferencesActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<C
         addPref = findViewById(R.id.addLocationButton) as Button
         removePref = findViewById(R.id.removeLocationButton) as Button
 
-
         //if (!favList.isEmpty())
-
 
         addPref!!.setOnClickListener({
             val addAlert = AlertDialog.Builder(this@PreferencesActivity)
@@ -139,12 +135,17 @@ class PreferencesActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<C
                         val ps = String.format("\"name\":\"%s\",\"country\":\"%s\"", location[0], location[1].toUpperCase())
                         if (MainActivity.file_string!!.contains(ps)) {
 
-
                             val synchronizer = Syncronizer(applicationContext, API_Forecast(applicationContext))
                             synchronizer.syncronizeSingle(QueryRegist(location[0], location[1], 1)) //marked favorite
-                            finish()
-                            startActivity(intent)
 
+                            val newEntry = FavLocationModel()
+                            newEntry.location = rawLocation
+                            listModel?.add(newEntry)
+
+                            adapter = null
+                            fillList(listModel!!)
+                            //finish()
+                            //startActivity(intent)
 
                             Toast.makeText(this@PreferencesActivity, "Preference Saved", Toast.LENGTH_SHORT).show()
                         }else {
@@ -158,18 +159,20 @@ class PreferencesActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<C
             addDialog.show()
         })
 
-        removePref!!.setOnClickListener(View.OnClickListener {
-            val synchronizer = Syncronizer(applicationContext, API_Forecast(applicationContext))
+        removePref!!.setOnClickListener(View.OnClickListener { v->
 
+            val synchronizer = Syncronizer(applicationContext, API_Forecast(applicationContext))
+            //val txt = v.findViewById(R.id.textView1) as TextView
             val checkedList = adapter!!.getCheckedItems()
             for (i: Int in checkedList) {
-                val location = listModel?.get(i)?.location
+                val l = listModel!!
+                val location = l.get(i)?.location
                 var parsed = location?.split(",")
-                synchronizer.syncronizeSingle(QueryRegist(parsed!![0], parsed!![1], 0))
+                synchronizer.syncronizeSingle(QueryRegist(parsed!![0], parsed!![1],0))
+                listModel!!.removeAt(i)
+            }
 
-                finish()
-                startActivity(intent)
-
+            //this.applicationContext.contentResolver.notifyChange(ForecastContract.CONTENT_URI, null)
 
 /*            favList
                     .filter { it.check==1 }
@@ -181,12 +184,13 @@ class PreferencesActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<C
 /*
             saveSharedpreferences(favList)
 
-            adapter = FavLocationListAdapter(this,R.id.favList,
-                    favList)
-            lv!!.adapter = adapter
-*/
-                Toast.makeText(this@PreferencesActivity, "Preference Saved", Toast.LENGTH_SHORT).show()
-            }
+
+*/          //Toast.makeText(this@PreferencesActivity, "Preference Saved", Toast.LENGTH_SHORT).show()
+            adapter = null
+            fillList(listModel!!)
+           /* adapter = FavLocationListAdapter(this,R.id.favList,
+                    listModel!!)
+            lv!!.adapter = adapter*/
         })
 
 

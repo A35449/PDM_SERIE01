@@ -68,7 +68,7 @@ class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor> 
                 listWrapper.add(Converter.convertToForecast(data.getString(data.getColumnIndex(ForecastContract.DATA))))
                 counter.inc()
             }
-            if(listWrapper.size != 0)
+            if(listWrapper.size != 0 || favList == null)
                 favList = listWrapper
         }
         fillList(favList!!)
