@@ -25,15 +25,14 @@ import com.example.workstation.pdm_se01.utils.QueryRegist
 
 
 class PreferencesActivity : AppCompatActivity() {
-companion object {
-    private var addPref: Button? = null
-    private var removePref: Button? = null
-    private var lv: ListView? = null
-    private var sharedPrefLocation: SharedPreferences? = null
-    private var adapter: FavLocationListAdapter? = null
-}
 
-
+    companion object {
+        private var addPref: Button? = null
+        private var removePref: Button? = null
+        private var lv: ListView? = null
+        private var sharedPrefLocation: SharedPreferences? = null
+        private var adapter: FavLocationListAdapter? = null
+    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -86,7 +85,6 @@ companion object {
         if (!favList.isEmpty())
             fillList(favList)
 
-
         addPref!!.setOnClickListener({
             val addAlert = AlertDialog.Builder(this@PreferencesActivity)
             addAlert.setTitle("Add Location")
@@ -99,7 +97,6 @@ companion object {
             input.layoutParams = lp
             input.hint = "ex:London,GB"
             addAlert.setView(input)
-
 
             addAlert.setPositiveButton("Add",
                     { dialog, x ->
@@ -115,29 +112,23 @@ companion object {
                             //validar localizaçao intruduzida
 
                             favList
-                                    .filter { it.location.equals(rawLocation)}
-                                    .forEach {  Toast.makeText(this@PreferencesActivity, "Preference Already exists", Toast.LENGTH_SHORT).show()
-                                        return@setPositiveButton}
-
-
-
+                                .filter { it.location.equals(rawLocation)}
+                                .forEach {  Toast.makeText(this@PreferencesActivity, "Preference Already exists", Toast.LENGTH_SHORT).show()
+                                    return@setPositiveButton}
 
                             var favLocationModel :FavLocationModel=FavLocationModel()
                             favLocationModel.location=rawLocation
                             favLocationModel.check=0
 
-                                favList.add(favLocationModel)
+                            favList.add(favLocationModel)
 
                             saveSharedpreferences(favList)
-                            if (adapter==null) {
-                                fillList(favList)
-                            }else
-                            adapter?.notifyDataSetChanged()
 
+                            adapter?.setContent(favList)
+                            adapter?.notifyDataSetChanged()
+                            //fillList(favList)
 
                             Toast.makeText(this@PreferencesActivity, "Preference Saved", Toast.LENGTH_SHORT).show()
-
-
                         } else {
                             Toast.makeText(this@PreferencesActivity, "Location Unavailable", Toast.LENGTH_SHORT).show()
                         }
@@ -159,16 +150,13 @@ companion object {
                         synchronizer.syncronizeSingle(QueryRegist(parsed[0],parsed[1],0))
                         favList.remove(it)
                     }
+
             saveSharedpreferences(favList)
+            adapter?.setContent(favList)
             adapter?.notifyDataSetChanged()
             Toast.makeText(this@PreferencesActivity, "Preference Saved", Toast.LENGTH_SHORT).show()
         })
-
     }
-
-
-
-
 
     private fun sharedPrefs(): MutableList<FavLocationModel> {
 
@@ -186,10 +174,9 @@ companion object {
         return preferences
     }
 
-
     private fun saveSharedpreferences(prefsList: List<FavLocationModel>) {
-        val synchronizer =Syncronizer(applicationContext,API_Forecast(applicationContext) )
 
+        val synchronizer =Syncronizer(applicationContext,API_Forecast(applicationContext) )
 
         var locations = ""
         for (i in prefsList.indices) {
@@ -199,14 +186,11 @@ companion object {
             synchronizer.syncronizeSingle(QueryRegist(parsed[0],parsed[1],1)) //marked favorite
         }
 
-
         val editor = sharedPrefLocation!!.edit()
         editor.clear()
         editor.putString("locals", locations)
         editor.commit()
-
     }
-
 
     private fun fillList(list: List<FavLocationModel>) {
         if(adapter == null){
@@ -215,6 +199,5 @@ companion object {
         }
         lv!!.adapter = adapter
     }
-
 }
 

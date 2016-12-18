@@ -25,11 +25,13 @@ import com.example.workstation.pdm_se01.utils.QueryRegist
  */
 
 class FavLocationListAdapter(context: Context, resId: Int, resource: List<FavLocationModel>) : ArrayAdapter<FavLocationModel>(context, resId, resource) {
-    internal var modelItems: List<FavLocationModel>? = null
-    internal var checkBoxState : BooleanArray = BooleanArray(resource.size)
+
+    internal var modelItems: List<FavLocationModel>
+    internal var checkBoxState : BooleanArray
 
     init {
         this.modelItems = resource
+        checkBoxState = BooleanArray(resource.size)
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -86,5 +88,8 @@ class FavLocationListAdapter(context: Context, resId: Int, resource: List<FavLoc
         var checkbox:CheckBox ?=null
     }
 
-
+    fun setContent(list : List<FavLocationModel>){
+        modelItems = list
+        checkBoxState = BooleanArray(list.size)
+    }
 }

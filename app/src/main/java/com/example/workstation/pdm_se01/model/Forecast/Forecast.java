@@ -28,6 +28,16 @@ public class Forecast {
 
     private double rain;
 
+    public double getSnow() {
+        return snow;
+    }
+
+    public void setSnow(double snow) {
+        this.snow = snow;
+    }
+
+    private double snow;
+
     public int getClouds() {
         return clouds;
     }

@@ -5,12 +5,10 @@ import android.content.*
 import android.database.Cursor
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
-import com.example.workstation.pdm_se01.activities.PreferencesActivity
 import com.example.workstation.pdm_se01.R
 import com.example.workstation.pdm_se01.activities.MainActivity.Companion.file_string
 import com.example.workstation.pdm_se01.adapter.HomeActivityListAdapter
@@ -23,23 +21,14 @@ import java.util.*
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.AdapterView
 
+class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor> {
 
-
-class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor>{
-
-   companion object{
-       val LOADER_ID =2
-   }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_weather_by_location, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         val id = item.itemId
 
         if (id == R.id.action_settings) {
@@ -56,52 +45,44 @@ class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor>{
         return super.onOptionsItemSelected(item)
     }
 
-
-
-
     override fun onLoaderReset(loader: Loader<Cursor>?) {
-        val d = 1//throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(this,"Loader Reset",1000)
     }
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
         val uri = ForecastContract.CONTENT_URI
 
-
         val cursor = CursorLoader(this, uri, null, "fav=?",arrayOf("1"), ForecastContract.DEFAULT_SORT_ORDER)
         return cursor
     }
+
     override fun onLoadFinished(loader: Loader<Cursor>?, data: Cursor?) {
-       val listWrapper =  ArrayList<Wrapper>()
-
-
+        val listWrapper =  ArrayList<Wrapper>()
+        val counter = 0
         if (data!=null){
             while (data.moveToNext()){
-
                 listWrapper.add(Converter.convertToForecast(data.getString(data.getColumnIndex(ForecastContract.DATA))))
-
-
+                counter.inc()
             }
-         fillList(listWrapper)
-
-
+            fillList(listWrapper)
         }
-
     }
 
-
-    private var favButton: ImageButton? = null
-    private var editText: EditText? = null
-    private var searchButton: Button?=null
-    private var settingsButton:ImageButton?=null
-    private var adapter:HomeActivityListAdapter?=null
-    private var lv:ListView?=null
-    private var country_code:String?=null
-    //private var sharedPrefLocation: SharedPreferences? = null
+    companion object{
+        private var editText: EditText? = null
+        private var searchButton: Button?=null
+        private var adapter:HomeActivityListAdapter?=null
+        private var lv:ListView?=null
+        private var country_code:String?=null
+        val LOADER_ID =2
+        val COUNT = 0
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-            loaderManager.initLoader(LOADER_ID,null,this)
+        loaderManager.initLoader(LOADER_ID,null,this)
 
         editText = findViewById(R.id.LocationInput) as EditText
         searchButton=findViewById(R.id.search_button)as Button
@@ -115,7 +96,6 @@ class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor>{
                 country_code = resources.getStringArray(R.array.countries_code)[position].toUpperCase()
             }
             override fun onNothingSelected(parentView: AdapterView<*>) {
-                // your code here
             }
         }
 
@@ -131,14 +111,19 @@ class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor>{
                 Toast.makeText(this, "Location Unavailable/Incorrect", Toast.LENGTH_SHORT).show()
             }
         })
-
     }
-
 
     private fun fillList(list: List<Wrapper>) {
-        adapter = HomeActivityListAdapter(this,R.id.favoriteListView,
-                list)
+
+        if(adapter == null || (adapter != null && adapter!!.count != list.size) ){
+            adapter = HomeActivityListAdapter(this,R.id.favoriteListView,list)
+        }
+        adapter?.notifyDataSetChanged()
         lv!!.adapter = adapter
+
     }
 
+    private fun getNumberFavorites() : Int {
+        return 0
+    }
 }

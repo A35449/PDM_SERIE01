@@ -27,7 +27,8 @@ class AWAReceiver : BroadcastReceiver() {
                 val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
                 val scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
                 val batteryPct = level / scale.toFloat()
-                Toast.makeText(context, "Battery :  " +batteryPct, Toast.LENGTH_SHORT).show()
+                
+                //Toast.makeText(context, "Battery :  " +batteryPct, Toast.LENGTH_SHORT).show()
                 val shared=context?.getSharedPreferences("alarmSet",MODE_PRIVATE)
                 val alarmSet = shared?.getBoolean("alarmSet",true) as Boolean
                 val settingsPreferences=context?.getSharedPreferences("SettingsPrefs",MODE_PRIVATE)
@@ -42,7 +43,7 @@ class AWAReceiver : BroadcastReceiver() {
                     val intentCancel = Intent(context, AWAReceiver::class.java)
                     cancelPIntent = PendingIntent.getBroadcast(context,0,intentCancel,0)
                     alarmManager.cancel(cancelPIntent)
-                    Toast.makeText(context, "Battery lower then settings allow ,alarm unset", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "Battery lower then settings allow ,alarm unset", Toast.LENGTH_SHORT).show()
 
                     val shared= context?.getSharedPreferences("alarmSet", Context.MODE_PRIVATE)
                     val editor= shared?.edit()
@@ -59,19 +60,20 @@ class AWAReceiver : BroadcastReceiver() {
                     val editor= shared?.edit()
                     editor?.putBoolean("alarmSet",true)
                     editor?.commit()
-                    Toast.makeText(context, "Battery higher then settings allow ,alarm Set", Toast.LENGTH_SHORT).show()
-
+                    //Toast.makeText(context, "Battery higher then settings allow ,alarm Set", Toast.LENGTH_SHORT).show()
                 }
-                else  Toast.makeText(context, "No changes done to alarm", Toast.LENGTH_SHORT).show()
+                else {
+                    //Toast.makeText(context, "No changes done to alarm", Toast.LENGTH_SHORT).show()
+                }
 
             }
             Intent.ACTION_BOOT_COMPLETED -> {
-                Toast.makeText(context, "Boot Completed", Toast.LENGTH_SHORT).show()
+                context?.startService(Intent(context, UpdateService::class.java))
+                //Toast.makeText(context, "Boot Completed", Toast.LENGTH_SHORT).show()
             }
             else -> {
                 context?.startService(Intent(context, UpdateService::class.java))
             }
         }
-
     }
 }

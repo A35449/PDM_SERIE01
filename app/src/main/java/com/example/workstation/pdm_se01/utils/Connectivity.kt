@@ -22,11 +22,13 @@ class Connectivity(){
 
             val connection_pref = Connectivity.WIFI
             val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            var ret = false
             when(connection_pref){
-                WIFI -> return checkWIFI(connectivityManager)
-                BOTH -> return checkBoth(connectivityManager)
-                else -> return false
+                WIFI -> ret = checkWIFI(connectivityManager)
+                BOTH -> ret = checkBoth(connectivityManager)
             }
+
+            return ret;
         }
 
         private fun checkBoth(connectivityManager : ConnectivityManager): Boolean {
