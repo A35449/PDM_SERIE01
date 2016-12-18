@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">AMUAT</string>
     <string name="about_us">Acerca de</string>
-    <string name="ex_london_gb">Lisboa,PT</string>
+    <string name="ex_london_gb">Lisboa</string>
     <string name="get_weather">Obter Tempo</string>
     <string name="humidity">Humidade</string>
     <string name="max_temperature">Temperatura Máxima</string>

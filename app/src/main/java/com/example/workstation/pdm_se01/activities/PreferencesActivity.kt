@@ -52,6 +52,11 @@ companion object {
             this.startActivity(myIntent)
             return true
         }
+        if(id==R.id.favorites){
+            val myIntent = Intent(this, PreferencesActivity::class.java)
+            this.startActivity(myIntent)
+            return true
+        }
 
         return super.onOptionsItemSelected(item)
     }
