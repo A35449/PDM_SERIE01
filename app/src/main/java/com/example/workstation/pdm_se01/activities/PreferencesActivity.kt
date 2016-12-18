@@ -131,7 +131,7 @@ class PreferencesActivity : AppCompatActivity() {
                             fillList(favList)
 
                             Toast.makeText(this@PreferencesActivity, "Preference Saved", Toast.LENGTH_SHORT).show()
-                        } else {
+                        }else {
                             Toast.makeText(this@PreferencesActivity, "Location Unavailable", Toast.LENGTH_SHORT).show()
                         }
                     })

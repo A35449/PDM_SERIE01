@@ -68,8 +68,10 @@ class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor> 
                 listWrapper.add(Converter.convertToForecast(data.getString(data.getColumnIndex(ForecastContract.DATA))))
                 counter.inc()
             }
-            fillList(listWrapper)
+            if(listWrapper.size != 0)
+                favList = listWrapper
         }
+        fillList(favList!!)
     }
 
     companion object{
@@ -78,6 +80,7 @@ class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor> 
         private var adapter:HomeActivityListAdapter?=null
         private var lv:ListView?=null
         private var country_code:String?=null
+        private var favList : ArrayList<Wrapper>?= null
         val LOADER_ID =2
         val COUNT = 0
     }
@@ -117,14 +120,21 @@ class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor> 
         })
     }
 
+    protected override fun onResume() {
+        super.onResume()
+       /** var list = favList
+        if(list == null) list = ArrayList<Wrapper>()
+        else{
+            fillList(list)
+        }*/
+    }
     private fun fillList(list: List<Wrapper>) {
 
-        if(adapter == null || (adapter != null && adapter!!.count != list.size) ){
+        if(adapter == null || (adapter != null && list!=null && adapter!!.count != list.size) ){
             adapter = HomeActivityListAdapter(this,R.id.favoriteListView,list)
         }
-        adapter?.notifyDataSetChanged()
+        //adapter?.notifyDataSetChanged()
         lv!!.adapter = adapter
-
     }
 
     private fun getNumberFavorites() : Int {
