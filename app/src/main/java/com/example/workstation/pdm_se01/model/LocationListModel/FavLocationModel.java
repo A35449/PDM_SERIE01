@@ -6,7 +6,7 @@ package com.example.workstation.pdm_se01.model.LocationListModel;
 
 public class FavLocationModel {
     private String location;
-    private int isChecked;
+    private int isChecked=0;
 
     public String getLocation()
     {
