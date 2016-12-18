@@ -32,7 +32,6 @@ import com.example.workstation.pdm_se01.network.api.API_Forecast
 import com.example.workstation.pdm_se01.provider.contract.ForecastContract
 import com.example.workstation.pdm_se01.utils.Converter
 import com.example.workstation.pdm_se01.utils.QueryRegist
-import com.example.workstation.pdm_se01.utils.Utils
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
@@ -101,9 +100,9 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
     }
 
     private fun  markFavoriteIcon(location: String?, menu: Menu) {
-        val shared= getSharedPreferences("Location", MODE_PRIVATE)
-        val favs =shared!!.getString("locals", null)
-        if(favs != null && favs.contains(location as CharSequence,true)){
+        val synchronizer = Syncronizer(applicationContext, API_Forecast(applicationContext) )
+        val cityCountry = location?.split(",")
+        if(synchronizer.getFav(QueryRegist(cityCountry!![0],cityCountry[1]))==1){
             menu.findItem(R.id.toggleFavorite).setIcon(android.R.drawable.star_big_on)
         }
     }
@@ -135,21 +134,7 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
     private fun  toggleFavorite(location: String) {
         val synchronizer = Syncronizer(applicationContext, API_Forecast(applicationContext) )
         var parse = location.split(",")
-        var sharedPrefLocation = getSharedPreferences("Location", MODE_PRIVATE)
-        var rawlocations = sharedPrefLocation!!.getString("locals", "")
-
-        if (rawlocations.contains(location as CharSequence,true)) {
-            synchronizer.updateRecord(QueryRegist(parse[0], parse[1], 0))
-            var splitedString=rawlocations.split(location+"/")
-            rawlocations=splitedString[0]+splitedString[1]
-        }else {
-            synchronizer.updateRecord(QueryRegist(parse[0], parse[1], 1))
-            rawlocations+=location+"/"
-        }
-        val editor = sharedPrefLocation!!.edit()
-        editor.clear()
-        editor.putString("locals", rawlocations)
-        editor.commit()
+        synchronizer.toggleFav(QueryRegist(parse[0], parse[1]))
     }
     class PlaceholderFragment : Fragment() {
 
