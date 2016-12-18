@@ -55,6 +55,7 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
         if(data != null){
             if(data.moveToNext())
                 wrapper_forecast = Converter.convertToForecast(data.getString(data.getColumnIndex(ForecastContract.DATA)))
+
         }
         initFragment(wrapper_forecast)
     }

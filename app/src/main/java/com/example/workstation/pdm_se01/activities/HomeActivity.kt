@@ -21,6 +21,9 @@ import com.toptoche.searchablespinnerlibrary.SearchableSpinner
 import java.util.*
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.AdapterView
+import com.example.workstation.pdm_se01.network.Syncronizer
+import com.example.workstation.pdm_se01.network.api.API_Forecast
+import com.example.workstation.pdm_se01.utils.QueryRegist
 
 class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -101,13 +104,12 @@ class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor> 
         }
 
         searchButton?.setOnClickListener({
+            val synchronizer = Syncronizer(applicationContext, API_Forecast(applicationContext) )
             var location = editText?.text.toString()
             var ps = String.format("\"name\":\"%s\",\"country\":\"%s\"", location, country_code)
             var contains = file_string?.contains(ps)
             if (contains!!) {
-                val myIntent = Intent(this, WeatherByLocation::class.java)
-                myIntent.putExtra("location",location+","+country_code)
-                this.startActivity(myIntent)
+                synchronizer.syncronizeSearch(QueryRegist(location, country_code!!)) //marked favorite
             } else {
                 Toast.makeText(this, "Location Unavailable/Incorrect", Toast.LENGTH_SHORT).show()
             }

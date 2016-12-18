@@ -36,13 +36,11 @@ class HomeActivityListAdapter(internal var context:
         var holder: WeatherHolder? = null
         val inflater = (context as Activity).layoutInflater
         convertView= inflater.inflate(R.layout.home_activity_weather_row,parent,false )
-
-
+        
         holder = WeatherHolder()
 
         holder.imageIcon = convertView!!.findViewById(R.id.weatherImage) as ImageView
         holder.information= convertView!!.findViewById(R.id.informationText) as TextView
-
 
 
         val  weather=data!![position].list[0].weather[0]
@@ -54,19 +52,12 @@ class HomeActivityListAdapter(internal var context:
        holder.information?.text=allInfo;
 
 
-
         val myPicasso = Picasso.with(context)
         myPicasso.setIndicatorsEnabled(true)
         myPicasso.load("http://openweathermap.org/img/w/" + weather.icon + ".png").into(holder.imageIcon)
 
 
-
-
-
-
-
         convertView.setOnClickListener(View.OnClickListener {
-
 
             val myIntent = Intent(context, WeatherByLocation::class.java)
             myIntent.putExtra("location", data!![position].city.name + ","+ data!![position].city.country)
