@@ -21,6 +21,13 @@
         android:layout_alignTop="@+id/weatherImage"
         android:layout_centerHorizontal="true">
         <TableRow>
+            <TextView android:text="@string/description" />
+            <TextView
+                android:id="@+id/description"
+                android:gravity="end"
+                />
+        </TableRow>
+        <TableRow>
             <TextView android:text="@string/min_temperature" />
             <TextView
                 android:id="@+id/minTemperatureWeather"
