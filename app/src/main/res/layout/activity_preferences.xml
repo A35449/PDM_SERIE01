@@ -26,13 +26,13 @@
     </android.support.design.widget.AppBarLayout>
 
     <Button
-        android:text="Add Location"
+        android:text="@string/Addpref"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/addLocationButton" />
 
     <Button
-        android:text="Remove Location"
+        android:text="@string/removePref"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/removeLocationButton" />

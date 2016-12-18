@@ -31,5 +31,15 @@ Teacher: João Trindade</string>
     <string name="action_favorite">Favorites</string>
     <string name="selectCountry">Select Country</string>
     <string name="positiveButton">OK</string>
+    <string name="Addpref">Add Location</string>
+    <string name="add_location">Add Location</string>
+    <string name="removePref">Remove Location</string>
+    <string name="remove_location">Remove Location</string>
+    <string name="search">Search</string>
+    <string name="Update_wifi_only">Update with Wi-Fi only</string>
+    <string name="Periodicity">Periodicity (minutes)</string>
+    <string name="min_battery">Minimum Battery</string>
+    <string name="Apply_button">Apply</string>
+    <string name="settings">Settings</string>
 
 </resources>

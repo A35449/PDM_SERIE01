@@ -28,20 +28,20 @@
 
         <Switch
             android:textSize="20dp"
-            android:text="Update with Wi-Fi only"
+            android:text="@string/Update_wifi_only"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:id="@+id/switch1" />
 
         <Button
 
-            android:text="Periodicidade(min)"
+            android:text="@string/Periodicity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/periocity" />
 
         <TextView
-            android:text="Bateria minima"
+            android:text="@string/min_battery"
             android:layout_width="260dp"
             android:layout_height="50dp"
             android:id="@+id/textView3"
@@ -64,7 +64,7 @@
             android:id="@+id/seekBarValue" />
 
         <Button
-            android:text="Apply"
+            android:text="@string/Apply_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/applychanges"
@@ -73,7 +73,7 @@
             android:layout_marginTop="31dp"/>
 
         <Button
-            android:text="About us"
+            android:text="@string/about_us"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/aboutusbutton"
