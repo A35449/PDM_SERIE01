@@ -121,14 +121,10 @@ class Syncronizer(val context: Context, _api : API){
         api!!.get(reg,sync.syncToActivityHandler,sync.errHandler)
     }
 
-    /*  public fun addFavorite(city : String, country: String ){
-        val syncHandler = SyncHandler(contentProvider,country,city,true)
-        api!!.getWeather(country,city,syncHandler.repHandler,syncHandler.errHandler)
+    fun updateRecord(reg:QueryRegist ) {
+        val cv = ContentValues()
+        cv.put(contract.getFav(),reg.fav)
+        context.contentResolver.update(contract.CONTENT_URI,cv,"country=? AND city=?" , arrayOf(reg.country,reg.city))
     }
-
-    public fun removeFavorite(city : String, country: String ){
-        val syncHandler = SyncHandler(contentProvider,country,city,false)
-        api!!.getWeather(country,city,syncHandler.repHandler,syncHandler.errHandler)
-    }*/
 }
 

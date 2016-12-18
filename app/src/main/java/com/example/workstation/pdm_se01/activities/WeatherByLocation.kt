@@ -139,11 +139,11 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
         var rawlocations = sharedPrefLocation!!.getString("locals", null)
 
         if (rawlocations.contains(location as CharSequence,true)) {
-            synchronizer.syncronizeSingle(QueryRegist(parse[0], parse[1], 0))
+            synchronizer.updateRecord(QueryRegist(parse[0], parse[1], 0))
             var splitedString=rawlocations.split(location+"/")
             rawlocations=splitedString[0]+splitedString[1]
         }else {
-            synchronizer.syncronizeSingle(QueryRegist(parse[0], parse[1], 1))
+            synchronizer.updateRecord(QueryRegist(parse[0], parse[1], 1))
             rawlocations+=location+"/"
         }
         val editor = sharedPrefLocation!!.edit()
