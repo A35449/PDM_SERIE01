@@ -41,5 +41,6 @@ Teacher: João Trindade</string>
     <string name="min_battery">Minimum Battery</string>
     <string name="Apply_button">Apply</string>
     <string name="settings">Settings</string>
+    <string name="action_toggleFavorite">Add/Remove Favorite</string>
 
 </resources>

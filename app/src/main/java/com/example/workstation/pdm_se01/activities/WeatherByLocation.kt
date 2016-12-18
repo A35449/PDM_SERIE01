@@ -73,7 +73,7 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
     private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
 
     private var mViewPager: ViewPager? = null
-
+    private var location :String ?=null
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -83,15 +83,26 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
+
         val i = intent
-        val location = i.getSerializableExtra("location") as String
+        location = i.getSerializableExtra("location") as String
         supportActionBar!!.title=location
+
     }
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_weather_by_location, menu)
+        menuInflater.inflate(R.menu.menu_with_toggle_favorite, menu)
+        markFavoriteIcon(location,menu)
         return true
+    }
+
+    private fun  markFavoriteIcon(location: String?, menu: Menu) {
+        val shared= getSharedPreferences("Location", MODE_PRIVATE)
+        val favs =shared!!.getString("locals", null)
+        if(favs.contains(location as CharSequence,true)){
+            menu.getItem(R.id.toggleFavorite).setIcon(android.R.drawable.star_big_on)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -106,6 +117,14 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
             val myIntent = Intent(this, PreferencesActivity::class.java)
             this.startActivity(myIntent)
             return true
+        }
+        if(id==R.id.toggleFavorite){
+            //PreferencesActivity.toggleFavorite(intent.getStringExtra("location"))
+            if (item.icon.constantState.equals(
+                    resources.getDrawable(android.R.drawable.star_big_off).constantState
+            )) {
+                item.setIcon(android.R.drawable.star_big_on)
+            }else item.setIcon(android.R.drawable.star_big_off)
         }
         return super.onOptionsItemSelected(item)
     }

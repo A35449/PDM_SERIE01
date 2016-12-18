@@ -36,7 +36,7 @@ class HomeActivityListAdapter(internal var context:
         var holder: WeatherHolder? = null
         val inflater = (context as Activity).layoutInflater
         convertView= inflater.inflate(R.layout.home_activity_weather_row,parent,false )
-        
+
         holder = WeatherHolder()
 
         holder.imageIcon = convertView!!.findViewById(R.id.weatherImage) as ImageView
