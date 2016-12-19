@@ -16,7 +16,7 @@ class Connectivity(){
         val WIFI = 0
         val BOTH = 1
 
-        public fun validateConnectivity(context: Context) : Boolean{
+        fun validateConnectivity(context: Context) : Boolean{
 
             //get connectivity preferences
 
@@ -28,7 +28,7 @@ class Connectivity(){
                 BOTH -> ret = checkBoth(connectivityManager)
             }
 
-            return ret;
+            return ret
         }
 
         private fun checkBoth(connectivityManager : ConnectivityManager): Boolean {
@@ -38,7 +38,7 @@ class Connectivity(){
 
         private fun checkWIFI(connectivityManager: ConnectivityManager):Boolean{
             var networkInfoWifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-            return networkInfoWifi.isConnected()
+            return networkInfoWifi.isConnected
         }
     }
 

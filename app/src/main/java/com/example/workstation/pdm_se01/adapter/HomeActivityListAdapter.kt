@@ -40,7 +40,7 @@ class HomeActivityListAdapter(internal var context:
         holder = WeatherHolder()
 
         holder.imageIcon = convertView!!.findViewById(R.id.weatherImage) as ImageView
-        holder.information= convertView!!.findViewById(R.id.informationText) as TextView
+        holder.information= convertView.findViewById(R.id.informationText) as TextView
 
 
         val  weather=data!![position].list[0].weather[0]
@@ -49,7 +49,7 @@ class HomeActivityListAdapter(internal var context:
                 "Min: " + data!![position].list[0].temp.min+"ºC\n"+
                 "Max: "+ data!![position].list[0].temp.max+"ºC\n"
 
-       holder.information?.text=allInfo;
+       holder.information?.text=allInfo
 
 
         val myPicasso = Picasso.with(context)

@@ -55,7 +55,7 @@ class AWAProvider : ContentProvider() {
     }
 
     override fun getType(uri: Uri?): String {
-        throw UnsupportedOperationException("getType is not implemented");
+        throw UnsupportedOperationException("getType is not implemented")
     }
 
     override fun insert(uri: Uri, values: ContentValues?): Uri {
@@ -100,7 +100,7 @@ class AWAProvider : ContentProvider() {
             WEA_OBJ -> { table = DbSchema.Weather.TBL_NAME}
             FORE_LIST -> {table = DbSchema.Forecast.TBL_NAME}
             FORE_OBJ -> {table = DbSchema.Forecast.TBL_NAME}
-            else -> throw badUri(uri!!)
+            else -> throw badUri(uri)
         }
 
         val db = dbHelper!!.writableDatabase

@@ -120,7 +120,7 @@ class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor> 
         })
     }
 
-    protected override fun onResume() {
+    override fun onResume() {
         super.onResume()
        /** var list = favList
         if(list == null) list = ArrayList<Wrapper>()

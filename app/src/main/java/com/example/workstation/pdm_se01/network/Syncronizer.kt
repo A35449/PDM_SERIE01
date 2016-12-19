@@ -1,31 +1,15 @@
 package com.example.workstation.pdm_se01.network
 
-import android.support.v7.app.NotificationCompat
-import com.example.workstation.pdm_se01.R
-import android.app.NotificationManager
-import android.content.Context.NOTIFICATION_SERVICE
-import android.app.PendingIntent
 import android.content.*
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
-import android.support.v4.app.TaskStackBuilder
 import android.widget.Toast
 import com.android.volley.Response
-import com.android.volley.VolleyError
-import com.example.workstation.pdm_se01.activities.MainActivity
-import com.example.workstation.pdm_se01.activities.WeatherActivity
 import com.example.workstation.pdm_se01.activities.WeatherByLocation
-import com.example.workstation.pdm_se01.components.notification.NotificationReceiver
-import com.example.workstation.pdm_se01.model.Weather.Weather
-import com.example.workstation.pdm_se01.model.Weather.Wrapper
 import com.example.workstation.pdm_se01.network.api.API
 import com.example.workstation.pdm_se01.utils.Connectivity
-import com.example.workstation.pdm_se01.utils.Converter
 import com.example.workstation.pdm_se01.utils.QueryRegist
-import com.example.workstation.pdm_se01.utils.Utils
 import com.example.workstation.pdm_se01.provider.contract.AWAContract
-import com.example.workstation.pdm_se01.provider.DbSchema
 import com.example.workstation.pdm_se01.provider.contract.ForecastContract
-import java.util.*
 
 class Syncronizer(val context: Context, _api : API){
 
@@ -51,12 +35,12 @@ class Syncronizer(val context: Context, _api : API){
         }
 
         /*Handlers*/
-        val errHandler = Response.ErrorListener(){
+        val errHandler = Response.ErrorListener {
             error ->
             Toast.makeText(ctx,"Network request failed to complete.", Toast.LENGTH_SHORT).show()
         }
 
-        val syncHandler = Response.Listener<String>(){
+        val syncHandler = Response.Listener<String> {
             response ->
             if(hasRecord())
                 updateRecord(response)
@@ -64,7 +48,7 @@ class Syncronizer(val context: Context, _api : API){
                 insertNewRecord(response)
         }
 
-        val syncToActivityHandler = Response.Listener<String>(){
+        val syncToActivityHandler = Response.Listener<String> {
             response ->
             if(hasRecord())
                 updateRecord(response)
@@ -82,7 +66,7 @@ class Syncronizer(val context: Context, _api : API){
             var selection = "country = ? AND city = ?"
             val selectionArgs = arrayOf(reg.country, reg.city)
             val cursor = cr.query(contract.getAll(), null, selection, selectionArgs, null)
-            return cursor.moveToFirst();
+            return cursor.moveToFirst()
         }
 
         fun insertNewRecord(record:String){
@@ -102,7 +86,7 @@ class Syncronizer(val context: Context, _api : API){
         }
     }
 
-    public fun snycronize(favList : List<QueryRegist>){
+    fun snycronize(favList : List<QueryRegist>){
 
         //Obter connectividade, não sincronizar se falhar na validação
         if(!Connectivity.validateConnectivity(context)) return
@@ -112,14 +96,14 @@ class Syncronizer(val context: Context, _api : API){
         }
     }
 
-    public fun syncronizeSingle(reg : QueryRegist){
+    fun syncronizeSingle(reg : QueryRegist){
         val sync = SyncHandler(context,contract,reg)
-        api!!.get(reg,sync.syncHandler,sync.errHandler)
+        api.get(reg,sync.syncHandler,sync.errHandler)
     }
 
-    public fun syncronizeSearch(reg:QueryRegist){
+    fun syncronizeSearch(reg:QueryRegist){
         val sync = SyncHandler(context,contract,reg)
-        api!!.get(reg,sync.syncToActivityHandler,sync.errHandler)
+        api.get(reg,sync.syncToActivityHandler,sync.errHandler)
     }
 
     fun updateRecord(reg:QueryRegist ) {

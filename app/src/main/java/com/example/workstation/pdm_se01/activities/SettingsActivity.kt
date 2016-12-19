@@ -80,7 +80,7 @@ class SettingsActivity : AppCompatActivity() {
             val input = EditText(this@SettingsActivity)
 
 
-            input.inputType = InputType.TYPE_CLASS_NUMBER;
+            input.inputType = InputType.TYPE_CLASS_NUMBER
             val lp = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT

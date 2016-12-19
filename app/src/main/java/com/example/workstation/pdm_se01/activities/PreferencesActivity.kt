@@ -39,7 +39,7 @@ class PreferencesActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<C
             while (data.moveToNext()) {
                 elem = FavLocationModel()
                 elem.location = data.getString(data.getColumnIndex(ForecastContract.CITY)) + "," + data.getString(data.getColumnIndex(ForecastContract.COUNTRY))
-                updatedModel?.add(elem)
+                updatedModel.add(elem)
             }
             if(updatedModel.size != 0 || listModel == null){
                 listModel = updatedModel
@@ -167,9 +167,9 @@ class PreferencesActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<C
             val checkedList = adapter!!.getCheckedItems()
             for (i: Int in checkedList) {
                 val l = listModel!!
-                val location = l.get(i)?.location
+                val location = l.get(i).location
                 var parsed = location?.split(",")
-                synchronizer.syncronizeSingle(QueryRegist(parsed!![0], parsed!![1],0))
+                synchronizer.syncronizeSingle(QueryRegist(parsed!![0], parsed[1],0))
                 listModel!!.removeAt(i)
             }
 

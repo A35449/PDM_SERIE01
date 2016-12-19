@@ -17,7 +17,6 @@ import com.example.workstation.pdm_se01.network.api.API
 import com.example.workstation.pdm_se01.model.Forecast.Forecast
 import com.example.workstation.pdm_se01.R
 import com.example.workstation.pdm_se01.utils.Converter
-import com.example.workstation.pdm_se01.adapter.ForecastAdapter
 import com.example.workstation.pdm_se01.network.Syncronizer
 import com.example.workstation.pdm_se01.network.api.API_Weather
 import com.example.workstation.pdm_se01.provider.contract.ForecastContract
@@ -70,6 +69,6 @@ class MainActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
         }
-        return;
+        return
     }
 }
