@@ -102,7 +102,7 @@ class Syncronizer(val context: Context, _api : API){
         }
     }
 
-    public fun snycronize(favList : List<QueryRegist>){
+    fun snycronize(favList : List<QueryRegist>){
 
         //Obter connectividade, não sincronizar se falhar na validação
         if(!Connectivity.validateConnectivity(context)) return
@@ -145,6 +145,27 @@ class Syncronizer(val context: Context, _api : API){
         }
         else reg.fav=0
         updateRecord(reg)
+    }
+
+    fun removeFav(reg : QueryRegist) : Int{
+        var selection = "country = ? AND city = ? "
+        val selectionArgs = arrayOf(reg.country, reg.city)
+        return context.contentResolver.delete(contract.getAll(),selection,selectionArgs)
+    }
+
+    fun getFavorites() : List<QueryRegist>{
+        var list = ArrayList<QueryRegist>()
+        var selection = "fav = ?"
+        val selectionArgs = arrayOf("1")
+        val cursor = context.contentResolver.query(contract.getAll(), null, selection, selectionArgs, null)
+        while(cursor.moveToNext()){
+
+            val city = cursor.getString(cursor.getColumnIndex(contract.getCity()))
+            val country = cursor.getString(cursor.getColumnIndex(contract.getCountry()))
+            list.add(QueryRegist(city,country,1))
+        }
+
+        return list
     }
 }
 

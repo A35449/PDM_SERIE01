@@ -3,6 +3,7 @@ package com.example.workstation.pdm_se01.components.broadcast
 import android.app.*
 import android.content.Context
 import android.content.Intent
+import android.widget.Toast
 import com.example.workstation.pdm_se01.network.Syncronizer
 import com.example.workstation.pdm_se01.network.api.API_Forecast
 import com.example.workstation.pdm_se01.utils.QueryRegist
@@ -17,23 +18,12 @@ class UpdateService : IntentService("UpdateService") {
 
         override fun onHandleIntent(intent: Intent?) {
             Utils.sendNotification(applicationContext,"Update Started","Update Started","")
-            //syncNow()
+            syncNow()
         }
 
         fun syncNow(){
             val sync = Syncronizer(applicationContext,API_Forecast(applicationContext))
-            val raw_locals = getSharedPreferences("Location", Context.MODE_PRIVATE).getString("locals",null).split("/".toRegex()).dropLastWhile({it.isEmpty()}).toTypedArray()
-            val queries = buildQueries(raw_locals)
-            sync.snycronize(queries)
+            sync.snycronize(sync.getFavorites())
+            Toast.makeText(this,"Update Record",2000).show()
         }
-
-        fun buildQueries(locals : Array<String>) : List<QueryRegist>{
-            val retList = ArrayList<QueryRegist>()
-            for(l : String in locals){
-                val parsed = l.split(",".toRegex()).dropLastWhile({it.isEmpty()}).toTypedArray()
-                retList.add(QueryRegist(parsed[0],parsed[1],1))
-            }
-            return retList
-        }
-
     }

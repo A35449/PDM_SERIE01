@@ -50,7 +50,7 @@ class AWAProvider : ContentProvider() {
     private var dbHelper: DBHelper? = null
 
     override fun onCreate(): Boolean {
-        dbHelper = DBHelper(context)
+        dbHelper = DBHelper(context.applicationContext)
         return true
     }
 
@@ -71,7 +71,7 @@ class AWAProvider : ContentProvider() {
         val db = dbHelper!!.writableDatabase
         val newId = db.insert(table, null, values)
 
-        context.contentResolver.notifyChange(uri, null)
+        context.applicationContext.contentResolver.notifyChange(uri, null)
         return ContentUris.withAppendedId(uri, newId)
     }
 
@@ -88,8 +88,7 @@ class AWAProvider : ContentProvider() {
 
         val db = dbHelper!!.writableDatabase
         count = db.update(table,values,selection, selectionArgs)
-
-        context.contentResolver.notifyChange(uri, null)
+        context.applicationContext.contentResolver.notifyChange(uri, null)
         return count
     }
 
@@ -104,9 +103,8 @@ class AWAProvider : ContentProvider() {
         }
 
         val db = dbHelper!!.writableDatabase
-        val ndel = db.delete(table, null, null)
-
-        context.contentResolver.notifyChange(uri, null)
+        val ndel = db.delete(table, selection, selectionArgs)
+        context.applicationContext.contentResolver.notifyChange(uri, null)
         return ndel
     }
 
@@ -140,7 +138,7 @@ class AWAProvider : ContentProvider() {
 
         val db = dbHelper!!.readableDatabase
         val cursor = qbuilder.query(db, projection, selection, selectionArgs, null, null, sortOrder)
-        cursor.setNotificationUri(context.contentResolver, uri)
+        cursor.setNotificationUri(context.applicationContext.contentResolver, uri)
         return cursor
     }
 

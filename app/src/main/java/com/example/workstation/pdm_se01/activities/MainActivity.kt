@@ -1,27 +1,13 @@
 package com.example.workstation.pdm_se01.activities
 
-import android.app.AlarmManager
-import android.app.PendingIntent
 import android.content.*
 import android.os.Build
-import android.os.Parcelable
 import android.support.annotation.RequiresApi
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.os.SystemClock
-import android.view.View
-import android.widget.*
 
-import com.android.volley.Response
-import com.example.workstation.pdm_se01.network.api.API
-import com.example.workstation.pdm_se01.model.Forecast.Forecast
 import com.example.workstation.pdm_se01.R
-import com.example.workstation.pdm_se01.utils.Converter
-import com.example.workstation.pdm_se01.adapter.ForecastAdapter
-import com.example.workstation.pdm_se01.network.Syncronizer
-import com.example.workstation.pdm_se01.network.api.API_Weather
 import com.example.workstation.pdm_se01.provider.contract.ForecastContract
-import com.example.workstation.pdm_se01.provider.contract.WeatherContract
 import com.example.workstation.pdm_se01.utils.QueryRegist
 
 import org.apache.commons.io.IOUtils
@@ -39,22 +25,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-       val reg = QueryRegist("Madrid","ES")
-        var selection = "country = ? AND city = ?"
-
-        //val sync = Syncronizer(this,API_Weather(this))
-        //sync.syncronizeSingle(reg)
-
-        val selectionArgs = arrayOf(reg.country, reg.city)
-        val cursor = contentResolver.query(ForecastContract.getAll(), null, selection, selectionArgs, null)
-        var fav = "na"
-        if(cursor.moveToFirst()){
-            val idx = cursor.getColumnIndex(ForecastContract.FAV)
-            fav = cursor.getString(idx)
-            val d = 1
-        }
-
 
         initializeInputData()
         val myIntent = Intent(this, HomeActivity::class.java)
