@@ -133,32 +133,38 @@ class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor> 
 
         var holder: WeatherHolder
         var obj : Wrapper ?= null
+        var count: Int
         init{
+            count = 0;
             holder = WeatherHolder()
         }
         override fun setViewValue(view: View, cursor: Cursor, columnIndex: Int): Boolean {
             if(obj == null){
-                val data = cursor.getString(cursor.getColumnIndex(ForecastContract.DATA))
+                var data = cursor.getString(cursor.getColumnIndex(ForecastContract.DATA))
                 obj = Converter.convertToForecast(data)
+            }
+            if(count == 2){
+                obj = null
+                count = 0
             }
             if(view.id == R.id.weatherImage){
                 val vi = view as ImageView
-                holder.imageIcon = vi;
+                holder!!.imageIcon = vi;
                 val myPicasso = Picasso.with(this@HomeActivity)
                 myPicasso.setIndicatorsEnabled(true)
-                myPicasso.load("http://openweathermap.org/img/w/" + obj!!.list[0].weather[0].icon + ".png").into(holder.imageIcon)
+                myPicasso.load("http://openweathermap.org/img/w/" + obj!!.list[0].weather[0].icon + ".png").into(holder!!.imageIcon)
             }
             if(view.id == R.id.informationText){
-                holder.information= view as TextView
-                holder.city =  obj!!.city.name
-                holder.country = obj!!.city.country
-                holder.min = obj!!.list[0].temp.min
-                holder.max = obj!!.list[0].temp.max
-                val  allInfo="Local :"+  holder.city+","+holder.country +"\n"+
+                holder!!.information= view as TextView
+                holder!!.city =  obj!!.city.name
+                holder!!.country = obj!!.city.country
+                holder!!.min = obj!!.list[0].temp.min
+                holder!!.max = obj!!.list[0].temp.max
+                val  allInfo="Local :"+  holder!!.city+","+holder!!.country +"\n"+
                         "Min: " + obj!!.list[0].temp.min+"ºC\n"+
                         "Max: "+ obj!!.list[0].temp.max+"ºC\n"
 
-                holder.information?.text=allInfo;
+                holder!!.information?.text=allInfo;
             }
             return true
         }

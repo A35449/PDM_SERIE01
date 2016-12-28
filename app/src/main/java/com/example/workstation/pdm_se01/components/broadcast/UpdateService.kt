@@ -24,6 +24,6 @@ class UpdateService : IntentService("UpdateService") {
         fun syncNow(){
             val sync = Syncronizer(applicationContext,API_Forecast(applicationContext))
             sync.snycronize(sync.getFavorites())
-            Toast.makeText(this,"Update Record",2000).show()
+            Toast.makeText(this,"Update Record",1).show()
         }
     }
