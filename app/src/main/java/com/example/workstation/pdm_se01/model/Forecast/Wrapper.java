@@ -9,7 +9,7 @@ import java.util.List;
 public class Wrapper {
     private City city;
     private String cod;
-    private double message;
+    private String message;
     private int cnt;
     private List<Forecast> list;
 
@@ -29,11 +29,11 @@ public class Wrapper {
         this.cnt = cnt;
     }
 
-    public double getMessage() {
+    public String getMessage() {
         return message;
     }
 
-    public void setMessage(double message) {
+    public void setMessage(String message) {
         this.message = message;
     }
 

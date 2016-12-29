@@ -12,18 +12,14 @@ import android.view.View
 import android.widget.*
 import com.example.workstation.pdm_se01.R
 import java.util.ArrayList
-import com.example.workstation.pdm_se01.adapter.FavLocationListAdapter
 import com.example.workstation.pdm_se01.model.LocationListModel.FavLocationModel
 
-import android.support.v4.app.FragmentActivity
-import android.util.Log
+import android.support.v4.widget.SimpleCursorAdapter
 import android.view.Menu
 import android.view.MenuItem
-import com.example.workstation.pdm_se01.model.Forecast.Wrapper
 import com.example.workstation.pdm_se01.network.Syncronizer
 import com.example.workstation.pdm_se01.network.api.API_Forecast
 import com.example.workstation.pdm_se01.provider.contract.ForecastContract
-import com.example.workstation.pdm_se01.utils.Converter
 import com.example.workstation.pdm_se01.utils.QueryRegist
 
 
@@ -32,20 +28,7 @@ class PreferencesActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<C
     }
 
     override fun onLoadFinished(loader: Loader<Cursor>?, data: Cursor?) {
-        val updatedModel = ArrayList<FavLocationModel>()
-        val counter = 0
-        var elem : FavLocationModel
-        if (data != null) {
-            while (data.moveToNext()) {
-                elem = FavLocationModel()
-                elem.location = data.getString(data.getColumnIndex(ForecastContract.CITY)) + "," + data.getString(data.getColumnIndex(ForecastContract.COUNTRY))
-                updatedModel.add(elem)
-            }
-            if(updatedModel.size != 0 || listModel == null){
-                listModel = updatedModel
-            }
-        }
-        fillList(listModel as ArrayList<FavLocationModel>)
+        fillListCursor(data!!)
     }
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
@@ -59,7 +42,12 @@ class PreferencesActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<C
         private var addPref: Button? = null
         private var removePref: Button? = null
         private var lv: ListView? = null
-        private var adapter: FavLocationListAdapter? = null
+        private var adapter: SimpleCursorAdapter? = null
+        internal var checkBoxState : ArrayList<Int> ?= null
+    }
+
+    init{
+        checkBoxState = ArrayList<Int>()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -104,12 +92,9 @@ class PreferencesActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<C
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        //   sharedPrefLocation = getSharedPreferences("Location", Context.MODE_PRIVATE)
         lv = findViewById(R.id.favList) as ListView
         addPref = findViewById(R.id.addLocationButton) as Button
         removePref = findViewById(R.id.removeLocationButton) as Button
-
-        //if (!favList.isEmpty())
 
         addPref!!.setOnClickListener({
             val addAlert = AlertDialog.Builder(this@PreferencesActivity)
@@ -139,15 +124,6 @@ class PreferencesActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<C
                             val synchronizer = Syncronizer(applicationContext, API_Forecast(applicationContext))
                             synchronizer.syncronizeSingle(QueryRegist(location[0], location[1], 1)) //marked favorite
 
-                            val newEntry = FavLocationModel()
-                            newEntry.location = rawLocation
-                            listModel?.add(newEntry)
-
-                            adapter = null
-                            fillList(listModel!!)
-                            //finish()
-                            //startActivity(intent)
-
                             Toast.makeText(this@PreferencesActivity, "Preference Saved", Toast.LENGTH_SHORT).show()
                         }else {
                             Toast.makeText(this@PreferencesActivity, "Location Unavailable", Toast.LENGTH_SHORT).show()
@@ -163,61 +139,55 @@ class PreferencesActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<C
         removePref!!.setOnClickListener(View.OnClickListener { v->
 
             val synchronizer = Syncronizer(applicationContext, API_Forecast(applicationContext))
-            //val txt = v.findViewById(R.id.textView1) as TextView
-            val checkedList = adapter!!.getCheckedItems()
-            for (i: Int in checkedList) {
-                val l = listModel!!
-                val location = l.get(i).location
-                var parsed = location?.split(",")
-                synchronizer.syncronizeSingle(QueryRegist(parsed!![0], parsed[1],0))
-                listModel!!.removeAt(i)
+
+            for(i in checkBoxState!!.iterator()){
+                val view = adapter!!.getView(i,null,null)
+                    val location = (view.findViewById(R.id.textView1) as TextView).text
+                    var parsed = location?.split(",")
+                    val regist = QueryRegist(parsed!![0], parsed!![1], 0)
+                    val nDelete = synchronizer.removeFav(regist)
             }
-
-            //this.applicationContext.contentResolver.notifyChange(ForecastContract.CONTENT_URI, null)
-
-/*            favList
-                    .filter { it.check==1 }
-                    .forEach {
-                        var parsed= it.location.split(",")
-                        synchronizer.syncronizeSingle(QueryRegist(parsed[0],parsed[1],0))
-                        favList.remove(it)
-                    }*/
-/*
-            saveSharedpreferences(favList)
-
-
-*/          //Toast.makeText(this@PreferencesActivity, "Preference Saved", Toast.LENGTH_SHORT).show()
-            adapter = null
-            fillList(listModel!!)
-           /* adapter = FavLocationListAdapter(this,R.id.favList,
-                    listModel!!)
-            lv!!.adapter = adapter*/
         })
-
-
-        /*private fun saveSharedpreferences(prefsList: List<FavLocationModel>) {
-
-        var locations = ""
-        for (i in prefsList.indices) {
-            var location = prefsList.get(i).location
-            locations += location + "/"
-            var parsed =location.split(",")
-        }
-
-        val editor = sharedPrefLocation!!.edit()
-        editor.clear()
-        editor.putString("locals", locations)
-        editor.commit()
-    }*/
-
     }
-        private fun fillList(list: ArrayList<FavLocationModel>) {
-            if (adapter == null) {
-                adapter = FavLocationListAdapter(this, R.id.favList,
-                        list)
+
+    private fun fillListCursor(cursor:Cursor) {
+
+        val from = arrayOf("data","city")
+        val to = intArrayOf(R.id.textView1,R.id.checkBox1)
+        adapter = SimpleCursorAdapter(applicationContext,
+                R.layout.location_list_row,
+                cursor, from, to)
+        adapter!!.viewBinder = FavoriteViewBinder()
+        lv!!.adapter = adapter
+    }
+
+    private inner class FavoriteViewBinder : android.support.v4.widget.SimpleCursorAdapter.ViewBinder {
+
+        override fun setViewValue(view: View, cursor: Cursor, columnIndex: Int): Boolean {
+
+            if(view.id == R.id.textView1){
+                val vi = view as TextView
+                val txt = cursor.getString(cursor.getColumnIndex(ForecastContract.CITY)) + "," + cursor.getString(cursor.getColumnIndex(ForecastContract.COUNTRY))
+                vi.text = txt
             }
-            lv!!.adapter = adapter
+
+            if(view.id == R.id.checkBox1){
+                val cb = view as CheckBox
+                cb.setOnClickListener { v ->
+                    val chk = v as CheckBox
+                    val isChecked = chk.isChecked
+                    if(isChecked){
+                        checkBoxState!!.add(cursor.position)
+                    }
+                    else{
+                        checkBoxState!!.remove(cursor.position)
+                    }
+                }
+            }
+            return true
         }
     }
+
+}
 
 
