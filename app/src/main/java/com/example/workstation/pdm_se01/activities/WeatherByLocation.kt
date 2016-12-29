@@ -176,7 +176,6 @@ class WeatherByLocation : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cur
         companion object {
 
             private val ARG_SECTION_NUMBER = "section_number"
-
             fun newInstance(sectionNumber: Int, forecast : Forecast?): PlaceholderFragment {
                 val fragment = PlaceholderFragment()
                 val args = Bundle()

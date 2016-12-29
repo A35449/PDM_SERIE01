@@ -10,6 +10,7 @@ import com.example.workstation.pdm_se01.utils.Connectivity
 import com.example.workstation.pdm_se01.utils.QueryRegist
 import com.example.workstation.pdm_se01.provider.contract.AWAContract
 import com.example.workstation.pdm_se01.provider.contract.ForecastContract
+import java.util.*
 
 class Syncronizer(val context: Context, _api : API){
 
