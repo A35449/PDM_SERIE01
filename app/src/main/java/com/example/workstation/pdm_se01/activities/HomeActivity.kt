@@ -143,10 +143,8 @@ class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor> 
                 var data = cursor.getString(cursor.getColumnIndex(ForecastContract.DATA))
                 obj = Converter.convertToForecast(data)
             }
-            if(count == 2){
-                obj = null
-                count = 0
-            }
+
+
             if(view.id == R.id.weatherImage){
                 val vi = view as ImageView
                 holder!!.imageIcon = vi;
@@ -166,6 +164,11 @@ class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor> 
 
                 holder!!.information?.text=allInfo;
             }
+            if(count == 2){
+                obj = null
+                count = 0
+            }
+            count++
             return true
         }
     }
