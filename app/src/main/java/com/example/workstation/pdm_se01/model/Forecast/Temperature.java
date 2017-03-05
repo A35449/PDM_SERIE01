@@ -1,9 +1,11 @@
 package com.example.workstation.pdm_se01.model.Forecast;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  * Created by workstation on 31/10/2016.
  */
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Temperature {
     private double day;
     private double min;
@@ -59,6 +61,4 @@ public class Temperature {
     public void setDay(double day) {
         this.day = day;
     }
-
-
 }

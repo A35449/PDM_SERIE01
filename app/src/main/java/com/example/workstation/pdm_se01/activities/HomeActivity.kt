@@ -21,13 +21,35 @@ import com.example.workstation.pdm_se01.network.api.API_Forecast
 import com.example.workstation.pdm_se01.utils.Converter
 import com.example.workstation.pdm_se01.utils.QueryRegist
 import com.squareup.picasso.Picasso
+import com.example.workstation.pdm_se01.network.api.API
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.location.LocationServices
 
-class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor> {
+
+class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor>, GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener  {
+
+    override fun onConnected(p0: Bundle?) {
+        var mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                geoClient!!);
+        return;
+    }
+
+    override fun onConnectionSuspended(p0: Int) {
+        print("suspended");
+    }
+
+    override fun onConnectionFailed(p0: ConnectionResult) {
+        print("failed");
+    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_weather_by_location, menu)
         return true
     }
+
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
@@ -61,12 +83,23 @@ class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor> 
 
     companion object {
         private var editText: EditText? = null
-        private var searchButton: Button? = null
+        private var searchButton:Button? = null
+        private var geoButton: Button? = null
         private var lv: ListView? = null
         private var country_code: String? = null
         val LOADER_ID = 20
+        private var geoClient : GoogleApiClient? = null
     }
 
+    override fun onStart() {
+        geoClient!!.connect();
+        super.onStart();
+    }
+
+    override fun onStop() {
+        geoClient!!.disconnect();
+        super.onStop();
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -74,6 +107,7 @@ class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor> 
         loaderManager.initLoader(LOADER_ID, null, this)
         editText = findViewById(R.id.LocationInput) as EditText
         searchButton = findViewById(R.id.search_button) as Button
+        geoButton = findViewById(R.id.geobtn) as Button
         lv = findViewById(R.id.favoriteListView) as ListView
         lv!!.setOnItemClickListener { adapterView, view, i, l ->
                 val myIntent = Intent(this, WeatherByLocation::class.java)
@@ -97,7 +131,7 @@ class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor> 
             override fun onNothingSelected(parentView: AdapterView<*>) {
             }
         }
-
+        buildGoogleApiClient();
         searchButton?.setOnClickListener({
             val synchronizer = Syncronizer(applicationContext, API_Forecast(applicationContext))
             var location = editText?.text.toString()
@@ -109,6 +143,11 @@ class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor> 
             } else {
                 Toast.makeText(this, "Location Unavailable/Incorrect", Toast.LENGTH_SHORT).show()
             }
+        })
+
+        geoButton?.setOnClickListener({
+
+
         })
     }
 
@@ -128,6 +167,14 @@ class HomeActivity : AppCompatActivity() ,LoaderManager.LoaderCallbacks<Cursor> 
         lv!!.adapter = adapter
     }
 
+    @Synchronized protected fun buildGoogleApiClient() {
+        geoClient = GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build()
+
+    }
 
     private inner class MyCustomViewBinder : android.support.v4.widget.SimpleCursorAdapter.ViewBinder {
 

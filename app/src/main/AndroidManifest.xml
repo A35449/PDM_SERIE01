@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".AWApplication"
@@ -17,6 +19,13 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDbdd5oaALYMg7zWR86YWM75IJVA0pLQB4"/>
 
         <service
             android:name=".components.broadcast.UpdateService"
@@ -66,11 +75,11 @@
             android:label="@string/title_activity_settings"
             android:parentActivityName=".activities.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.WeatherListActivity"
-            android:label="@string/title_activity_weather_list"
-            android:parentActivityName=".activities.HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <!--<activity-->
+            <!--android:name=".activities.WeatherListActivity"-->
+            <!--android:label="@string/title_activity_weather_list"-->
+            <!--android:parentActivityName=".activities.HomeActivity"-->
+            <!--android:theme="@style/AppTheme.NoActionBar" />-->
         <activity
             android:name=".activities.WeatherByLocation"
             android:label="@string/title_activity_weather_by_location"

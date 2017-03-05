@@ -2,12 +2,14 @@ package com.example.workstation.pdm_se01.model.Forecast;
 
 import com.example.workstation.pdm_se01.model.Weather.Weather;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import java.util.List;
 
 /**
  * Created by workstation on 31/10/2016.
  */
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Forecast {
     private double dt;
     private Temperature temp;
